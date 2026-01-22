@@ -7,17 +7,14 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- GLASS BACKGROUND -->
 <div class="glass-bg"></div>
 
-<!-- HEADER -->
 <header class="glass header" id="header">
-  <button class="icon-btn" onclick="toggleMenu()">☰</button>
+  <button class="icon-btn" id="menuBtn" onclick="toggleMenu()">☰</button>
   <div class="logo">GHOST SHOP</div>
   <div class="header-right">
     <select id="langSelect" onchange="setLang(this.value)">
@@ -36,56 +33,23 @@
   </div>
 </header>
 
-<!-- SIDEBAR -->
 <aside class="glass sidebar" id="sidebar">
-  <h3 data-i18n="categories">Категории</h3>
+  <h3>Категории</h3>
   <button onclick="filterCategory('all')">Все товары</button>
   <button onclick="filterCategory('liquid')">Жидкости</button>
-  <button onclick="filterCategory('disposable')">Одноразки</button>
   <button onclick="filterCategory('cartridge')">Картриджи</button>
-  <button onclick="showFavorites()">Избранное ❤️</button>
 </aside>
 
-<!-- MAIN -->
 <main id="mainPage">
-  <div class="promo glass">
-    <img src="images/banner.png" alt="Promo">
-  </div>
-
-  <div class="controls">
-    <input id="searchInput" placeholder="Поиск..." oninput="searchProducts(this.value)">
-    <select onchange="sortProducts(this.value)">
-      <option value="default">Сортировка</option>
-      <option value="low">Цена ↑</option>
-      <option value="high">Цена ↓</option>
-      <option value="name">По названию</option>
-    </select>
-  </div>
-
   <section id="productList" class="products"></section>
 </main>
 
-<!-- CART -->
 <section id="cartPage" class="hidden">
   <button class="back-btn" onclick="closeCart()">← Назад</button>
-  <h2 data-i18n="cart">Корзина</h2>
+  <h2>Корзина</h2>
   <div id="cartItems"></div>
   <div id="cartTotal"></div>
-  <button class="glass-btn accent" onclick="checkout()">Оформить заказ</button>
-  <a id="adminBtn" class="glass-btn telegram" target="_blank">Написать админу</a>
 </section>
-
-<!-- ORDER MODAL -->
-<div id="orderModal" class="modal hidden">
-  <div class="glass modal-card">
-    <h3 data-i18n="orderTitle">Ваш заказ</h3>
-    <textarea id="orderText" readonly></textarea>
-    <div class="modal-actions">
-      <button class="glass-btn" onclick="copyAndOpenTelegram()">Telegram</button>
-      <button class="glass-btn outline" onclick="closeOrderModal()">Закрыть</button>
-    </div>
-  </div>
-</div>
 
 <div id="toast" class="toast"></div>
 
