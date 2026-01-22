@@ -28,7 +28,13 @@
       <option value="UAH">₴</option>
     </select>
     <button class="icon-btn" onclick="openCart()">
-      🛒 <span id="cartCount" class="badge">0</span>
+      <svg class="cart-icon" viewBox="0 0 24 24" aria-hidden="true">
+         <path d="M6 6h15l-1.5 8.5a2 2 0 0 1-2 1.5H9.5a2 2 0 0 1-2-1.6L6 6Z"/>
+          <circle cx="9" cy="20" r="1.6"/>
+          <circle cx="18" cy="20" r="1.6"/>
+          <path d="M3 4h2l1 10"/>
+        </svg>
+      <span id="cartCount" class="badge">0</span>
     </button>
   </div>
 </header>
