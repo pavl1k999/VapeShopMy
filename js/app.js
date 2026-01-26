@@ -157,8 +157,6 @@ const products = [
 
   // Vazool
   ...[
-    'Grape Ice','Watermelon Ice','Kiwi Passion Guava','Strawberry Ice Cream',
-    'Sour Apple Ice','Love 777','Mixed Berries','Purple Candy','Dragon Fruit Banana Cherry'
   ].map((n,i)=>({
     id: 200+i,
     name: `Vozol – ${n}`,
