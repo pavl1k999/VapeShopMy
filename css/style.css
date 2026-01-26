@@ -9,8 +9,8 @@
 
 html, body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #0b0b10;
-  color: #fff;
+  background: #fdf2f8; /* светло‑розовый фон */
+  color: #3a3a3a; /* тёмно‑серый текст */
   height: 100%;
   overflow-x: hidden;
 }
@@ -26,9 +26,9 @@ html, body {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(1200px 600px at 20% -10%, rgba(255, 105, 180, 0.18), transparent 60%),
-    radial-gradient(900px 500px at 90% 10%, rgba(255, 20, 147, 0.14), transparent 55%),
-    linear-gradient(180deg, #0b0b10, #0a0a12);
+    radial-gradient(1200px 600px at 20% -10%, rgba(255, 105, 180, 0.25), transparent 60%),
+    radial-gradient(900px 500px at 90% 10%, rgba(255, 20, 147, 0.18), transparent 55%),
+    linear-gradient(180deg, #ffe4f1, #fce7f3);
   z-index: -1;
   pointer-events: none;
 }
@@ -37,18 +37,13 @@ html, body {
    GLASS CORE
 ========================= */
 .glass {
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,0.22),
-      rgba(255,255,255,0.08)
-    );
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.65);
   box-shadow:
-    0 25px 60px rgba(0,0,0,0.6),
-    inset 0 1px 0 rgba(255,255,255,0.35);
+    0 25px 60px rgba(255, 105, 180, 0.25),
+    inset 0 1px 0 rgba(255,255,255,0.6);
   border-radius: 22px;
 }
 
@@ -64,6 +59,12 @@ header {
   align-items: center;
   justify-content: space-between;
   z-index: 100;
+
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(22px);
+  border: 1px solid rgba(255,255,255,0.65);
+  border-radius: 22px;
+  box-shadow: 0 12px 40px rgba(255,105,180,0.25);
 }
 
 header.compact {
@@ -78,7 +79,7 @@ header::after {
   background: linear-gradient(
     120deg,
     transparent 30%,
-    rgba(255,255,255,0.18),
+    rgba(255,255,255,0.35),
     transparent 70%
   );
   pointer-events: none;
@@ -87,6 +88,7 @@ header::after {
 .logo {
   font-weight: 700;
   letter-spacing: 0.08em;
+  color: #d63384;
 }
 
 /* =========================
@@ -100,9 +102,9 @@ header::after {
 
 .icon-btn {
   position: relative;
-  background: rgba(255,255,255,0.14);
-  border: 1px solid rgba(255,255,255,0.35);
-  color: #fff;
+  background: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.65);
+  color: #d63384;
   border-radius: 14px;
   padding: 8px 12px;
   cursor: pointer;
@@ -132,9 +134,9 @@ header::after {
 }
 
 .search-box input {
-  background: rgba(255,255,255,0.14);
-  border: 1px solid rgba(255,255,255,0.35);
-  color: #fff;
+  background: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.65);
+  color: #3a3a3a;
   border-radius: 14px;
   padding: 8px 12px;
   outline: none;
@@ -145,11 +147,12 @@ header::after {
   top: 110%;
   left: 0;
   right: 0;
-  background: rgba(20,20,30,0.95);
+  background: rgba(255,255,255,0.85);
   border-radius: 14px;
   overflow: hidden;
   display: none;
   z-index: 50;
+  backdrop-filter: blur(18px);
 }
 
 #autocomplete.active {
@@ -159,10 +162,11 @@ header::after {
 .autocomplete-item {
   padding: 10px 12px;
   cursor: pointer;
+  color: #3a3a3a;
 }
 
 .autocomplete-item:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,105,180,0.15);
 }
 
 /* =========================
@@ -177,6 +181,11 @@ header::after {
   transform: translateX(-110%);
   transition: transform .35s ease;
   z-index: 90;
+
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(22px);
+  border: 1px solid rgba(255,255,255,0.65);
+  border-radius: 22px;
 }
 
 .sidebar.active {
@@ -186,6 +195,7 @@ header::after {
 .sidebar h3 {
   margin-bottom: 10px;
   opacity: .85;
+  color: #d63384;
 }
 
 .sidebar button {
@@ -193,9 +203,9 @@ header::after {
   margin-bottom: 8px;
   padding: 10px;
   border-radius: 14px;
-  background: rgba(255,255,255,0.14);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: #fff;
+  background: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.65);
+  color: #d63384;
   cursor: pointer;
 }
 
@@ -217,16 +227,15 @@ header::after {
   overflow: hidden;
   border-radius: 22px;
   padding: 14px;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,0.28),
-      rgba(255,255,255,0.12)
-    );
-  border: 1px solid rgba(255,255,255,0.45);
+
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(22px);
+  border: 1px solid rgba(255,255,255,0.65);
+
   box-shadow:
-    0 22px 50px rgba(0,0,0,0.55),
-    inset 0 1px 0 rgba(255,255,255,0.35);
+    0 22px 50px rgba(255,105,180,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+
   transition: transform .25s ease, box-shadow .25s ease;
 }
 
@@ -237,7 +246,7 @@ header::after {
   background:
     radial-gradient(
       160px 90px at 20% 0%,
-      rgba(255,255,255,0.35),
+      rgba(255,255,255,0.55),
       transparent 60%
     );
   pointer-events: none;
@@ -245,7 +254,7 @@ header::after {
 
 .product:hover {
   transform: translateY(-6px);
-  box-shadow: 0 30px 70px rgba(0,0,0,0.65);
+  box-shadow: 0 30px 70px rgba(255,105,180,0.35);
 }
 
 .product img {
@@ -257,11 +266,13 @@ header::after {
 .product h4 {
   font-size: 15px;
   margin-bottom: 4px;
+  color: #d63384;
 }
 
 .muted {
   opacity: .7;
   font-size: 13px;
+  color: #555;
 }
 
 .price-box {
@@ -276,6 +287,7 @@ header::after {
 
 .new-price {
   font-weight: 600;
+  color: #d63384;
 }
 
 /* =========================
@@ -290,20 +302,21 @@ header::after {
   flex: 1;
   padding: 10px;
   border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.35);
-  background: rgba(255,255,255,0.18);
-  color: #fff;
+  border: 1px solid rgba(255,255,255,0.65);
+  background: rgba(255,255,255,0.45);
+  color: #d63384;
   cursor: pointer;
   transition: transform .2s ease;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #ff3b8d, #ff5fa2);
+  background: linear-gradient(135deg, #ff7acb, #ff4fae);
   border: none;
+  color: white;
 }
 
 .btn-outline.active {
-  background: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.65);
 }
 
 .btn:active {
@@ -335,6 +348,8 @@ header::after {
   border-radius: 10px;
   border: none;
   cursor: pointer;
+  background: rgba(255,255,255,0.45);
+  color: #d63384;
 }
 
 /* =========================
@@ -343,7 +358,8 @@ header::after {
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(255,105,180,0.25);
+  backdrop-filter: blur(18px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -354,6 +370,11 @@ header::after {
   width: 90%;
   max-width: 420px;
   padding: 20px;
+
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(255,255,255,0.65);
+  border-radius: 22px;
+  backdrop-filter: blur(22px);
 }
 
 .modal textarea {
@@ -362,9 +383,9 @@ header::after {
   margin: 12px 0;
   border-radius: 14px;
   padding: 10px;
-  background: rgba(255,255,255,0.14);
-  border: 1px solid rgba(255,255,255,0.35);
-  color: #fff;
+  background: rgba(255,255,255,0.45);
+  border: 1px solid rgba(255,255,255,0.65);
+  color: #3a3a3a;
 }
 
 /* =========================
@@ -375,12 +396,14 @@ header::after {
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(30,30,40,0.9);
+  background: rgba(255,255,255,0.85);
   padding: 10px 16px;
   border-radius: 14px;
   opacity: 0;
   transition: opacity .3s ease;
   z-index: 300;
+  color: #d63384;
+  backdrop-filter: blur(18px);
 }
 
 .toast.show {
