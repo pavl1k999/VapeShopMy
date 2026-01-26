@@ -1,5 +1,5 @@
 // Admin
-const ADMIN_NICK = 'ghost_manager_shop';
+const ADMIN_NICK = 'gystds';
 const ADMIN_URL = `https://t.me/${ADMIN_NICK}`;
 
 // Currency and language (updated rates)
