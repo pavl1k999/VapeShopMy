@@ -155,17 +155,6 @@ const products = [
     img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
   })),
 
-  // Vazool
-  ...[
-  ].map((n,i)=>({
-    id: 200+i,
-    name: `Vozol – ${n}`,
-    brand: 'vozol',
-    price: discounts.vozol.old,
-    category: 'liquid',
-    img: `images/vazool/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
-  })),
-
   // Cartridge
   {
   id: 300,
