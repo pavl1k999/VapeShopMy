@@ -15,42 +15,47 @@
 
 <header class="glass header" id="header">
   <button class="icon-btn" id="menuBtn" onclick="toggleMenu()">☰</button>
+
   <div class="logo">GHOST SHOP</div>
+
   <div class="header-right">
     <select id="langSelect" onchange="setLang(this.value)">
       <option value="ru">RU</option>
       <option value="ua">UA</option>
       <option value="en">EN</option>
     </select>
+
     <select id="currencySelect" onchange="setCurrency(this.value)">
       <option value="PLN">zł</option>
       <option value="EUR">€</option>
       <option value="UAH">₴</option>
     </select>
-    <button class="icon-btn" onclick="openCart()">
-      <svg class="cart-icon" viewBox="0 0 24 24" aria-hidden="true">
-         <path d="M6 6h15l-1.5 8.5a2 2 0 0 1-2 1.5H9.5a2 2 0 0 1-2-1.6L6 6Z"/>
-          <circle cx="9" cy="20" r="1.6"/>
-          <circle cx="18" cy="20" r="1.6"/>
-          <path d="M3 4h2l1 10"/>
-        </svg>
+
+    <button class="icon-btn cart-btn" onclick="openCart()">
+      <svg class="cart-icon" viewBox="0 0 24 24">
+        <path d="M6 6h14l-1.5 8.5a2 2 0 0 1-2 1.5H9.5a2 2 0 0 1-2-1.6L6 6Z"/>
+        <circle cx="9" cy="20" r="1.6"/>
+        <circle cx="18" cy="20" r="1.6"/>
+        <path d="M3 4h2l1 10"/>
+      </svg>
       <span id="cartCount" class="badge">0</span>
     </button>
   </div>
 </header>
 
 <aside class="glass sidebar" id="sidebar">
-  <h3>Категории</h3>
+  <h3 class="sidebar-title">Категории</h3>
   <button onclick="filterCategory('all')">Все товары</button>
   <button onclick="filterCategory('liquid')">Жидкости</button>
   <button onclick="filterCategory('cartridge')">Картриджи</button>
+  <button onclick="showFavorites()">❤️ Избранное</button>
 </aside>
 
-<main id="mainPage">
+<main id="mainPage" class="page">
   <section id="productList" class="products"></section>
 </main>
 
-<section id="cartPage" class="hidden">
+<section id="cartPage" class="cart-page hidden">
   <button class="back-btn" onclick="closeCart()">← Назад</button>
   <h2>Корзина</h2>
   <div id="cartItems"></div>
