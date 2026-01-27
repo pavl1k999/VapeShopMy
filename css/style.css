@@ -94,6 +94,7 @@ header.compact { height: 58px; }
 
 /* Sidebar */
 .sidebar {
+  padding-top: 80px;
   position: fixed;
   left: -280px; top: 0;
   width: 280px; height: 100%;
