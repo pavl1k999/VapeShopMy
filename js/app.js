@@ -1,15 +1,20 @@
 // Admin
-const ADMIN_NICK = 'gystds';
+const ADMIN_NICK = 'pvlenemy';
 const ADMIN_URL = `https://t.me/${ADMIN_NICK}`;
 
 // Currency and language (updated rates)
 const currencyRates = {
-  PLN: 1,     // base
-  EUR: 0.24,  // approximate Dec 2025
-  UAH: 11.7    // approximate Dec 2025
+  EUR: 1,     // база
+  UAH: 50     // примерный курс грн к евро (можешь поменять)
 };
-const currencySymbols = { PLN: 'zł', EUR: '€', UAH: '₴' };
-let currency = localStorage.getItem('currency') || 'PLN';
+
+const currencySymbols = {
+  EUR: '€',
+  UAH: '₴'
+};
+
+// по умолчанию ЕВРО
+let currency = localStorage.getItem('currency') || 'EUR';
 
 // I18n dictionary
 const i18n = {
@@ -116,12 +121,12 @@ const i18n = {
     total: "Total",
   }
 };
-let lang = localStorage.getItem('lang') || 'ru';
+let lang = localStorage.getItem('lang') || 'ua';
 
 const discounts = {
-  elf: { old: 50, new: 35 },
-  vozol: { old: 50, new: 35 },
-  chaser: { old: 60, new: 45 },
+  elf: { old: 15, new: 12 },
+  vozol: { old: 15, new: 12 },
+  chaser: { old: 15, new: 12 },
   cartridge: { old: 25, new: 20 }
 };
 
@@ -130,9 +135,9 @@ const discounts = {
 const products = [
   // Elf Liq
   ...[
-    'Strawberry Cherry Lemon','Sour Watermelon Gummy','Pink Lemonade Soda',
-    'Pineapple Colada','Lemon Lime','Blueberry Raspberry Pomegranate',
-    'Apple Pear','Strawberry Snoow','Blackcurrant Aniseed','P&B Cloud','Grape Cherry'
+    'Apple Peach','Blackcurrant annised','Blueberry',
+    'Cherry','Double Apple','Kiwi Passion Fruit Guava',
+    'Lemon Lime','Strawberry Ice','Pineapple Ice','P&B Cloud'
   ].map((n,i)=>({
     id: i+1,
     name: `Elf Liq – ${n}`,
@@ -144,8 +149,8 @@ const products = [
 
   // Chaser
   ...[
-    'Grape Mint','Berry Lemonade','Blackberry Lemonade','Sour Apple','Vitamin',
-    'Coconut Melon','Energetic','Strawberry Cream','Watermelon Raspberry','Kiwi Passion Guava'
+    'Blue Raspberry','Cherry','Pomegranate','Watermelon Menthol','Sweet Cherry',
+    'Berries','Grape Blackberry','Triple Berry','Wild Strawberry Mint','PepperMint'
   ].map((n,i)=>({
     id: 100+i,
     name: `Chaser – ${n}`,
@@ -156,14 +161,14 @@ const products = [
   })),
 
   // Cartridge
-  {
+  /*{
   id: 300,
   name: 'Xros Cartridge 0.6Ω',
   brand: 'cartridge',
   price: discounts.cartridge.old,
   category: 'cartridge',
   img: 'images/cart/xros.png'
-}
+}*/
 
 ];
 
@@ -186,10 +191,10 @@ const priceMaxEl = document.getElementById('priceMax');
 const backAllBtn = document.getElementById('backAllBtn');
 
 // Utils
-function formatPricePLN(pln){
+function formatPricePLN(eu){
   const rate = currencyRates[currency];
   const symbol = currencySymbols[currency];
-  const converted = Math.round(pln * rate);
+  const converted = Math.round(eu * rate);
   return `${converted} ${symbol}`;
 }
 
