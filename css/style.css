@@ -25,12 +25,18 @@
 }
 html,body { height: 100%; }
 body {
-  background:
-    radial-gradient(1200px 600px at 10% -10%, rgba(236,72,153,.18), transparent 60%),
-    radial-gradient(900px 500px at 90% 10%, rgba(219,39,119,.14), transparent 55%),
-    linear-gradient(180deg, var(--bg-1), var(--bg-0));
-  color: var(--txt);
-  font-family: 'Inter', Arial, sans-serif;
+  background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-0) 100%);
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none;
+  background: 
+    radial-gradient(1200px 600px at 10% -10%, rgba(247,198,199,.15), transparent 60%),
+    radial-gradient(900px 500px at 90% 10%, rgba(240,178,179,.12), transparent 55%);
+  z-index: 0;
 }
 
 .card, .modal{
