@@ -609,6 +609,17 @@ header{
   background: rgba(255,255,255,0.2);
 }
 
+/* БРЕНДЫ — МЕНЬШЕ */
+.brand-btn {
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 999px; /* аккуратные чипсы */
+}
+
+.category-panel .brands {
+  gap: 6px;
+}
+
 
 .order-details { color: #ddd; font-size: 14px; margin: 8px 0; }
 .order-details ul { margin: 6px 0 0 16px; }
