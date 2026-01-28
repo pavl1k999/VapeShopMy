@@ -253,9 +253,11 @@ function flyToCart(imgEl){
 // Persistence
 function saveCart(){ localStorage.setItem('cart', JSON.stringify(cart)); }
 function loadCart(){
-  const data = localStorage.getItem('cart');
-  if(data) {
-    try { cart = JSON.parse(data); } catch(e){ cart=[]; }
+  try {
+    const data = JSON.parse(localStorage.getItem('cart'));
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
   }
 }
 function saveFavorites(){ localStorage.setItem('favorites', JSON.stringify(favorites)); }
@@ -616,16 +618,12 @@ function filterBrand(subBrand){
 
 
 // Init
-window.addEventListener('click', (e)=>{
-  if(!document.querySelector('.search-box')?.contains(e.target)){
-    autocompleteBox.classList.remove('active');
-  }
-});
+window.addEventListener('load', () => {
+  // 1️⃣ СНАЧАЛА состояние
+  cart = loadCart();
+  favorites = loadFavorites();
 
-window.addEventListener('load', ()=>{
-  loadCart();
-  loadFavorites();
-
+  // 2️⃣ интерфейс
   document.getElementById('langSelect').value = lang;
   document.getElementById('currencySelect').value = currency;
 
@@ -634,13 +632,12 @@ window.addEventListener('load', ()=>{
   filtered = [...products];
   renderProducts();
 
-  // ❗️ВАЖНО: убираем активность со всех категорий
+  // категории
   document.querySelectorAll('.category-btn').forEach(b =>
     b.classList.remove('active')
   );
-
   brandFilter.style.display = 'none';
 
+  // 3️⃣ В САМОМ КОНЦЕ
   updateCartCount();
 });
-
