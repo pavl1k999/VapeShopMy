@@ -277,13 +277,24 @@ header.compact { height: 58px; }
   margin: 12px 0 16px; /* отступ сверху и снизу, чтобы не липло к back-btn и к товарам */
 }
 
+.cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* центрируем заголовок */
+  position: relative;       /* для позиционирования кнопки */
+  margin-bottom: 16px;
+}
+
+/* Кнопка назад */
 .back-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: 16px; /* как у остальных кнопок */
+  position: absolute;  /* чтобы она не смещала текст */
+  left: 0;
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
-  box-shadow: 0 0 5px var(--primary), 0 0 11px rgba(0,0,0,0.3);
-  
+  box-shadow: 0 0 4px var(--primary), 0 0 11px rgba(0,0,0,0.3);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -299,6 +310,15 @@ header.compact { height: 58px; }
 
 .back-btn:active {
   transform: scale(0.97);
+}
+
+/* Заголовок корзины */
+.cart-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--txt);
+  text-align: center;
+  margin: 0;
 }
 
 .cart-item {
