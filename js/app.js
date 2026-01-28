@@ -612,27 +612,17 @@ function filterBrand(subBrand){
 }
 
 
-// Init
-window.addEventListener('load', () => {
-  // 1️⃣ СНАЧАЛА состояние
-  cart = loadCart();
-  favorites = loadFavorites();
-
-  // 2️⃣ интерфейс
+window.addEventListener('load', ()=>{
+  loadCart(); loadFavorites();
   document.getElementById('langSelect').value = lang;
   document.getElementById('currencySelect').value = currency;
-
   applyI18n();
-
   filtered = [...products];
   renderProducts();
+  // Применяем категорию по умолчанию (например, 'liquid')
+const defaultCatBtn = document.querySelector('.category-btn[data-category="liquid"]');
+if(defaultCatBtn) defaultCatBtn.classList.add('active');
+filterCategory('liquid');
 
-  // категории
-  document.querySelectorAll('.category-btn').forEach(b =>
-    b.classList.remove('active')
-  );
-  brandFilter.style.display = 'none';
-
-  // 3️⃣ В САМОМ КОНЦЕ
   updateCartCount();
 });
