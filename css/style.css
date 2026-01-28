@@ -289,9 +289,9 @@ header.compact { height: 58px; }
 .back-btn {
   position: absolute;  /* чтобы она не смещала текст */
   left: 0;
-  width: 35px;
-  height: 35px;
-  border-radius: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 12px;
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
   box-shadow: 0 0 4px var(--primary), 0 0 11px rgba(0,0,0,0.3);
 
