@@ -314,7 +314,6 @@ header.compact { height: 58px; }
   margin-top: 14px;
   padding-top: 10px;
   font-weight: 600;
-  border-top: 1px dashed rgba(255,255,255,0.12);
 }
 .checkout-panel {
   margin-top: 16px;
