@@ -274,7 +274,7 @@ header.compact { height: 58px; }
 .hidden { display: none !important; }
 .cart-page { padding: 88px 12px 16px; }
 .cart-page h3 {
-  margin: 12px 0 16px; /* отступ сверху и снизу, чтобы не липло к back-btn и к товарам */
+  margin: 16px 0 16px; /* отступ сверху и снизу, чтобы не липло к back-btn и к товарам */
 }
 
 .cart-header {
