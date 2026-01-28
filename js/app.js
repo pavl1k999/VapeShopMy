@@ -449,11 +449,21 @@ function toggleFavorite(id){
   renderProducts();
 }
 
-function showFavorites(){
-  toggleMenu(false);
-  showingFavorites = true;
-  backAllBtn.classList.remove('hidden');
-  filtered = products.filter(p=>favorites.includes(p.id));
+function showFavorites() {
+  showingFavorites = !showingFavorites;
+
+  let base = products;
+
+  if (currentCategory !== 'all') {
+    base = products.filter(p => p.category === currentCategory);
+  }
+
+  if (showingFavorites) {
+    filtered = base.filter(p => favorites.includes(p.id));
+  } else {
+    filtered = base;
+  }
+
   renderProducts();
 }
 
