@@ -65,7 +65,6 @@
   <button onclick="filterCategory('all')" data-i18n="allProducts">Все товары</button>
   <button onclick="filterCategory('liquid')" data-i18n="liquids">Жидкости</button>
   <button onclick="showFavorites()" data-i18n="favorites">Избранное 🩷</button>
-  <button id="backAllBtn" class="hidden" onclick="backToAll()" data-i18n="backToAll">Все товары</button>
 </div>
 
 <main id="mainPage" class="page">
@@ -75,9 +74,9 @@
   
 <div class="category-panel">
   <div class="categories">
-    <button class="category-btn" data-category="liquid">Жидкости</button>
-    <button class="category-btn" data-category="disposable">Одноразки</button>
-    <button class="category-btn" data-category="cartridge">Картриджи</button>
+    <button class="category-btn" data-category="liquid" data-i18n="liquid">Жидкости</button>
+    <button class="category-btn" data-category="disposable" data-i18n="disposable">Одноразки</button>
+    <button class="category-btn" data-category="cartridge" data-i18n="cartridge">Картриджи</button>
   </div>
 
   <div class="brands" id="brandFilter" style="display:none;">
