@@ -118,7 +118,9 @@ header.compact { height: 58px; }
 
 
 .sidebar {
-  padding: 80px 18px 18px; /* верх | боки | низ */
+  display: flex;
+  flex-direction: column;
+  padding: 80px 18px 18px;
   position: fixed;
   left: -280px;
   top: 0;
@@ -129,6 +131,10 @@ header.compact { height: 58px; }
   transition: .3s ease;
   z-index: 200;
   border-right: 1px solid rgba(255,255,255,0.06);
+}
+
+.sidebar-bottom {
+  margin-top: auto;
 }
 
 .sidebar.active { left: 0; }
