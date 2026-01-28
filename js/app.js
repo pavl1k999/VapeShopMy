@@ -387,23 +387,27 @@ let currentCategory = 'all'; // по умолчанию
 
 // Filtering & search
 function filterCategory(cat){
-  currentCategory = cat;  // сохраняем выбранную категорию
+  currentCategory = cat;
   showingFavorites = false;
   backAllBtn.classList.add('hidden');
 
-  if(cat==='all'){
+  if(cat === 'all'){
     filtered = [...products];
     brandFilter.style.display = 'none';
+
+    // 🔥 сброс брендов
+    document.querySelectorAll('.brand-btn')
+      .forEach(b => b.classList.remove('active'));
+
   } else {
     filtered = products.filter(p => p.category === cat);
 
-    // показывать бренды только для Жижи
-    if(cat === 'liquid') brandFilter.style.display = 'flex';
-    else brandFilter.style.display = 'none';
+    brandFilter.style.display = (cat === 'liquid') ? 'flex' : 'none';
   }
 
   renderProducts();
 }
+
 
 
 function searchProducts(q){
