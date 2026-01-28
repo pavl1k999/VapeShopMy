@@ -275,8 +275,7 @@ function updateCartCount(){
 }
 
 function getFilteredProducts() {
-  // Берём уже отфильтрованные по поиску / цене / сортировке продукты
-  let list = filtered.length ? [...filtered] : [...products];
+  let list = [...products];
 
   // Категория
   if(currentCategory !== 'all') {
@@ -296,6 +295,7 @@ function getFilteredProducts() {
 
   return list;
 }
+
 
 }
 function renderProducts() {
