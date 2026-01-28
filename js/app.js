@@ -274,6 +274,29 @@ function updateCartCount(){
   cartCount.textContent = totalQty;
 }
 
+function getFilteredProducts() {
+  let list = [...products];
+
+  // Категория
+  if(currentCategory !== 'all') {
+    list = list.filter(p => p.category === currentCategory);
+  }
+
+  // Бренд / подбренд
+  if(currentBrand) {
+    if(currentBrand === 'elf') list = list.filter(p => p.brand === 'elf');
+    else list = list.filter(p => p.subBrand === currentBrand);
+  }
+
+  // Избранное
+  if(showingFavorites) {
+    list = list.filter(p => favorites.includes(p.id));
+  }
+
+  return list;
+}
+
+
 function renderProducts(list = filtered){
   productList.innerHTML = '';
   const items = showingFavorites ? list.filter(p=>favorites.includes(p.id)) : list;
