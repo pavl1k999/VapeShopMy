@@ -383,8 +383,11 @@ function closeCart(){
   mainPage.classList.remove('hidden');
 }
 
+let currentCategory = 'all'; // по умолчанию
+
 // Filtering & search
 function filterCategory(cat){
+  currentCategory = cat;  // сохраняем выбранную категорию
   showingFavorites = false;
   backAllBtn.classList.add('hidden');
 
@@ -401,6 +404,7 @@ function filterCategory(cat){
 
   renderProducts();
 }
+
 
 function searchProducts(q){
   backAllBtn.classList.add('hidden');
@@ -625,6 +629,11 @@ window.addEventListener('load', ()=>{
   applyI18n();
   filtered = [...products];
   renderProducts();
+  // Применяем категорию по умолчанию (например, 'liquid')
+const defaultCatBtn = document.querySelector('.category-btn[data-category="liquid"]');
+if(defaultCatBtn) defaultCatBtn.classList.add('active');
+filterCategory('liquid');
+
   updateCartCount();
 });
 
