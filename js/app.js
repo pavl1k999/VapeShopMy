@@ -295,20 +295,17 @@ function getFilteredProducts() {
 
   return list;
 }
-
-
-function renderProducts(list = filtered){
+function renderProducts() {
+  const list = getFilteredProducts();
   productList.innerHTML = '';
-  const items = showingFavorites ? list.filter(p=>favorites.includes(p.id)) : list;
 
-  if(!items.length){
+  if(!list.length){
     productList.innerHTML = `<p class="empty">${i18n[lang].emptyProducts}</p>`;
     return;
   }
 
-  items.forEach(p=>{
+  list.forEach(p=>{
     const favActive = favorites.includes(p.id);
-
     const discount = discounts[p.brand];
     const newPrice = discount ? discount.new : p.price;
 
@@ -335,6 +332,7 @@ function renderProducts(list = filtered){
     `;
   });
 }
+
 
 
 function renderCart(){
