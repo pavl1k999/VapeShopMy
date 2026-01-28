@@ -306,34 +306,43 @@ header.compact { height: 58px; }
 .cart-total {
   margin-top: 6px; font-weight: 600;
 }
-.checkout-btn {
-  width: 100%;
-  padding: 14px; margin-top: 10px;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  border: none; border-radius: 16px;
-  font-size: 16px; color: var(--txt);
-  cursor: pointer;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-  transition: opacity 0.2s ease, transform 0.1s ease;
-}
-.checkout-btn:hover {
-  opacity: 0.92;
-  transform: translateY(-1px);
-}
-
+.checkout-btn,
 .admin-btn {
-  display: block; margin-top: 8px; text-align: center; padding: 12px;
-  background: linear-gradient(135deg, #7fd2e8, #5fcde4); /* мягкий голубой градиент */
-  color: var(--txt); border-radius: 16px; text-decoration: none;
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-radius: 12px;
+
+  color: #fff;
+  font-size: 15px;
   font-weight: 600;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
-  transition: opacity 0.2s ease, transform 0.1s ease;
+
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+
+  transition: background .2s ease, transform .08s ease, box-shadow .2s ease;
 }
+.checkout-btn:hover,
 .admin-btn:hover {
-  opacity: 0.92;
-  transform: translateY(-1px);
+  background: rgba(255,255,255,0.2);
 }
 
+.checkout-btn:active,
+.admin-btn:active {
+  transform: scale(0.98);
+}
+.checkout-btn {
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+}
+.category-btn.active
+.admin-btn {
+  opacity: 0.9;
+}
 
 /* Toast */
 .toast {
