@@ -139,6 +139,7 @@ header.compact { height: 58px; }
   background: none;
   border: none;
   color: #fff;
+  font-weight: 600;
   font-size: 16px;
   padding: 12px 8px;
   width: 100%;
