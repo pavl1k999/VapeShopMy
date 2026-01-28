@@ -386,29 +386,20 @@ function closeCart(){
 let currentCategory = 'all'; // по умолчанию
 
 // Filtering & search
-function filterCategory(cat){
+function filterCategory(cat) {
   currentCategory = cat;
   showingFavorites = false;
-  backAllBtn.classList.add('hidden');
 
-  if(cat === 'all'){
+  if (cat === 'all') {
     filtered = [...products];
     brandFilter.style.display = 'none';
-
-    // 🔥 сброс брендов
-    document.querySelectorAll('.brand-btn')
-      .forEach(b => b.classList.remove('active'));
-
   } else {
     filtered = products.filter(p => p.category === cat);
-
     brandFilter.style.display = (cat === 'liquid') ? 'flex' : 'none';
   }
 
   renderProducts();
 }
-
-
 
 function searchProducts(q){
   backAllBtn.classList.add('hidden');
