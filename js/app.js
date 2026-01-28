@@ -632,13 +632,6 @@ function closeAbout(){
 }
 
 
-// Init
-window.addEventListener('click', (e)=>{
-  if(!document.querySelector('.search-box')?.contains(e.target)){
-    autocompleteBox.classList.remove('active');
-  }
-});
-
 window.addEventListener('load', ()=>{
   loadCart();
   loadFavorites();
@@ -648,13 +641,22 @@ window.addEventListener('load', ()=>{
 
   applyI18n();
 
-  filtered = [...products];
+  filtered = [...products]; // сначала все товары
+  currentCategory = 'all';
+  currentBrand = '';
+  showingFavorites = false;
+
   renderProducts();
 
-  // ❗️ВАЖНО: убираем активность со всех категорий
   document.querySelectorAll('.category-btn').forEach(b =>
     b.classList.remove('active')
   );
+
+  brandFilter.style.display = 'none';
+
+  updateCartCount();
+});
+
 
   brandFilter.style.display = 'none';
 
