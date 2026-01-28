@@ -16,10 +16,6 @@ const currencySymbols = {
 // по умолчанию ЕВРО
 let currency = localStorage.getItem('currency') || 'EUR';
 
-let currentCategory = 'all'; // текущая категория
-let currentBrand = '';        // текущий бренд / подбренд
-
-
 // I18n dictionary
 const i18n = {
   ru: {
@@ -274,42 +270,18 @@ function updateCartCount(){
   cartCount.textContent = totalQty;
 }
 
-function getFilteredProducts() {
-  let list = [...products];
-
-  // Категория
-  if(currentCategory !== 'all') {
-    list = list.filter(p => p.category === currentCategory);
-  }
-
-  // Бренд / подбренд
-  if(currentBrand) {
-    if(currentBrand === 'elf') list = list.filter(p => p.brand === 'elf');
-    else list = list.filter(p => p.subBrand === currentBrand);
-  }
-
-  // Избранное
-  if(showingFavorites) {
-    list = list.filter(p => favorites.includes(p.id));
-  }
-
-  return list;
-}
-
-
-}
-function renderProducts(list = null) {
-  if(!list) list = getFilteredProducts();
-  
+function renderProducts(list = filtered){
   productList.innerHTML = '';
+  const items = showingFavorites ? list.filter(p=>favorites.includes(p.id)) : list;
 
-  if(!list.length){
+  if(!items.length){
     productList.innerHTML = `<p class="empty">${i18n[lang].emptyProducts}</p>`;
     return;
   }
 
-  list.forEach(p => {
+  items.forEach(p=>{
     const favActive = favorites.includes(p.id);
+
     const discount = discounts[p.brand];
     const newPrice = discount ? discount.new : p.price;
 
@@ -336,6 +308,7 @@ function renderProducts(list = null) {
     `;
   });
 }
+
 
 function renderCart(){
   const box=document.getElementById('cartItems');
@@ -412,15 +385,41 @@ function closeCart(){
 
 let currentCategory = 'all'; // по умолчанию
 
-function filterCategory(cat){
+// Filtering & search
+function filterCategory(cat) {
   currentCategory = cat;
   showingFavorites = false;
-  currentBrand = '';
-  brandButtons.forEach(b => b.classList.remove('active'));
   favoritesBtn.classList.remove('active');
+
+  if (cat === 'all') {
+    filtered = [...products];
+    brandFilter.style.display = 'none';
+  } else {
+    filtered = products.filter(p => p.category === cat);
+    brandFilter.style.display = (cat === 'liquid') ? 'flex' : 'none';
+  }
+
   renderProducts();
 }
 
+function searchProducts(q){
+  backAllBtn.classList.add('hidden');
+  showingFavorites = false;
+  const v = q.toLowerCase();
+  const candidates = products.filter(p=>p.name.toLowerCase().includes(v));
+  filtered = candidates;
+  renderProducts();
+
+  // autocomplete
+  if(q.trim().length && candidates.length){
+    autocompleteBox.innerHTML = candidates.slice(0,6).map(p=>(
+      `<div class="autocomplete-item" onclick="selectSearch('${p.name.replace(/'/g,"\\'")}')">${p.name}</div>`
+    )).join('');
+    autocompleteBox.classList.add('active');
+  } else {
+    autocompleteBox.classList.remove('active');
+  }
+}
 function selectSearch(name){
   searchInput.value = name;
   autocompleteBox.classList.remove('active');
@@ -429,23 +428,11 @@ function selectSearch(name){
 }
 
 function sortProducts(t){
-  const list = getFilteredProducts();
-  if(t==='low') list.sort((a,b)=>a.price-b.price);
-  else if(t==='high') list.sort((a,b)=>b.price-a.price);
-  else if(t==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
-  
-  renderProducts(list);
+  if(t==='low') filtered.sort((a,b)=>a.price-b.price);
+  else if(t==='high') filtered.sort((a,b)=>b.price-a.price);
+  else if(t==='name') filtered.sort((a,b)=>a.name.localeCompare(b.name));
+  renderProducts();
 }
-
-function applyPriceFilter(){
-  const min = Number(priceMinEl?.value) || 0;
-  const max = Number(priceMaxEl?.value) || Infinity;
-  
-  // временно фильтруем
-  const list = getFilteredProducts().filter(p => p.price >= min && p.price <= max);
-  renderProducts(list);
-}
-
 
 function applyPriceFilter(skipRender){
   const min = Number(priceMinEl?.value)||0;
@@ -463,22 +450,30 @@ function toggleFavorite(id){
   renderProducts();
 }
 
-function showFavorites(){
+function showFavorites() {
   showingFavorites = !showingFavorites;
+
+  let base = products;
+
+  if (currentCategory !== 'all') {
+    base = products.filter(p => p.category === currentCategory);
+  }
+
+  if (showingFavorites) {
+    filtered = base.filter(p => favorites.includes(p.id));
+  } else {
+    filtered = base;
+  }
+
   renderProducts();
 }
-
 
 function backToAll(){
   showingFavorites = false;
-  currentCategory = 'all';
-  currentBrand = '';
-  categoryButtons.forEach(b => b.classList.remove('active'));
-  brandButtons.forEach(b => b.classList.remove('active'));
-  favoritesBtn.classList.remove('active');
+  backAllBtn.classList.add('hidden');
+  filtered = [...products];
   renderProducts();
 }
-
 
 // Sidebar toggle
 function toggleMenu(force){
@@ -608,10 +603,20 @@ brandButtons.forEach(btn => {
   });
 });
 
-function filterBrand(brand){
-  currentBrand = brand || '';
-  showingFavorites = false;
-  favoritesBtn.classList.remove('active');
+
+
+function filterBrand(subBrand){
+  // если ничего не выбрано, показываем все по категории
+  const categoryFiltered = products.filter(p => p.category === 'liquid');
+
+  if(!subBrand) {
+    filtered = categoryFiltered;
+  } else if(subBrand === 'elf') {
+    filtered = products.filter(p => p.brand === 'elf');
+  } else {
+    filtered = categoryFiltered.filter(p => p.subBrand === subBrand);
+  }
+
   renderProducts();
 }
 
@@ -624,6 +629,13 @@ function closeAbout(){
 }
 
 
+// Init
+window.addEventListener('click', (e)=>{
+  if(!document.querySelector('.search-box')?.contains(e.target)){
+    autocompleteBox.classList.remove('active');
+  }
+});
+
 window.addEventListener('load', ()=>{
   loadCart();
   loadFavorites();
@@ -633,22 +645,13 @@ window.addEventListener('load', ()=>{
 
   applyI18n();
 
-  filtered = [...products]; // сначала все товары
-  currentCategory = 'all';
-  currentBrand = '';
-  showingFavorites = false;
-
+  filtered = [...products];
   renderProducts();
 
+  // ❗️ВАЖНО: убираем активность со всех категорий
   document.querySelectorAll('.category-btn').forEach(b =>
     b.classList.remove('active')
   );
-
-  brandFilter.style.display = 'none';
-
-  updateCartCount();
-});
-
 
   brandFilter.style.display = 'none';
 
