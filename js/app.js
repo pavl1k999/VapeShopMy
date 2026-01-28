@@ -298,8 +298,9 @@ function getFilteredProducts() {
 
 
 }
-function renderProducts() {
-  const list = getFilteredProducts();
+function renderProducts(list = null) {
+  if(!list) list = getFilteredProducts();
+  
   productList.innerHTML = '';
 
   if(!list.length){
@@ -307,7 +308,7 @@ function renderProducts() {
     return;
   }
 
-  list.forEach(p=>{
+  list.forEach(p => {
     const favActive = favorites.includes(p.id);
     const discount = discounts[p.brand];
     const newPrice = discount ? discount.new : p.price;
@@ -335,8 +336,6 @@ function renderProducts() {
     `;
   });
 }
-
-
 
 function renderCart(){
   const box=document.getElementById('cartItems');
@@ -430,11 +429,23 @@ function selectSearch(name){
 }
 
 function sortProducts(t){
-  if(t==='low') filtered.sort((a,b)=>a.price-b.price);
-  else if(t==='high') filtered.sort((a,b)=>b.price-a.price);
-  else if(t==='name') filtered.sort((a,b)=>a.name.localeCompare(b.name));
-  renderProducts();
+  const list = getFilteredProducts();
+  if(t==='low') list.sort((a,b)=>a.price-b.price);
+  else if(t==='high') list.sort((a,b)=>b.price-a.price);
+  else if(t==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
+  
+  renderProducts(list);
 }
+
+function applyPriceFilter(){
+  const min = Number(priceMinEl?.value) || 0;
+  const max = Number(priceMaxEl?.value) || Infinity;
+  
+  // временно фильтруем
+  const list = getFilteredProducts().filter(p => p.price >= min && p.price <= max);
+  renderProducts(list);
+}
+
 
 function applyPriceFilter(skipRender){
   const min = Number(priceMinEl?.value)||0;
