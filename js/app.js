@@ -643,5 +643,4 @@ window.addEventListener('load', ()=>{
 
   updateCartCount();
 });
-;
 
