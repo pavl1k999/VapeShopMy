@@ -92,14 +92,15 @@
 </main>
 
 <section id="cartPage" class="cart-page hidden">
-   <div class="back-btn" onclick="closeCart()">
-    <!-- SVG стрелка -->
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="15" y1="6" x2="9" y2="12"/>
-      <line x1="15" y1="18" x2="9" y2="12"/>
-    </svg>
+  <div class="cart-header">
+    <div class="back-btn" onclick="closeCart()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="15" y1="6" x2="9" y2="12"/>
+        <line x1="15" y1="18" x2="9" y2="12"/>
+      </svg>
+    </div>
+    <h3 data-i18n="cart">Корзина</h3>
   </div>
-  <h3 data-i18n="cart">Корзина</h3>
   <div id="cartItems"></div>
   <div id="cartTotal" class="cart-total"></div>
 
