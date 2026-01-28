@@ -620,6 +620,14 @@ function filterBrand(subBrand){
   renderProducts();
 }
 
+function openAbout(){
+  document.getElementById('aboutModal').classList.remove('hidden');
+}
+
+function closeAbout(){
+  document.getElementById('aboutModal').classList.add('hidden');
+}
+
 
 // Init
 window.addEventListener('click', (e)=>{
