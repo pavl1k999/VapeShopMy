@@ -569,6 +569,35 @@ header{
 }
 .order-actions .btn{flex:1}
 
+.category-filter, .brand-filter {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  overflow-x: auto;
+}
+
+.category-btn, .brand-btn {
+  flex: none;
+  padding: 8px 12px;
+  border-radius: 14px;
+  border: none;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.category-btn.active, .brand-btn.active {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #fff;
+}
+
+.category-btn:hover, .brand-btn:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+
 
 
 .order-details { color: #ddd; font-size: 14px; margin: 8px 0; }
