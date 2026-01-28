@@ -422,25 +422,6 @@ function filterCategory(cat){
   renderProducts();
 }
 
-
-function searchProducts(q){
-  backAllBtn.classList.add('hidden');
-  showingFavorites = false;
-  const v = q.toLowerCase();
-  const candidates = products.filter(p=>p.name.toLowerCase().includes(v));
-  filtered = candidates;
-  renderProducts();
-
-  // autocomplete
-  if(q.trim().length && candidates.length){
-    autocompleteBox.innerHTML = candidates.slice(0,6).map(p=>(
-      `<div class="autocomplete-item" onclick="selectSearch('${p.name.replace(/'/g,"\\'")}')">${p.name}</div>`
-    )).join('');
-    autocompleteBox.classList.add('active');
-  } else {
-    autocompleteBox.classList.remove('active');
-  }
-}
 function selectSearch(name){
   searchInput.value = name;
   autocompleteBox.classList.remove('active');
