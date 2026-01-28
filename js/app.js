@@ -410,22 +410,15 @@ function closeCart(){
 
 let currentCategory = 'all'; // по умолчанию
 
-// Filtering & search
-function filterCategory(cat) {
+function filterCategory(cat){
   currentCategory = cat;
   showingFavorites = false;
+  currentBrand = '';
+  brandButtons.forEach(b => b.classList.remove('active'));
   favoritesBtn.classList.remove('active');
-
-  if (cat === 'all') {
-    filtered = [...products];
-    brandFilter.style.display = 'none';
-  } else {
-    filtered = products.filter(p => p.category === cat);
-    brandFilter.style.display = (cat === 'liquid') ? 'flex' : 'none';
-  }
-
   renderProducts();
 }
+
 
 function searchProducts(q){
   backAllBtn.classList.add('hidden');
@@ -475,30 +468,22 @@ function toggleFavorite(id){
   renderProducts();
 }
 
-function showFavorites() {
+function showFavorites(){
   showingFavorites = !showingFavorites;
-
-  let base = products;
-
-  if (currentCategory !== 'all') {
-    base = products.filter(p => p.category === currentCategory);
-  }
-
-  if (showingFavorites) {
-    filtered = base.filter(p => favorites.includes(p.id));
-  } else {
-    filtered = base;
-  }
-
   renderProducts();
 }
+
 
 function backToAll(){
   showingFavorites = false;
-  backAllBtn.classList.add('hidden');
-  filtered = [...products];
+  currentCategory = 'all';
+  currentBrand = '';
+  categoryButtons.forEach(b => b.classList.remove('active'));
+  brandButtons.forEach(b => b.classList.remove('active'));
+  favoritesBtn.classList.remove('active');
   renderProducts();
 }
+
 
 // Sidebar toggle
 function toggleMenu(force){
@@ -628,20 +613,10 @@ brandButtons.forEach(btn => {
   });
 });
 
-
-
-function filterBrand(subBrand){
-  // если ничего не выбрано, показываем все по категории
-  const categoryFiltered = products.filter(p => p.category === 'liquid');
-
-  if(!subBrand) {
-    filtered = categoryFiltered;
-  } else if(subBrand === 'elf') {
-    filtered = products.filter(p => p.brand === 'elf');
-  } else {
-    filtered = categoryFiltered.filter(p => p.subBrand === subBrand);
-  }
-
+function filterBrand(brand){
+  currentBrand = brand || '';
+  showingFavorites = false;
+  favoritesBtn.classList.remove('active');
   renderProducts();
 }
 
