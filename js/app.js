@@ -262,9 +262,11 @@ function loadCart(){
 }
 function saveFavorites(){ localStorage.setItem('favorites', JSON.stringify(favorites)); }
 function loadFavorites(){
-  const data = localStorage.getItem('favorites');
-  if(data){
-    try { favorites = JSON.parse(data); } catch(e){ favorites=[]; }
+  try {
+    const data = JSON.parse(localStorage.getItem('favorites'));
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
   }
 }
 function updateCartCount(){
