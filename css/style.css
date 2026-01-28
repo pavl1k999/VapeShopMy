@@ -574,7 +574,6 @@ header{
   background: rgba(26,16,22,0.9);
   backdrop-filter: blur(10px);
   padding: 12px 16px;
-  border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
