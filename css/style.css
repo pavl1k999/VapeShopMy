@@ -278,10 +278,39 @@ header.compact { height: 58px; }
 }
 
 .back-btn {
-  color: var(--primary);
-  margin-bottom: 12px; /* увеличили отступ */
+  width: 40px; 
+  height: 40px;
+  border-radius: 50%;                  /* круглое основание */
+  background: rgba(255, 255, 255, 0.12); 
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  
+  position: relative;
   cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
+
+/* стрелка */
+.back-btn::before {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 10px; height: 10px;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Hover/Active */
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.back-btn:active {
+  transform: scale(0.95);
+}
+
 
 .cart-item {
   display: flex; gap: 10px;
