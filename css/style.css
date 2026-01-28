@@ -117,19 +117,20 @@ header.compact { height: 58px; }
 }
 
 
-/* Sidebar */
 .sidebar {
-  padding-top: 80px;
+  padding: 80px 18px 18px; /* верх | боки | низ */
   position: fixed;
-  left: -280px; top: 0;
-  width: 280px; height: 100%;
+  left: -280px;
+  top: 0;
+  width: 280px;
+  height: 100%;
   background: rgba(26,16,22,0.96);
   backdrop-filter: blur(16px);
-  padding: 18px;
   transition: .3s ease;
   z-index: 200;
   border-right: 1px solid rgba(255,255,255,0.06);
 }
+
 .sidebar.active { left: 0; }
 .sidebar-title { color: #ddd; margin: 12px 0 8px; font-weight: 600; }
 .sidebar button {
