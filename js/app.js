@@ -581,11 +581,23 @@ brandButtons.forEach(btn => {
     brandButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    // фильтруем товары по бренду
-    filterBrand(btn.dataset.brand);
+    const subBrand = btn.dataset.brand;
+
+    if(subBrand === 'elf'){
+      filtered = products.filter(p => p.brand === 'elf');
+    } else {
+      filtered = filtered.filter(p => p.subBrand === subBrand);
+    }
+    renderProducts();
   });
 });
 
+
+function filterBrand(subBrand){
+  if(!subBrand) return renderProducts(); // если не выбран, показываем все
+  filtered = filtered.filter(p => p.subBrand === subBrand);
+  renderProducts();
+}
 
 // Init
 window.addEventListener('click', (e)=>{
