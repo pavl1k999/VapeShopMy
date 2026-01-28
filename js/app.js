@@ -148,13 +148,39 @@ const products = [
   })),
 
   // Chaser
-  ...[
-    'Blue Raspberry','Cherry','Pomegranate','Watermelon Menthol','Sweet Cherry',
-    'Berries','Grape Blackberry','Triple Berry','Wild Strawberry Mint','PepperMint'
+
+  // Chaser F/P
+  ...[ 
+    'Blue Raspberry','Cherry','Pomegranate','Watermelon Menthol','Sweet Cherry','Berries' 
   ].map((n,i)=>({
     id: 100+i,
     name: `Chaser – ${n}`,
     brand: 'chaser',
+    subBrand: 'fp',   // Chaser F/P
+    price: discounts.chaser.old,
+    category: 'liquid',
+    img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
+  })),
+
+// Chaser Black
+  ...[ 
+    'Grape Blackberry','Triple Berry','Wild Strawberry Mint' 
+  ].map((n,i)=>({
+    id: 200+i,
+    name: `Chaser – ${n}`,
+    brand: 'chaser',
+    subBrand: 'black',  // Chaser Black
+    price: discounts.chaser.old,
+    category: 'liquid',
+    img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
+  })),
+
+// Chaser My Mint
+  ...[ 'PepperMint' ].map((n,i)=>({
+    id: 300+i,
+    name: `Chaser – ${n}`,
+    brand: 'chaser',
+    subBrand: 'mymint', // Chaser My Mint
     price: discounts.chaser.old,
     category: 'liquid',
     img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
