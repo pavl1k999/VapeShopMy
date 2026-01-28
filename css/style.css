@@ -306,44 +306,64 @@ header.compact { height: 58px; }
 .cart-total {
   margin-top: 6px; font-weight: 600;
 }
+
+.checkout-panel {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+
+  display: flex;
+  flex-direction: column;
+}
+
 .checkout-btn,
 .admin-btn {
   width: 100%;
-  min-height: 50px;              /* одинаковая высота */
-  padding: 12px 14px;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  display: flex;                 /* центрируем текст */
-  align-items: center;
-  justify-content: center;
-}
+  padding: 12px;
+  margin-top: 10px;
 
-/* отступ между кнопками */
-.admin-btn {
-  margin-top: 10px;              /* РЕШАЕТ проблему "висит" */
-}
-
-/* главный action */
-.checkout-btn {
-  background: rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.12);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.18);
-}
+  border-radius: 12px;
 
-/* вторичный action */
-.admin-btn {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.14);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+  text-align: center;
   text-decoration: none;
-  opacity: 0.95;
+
+  transition:
+    background .2s ease,
+    transform .08s ease,
+    box-shadow .2s ease;
 }
 
-/* hover одинаковый — ничего не прыгает */
 .checkout-btn:hover,
 .admin-btn:hover {
   background: rgba(255,255,255,0.22);
 }
+
+/* PRIMARY — как active категория */
+.checkout-btn {
+  background: var(--primary);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.12),
+    0 0 14px var(--primary);
+}
+
+/* SECONDARY */
+.admin-btn {
+  background: rgba(255,255,255,0.1);
+}
+
+.checkout-btn:active,
+.admin-btn:active {
+  transform: scale(0.97);
+}
+
 
 
 /* Toast */
