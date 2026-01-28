@@ -261,14 +261,7 @@ function loadCart(){
   }
 }
 function saveFavorites(){ localStorage.setItem('favorites', JSON.stringify(favorites)); }
-function loadFavorites(){
-  try {
-    const data = JSON.parse(localStorage.getItem('favorites'));
-    return Array.isArray(data) ? data : [];
-  } catch {
-    return [];
-  }
-}
+function loadFavorites(){ const data = localStorage.getItem('favorites'); if(data){ try { favorites = JSON.parse(data); } catch(e){ favorites=[]; } } }
 function updateCartCount(){
   const totalQty = cart.reduce((sum,p)=>sum + (p.qty||0), 0);
   cartCount.textContent = totalQty;
