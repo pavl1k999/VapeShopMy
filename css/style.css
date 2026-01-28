@@ -278,11 +278,11 @@ header.compact { height: 58px; }
 }
 
 .back-btn {
-  width: 48px;
-  height: 48px;
+  width: 30px;
+  height: 30px;
   border-radius: 16px; /* как у остальных кнопок */
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
-  box-shadow: 0 0 8px var(--primary), 0 0 18px rgba(0,0,0,0.3);
+  box-shadow: 0 0 5px var(--primary), 0 0 11px rgba(0,0,0,0.3);
   
   display: flex;
   align-items: center;
