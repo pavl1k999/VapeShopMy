@@ -389,6 +389,7 @@ let currentCategory = 'all'; // по умолчанию
 function filterCategory(cat) {
   currentCategory = cat;
   showingFavorites = false;
+  favoritesBtn.classList.remove('active');
 
   if (cat === 'all') {
     filtered = [...products];
