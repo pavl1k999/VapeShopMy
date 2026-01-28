@@ -253,15 +253,18 @@ function flyToCart(imgEl){
 // Persistence
 function saveCart(){ localStorage.setItem('cart', JSON.stringify(cart)); }
 function loadCart(){
-  try {
-    const data = JSON.parse(localStorage.getItem('cart'));
-    return Array.isArray(data) ? data : [];
-  } catch {
-    return [];
+  const data = localStorage.getItem('cart');
+  if(data) {
+    try { cart = JSON.parse(data); } catch(e){ cart=[]; }
   }
 }
 function saveFavorites(){ localStorage.setItem('favorites', JSON.stringify(favorites)); }
-function loadFavorites(){ const data = localStorage.getItem('favorites'); if(data){ try { favorites = JSON.parse(data); } catch(e){ favorites=[]; } } }
+function loadFavorites(){
+  const data = localStorage.getItem('favorites');
+  if(data){
+    try { favorites = JSON.parse(data); } catch(e){ favorites=[]; }
+  }
+}
 function updateCartCount(){
   const totalQty = cart.reduce((sum,p)=>sum + (p.qty||0), 0);
   cartCount.textContent = totalQty;
@@ -611,6 +614,13 @@ function filterBrand(subBrand){
   renderProducts();
 }
 
+
+// Init
+window.addEventListener('click', (e)=>{
+  if(!document.querySelector('.search-box')?.contains(e.target)){
+    autocompleteBox.classList.remove('active');
+  }
+});
 
 window.addEventListener('load', ()=>{
   loadCart(); loadFavorites();
