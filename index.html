@@ -50,19 +50,13 @@
         <option value="UAH">₴</option>
       </select>
     </div>
-  <div class="cart-btn" onclick="openCart()" aria-label="Cart">
-    <svg class="cart-icon" viewBox="0 0 24 24" fill="none">
-      <path d="M3 3h2l2.2 10.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 7H6"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"/>
-      <circle cx="9" cy="20" r="1.5" fill="currentColor"/>
-      <circle cx="18" cy="20" r="1.5" fill="currentColor"/>
-    </svg>
+  <div class="cart-btn" onclick="openCart()">
+  <svg class="cart-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M7 4h-2l-1 2h2l3.6 7.6-1.35 2.45c-.16.28-.25.61-.25.95a2 2 0 0 0 2 2h12v-2h-11.42a.25.25 0 0 1-.25-.25l.03-.12.9-1.63h7.19a2 2 0 0 0 1.8-1.1l3.58-6.49a1 1 0 0 0-.9-1.48h-16.3l-.94-2zm3 16a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+  </svg>
 
-    <span class="cart-count" id="cartCount">0</span>
-    </div>
+  <span class="cart-count" id="cartCount">0</span>
+</div>
   </div>
 </header>
 
