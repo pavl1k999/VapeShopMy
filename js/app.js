@@ -16,6 +16,10 @@ const currencySymbols = {
 // по умолчанию ЕВРО
 let currency = localStorage.getItem('currency') || 'EUR';
 
+let currentCategory = 'all'; // текущая категория
+let currentBrand = '';        // текущий бренд / подбренд
+
+
 // I18n dictionary
 const i18n = {
   ru: {
