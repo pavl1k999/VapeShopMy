@@ -146,6 +146,14 @@ header.compact { height: 58px; }
   transition: background .2s;
 }
 .sidebar button:hover { background: rgba(255,255,255,0.06); }
+.sidebar-bottom {
+  margin-top: auto; /* ⬅️ прижимает вниз */
+  padding-top: 12px;
+}
+
+.sidebar-bottom button {
+  opacity: 0.85;
+}
 .price-filter { display: flex; gap: 8px; }
 .price-filter input {
   flex: 1;
