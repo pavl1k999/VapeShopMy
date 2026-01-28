@@ -569,36 +569,44 @@ header{
 }
 .order-actions .btn{flex:1}
 
-.category-filter, .brand-filter {
+.category-panel {
+  background: rgba(255, 255, 255, 0.05); /* полупрозрачный фон */
+  backdrop-filter: blur(10px);           /* размытие фона под панелью */
+  padding: 12px 16px;
+  border-radius: 12px;
   display: flex;
-  gap: 8px;
-  padding: 12px;
-  overflow-x: auto;
+  flex-direction: column;
+  gap: 10px;
+  margin: 16px 0;   /* отступ сверху/снизу от баннера */
+}
+
+.category-panel .categories,
+.category-panel .brands {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .category-btn, .brand-btn {
-  flex: none;
-  padding: 8px 12px;
-  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
   border: none;
-  background: rgba(255,255,255,0.05);
+  padding: 8px 12px;
+  border-radius: 8px;
   color: #fff;
-  font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: 0.2s;
+  font-weight: 500;
 }
 
 .category-btn.active, .brand-btn.active {
-  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  background: var(--primary); /* можно использовать ваш градиент/цвет */
   color: #fff;
+  box-shadow: 0 0 8px var(--primary);
 }
 
 .category-btn:hover, .brand-btn:hover {
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.2);
 }
-
-
-
 
 .order-details { color: #ddd; font-size: 14px; margin: 8px 0; }
 .order-details ul { margin: 6px 0 0 16px; }
