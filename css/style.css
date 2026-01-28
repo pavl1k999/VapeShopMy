@@ -280,28 +280,18 @@ header.compact { height: 58px; }
 .back-btn {
   width: 48px;
   height: 48px;
-  border-radius: 16px; /* как у других кнопок */
+  border-radius: 16px; /* как у остальных кнопок */
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
   box-shadow: 0 0 8px var(--primary), 0 0 18px rgba(0,0,0,0.3);
+  
   display: flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
   transition: opacity 0.2s ease, transform 0.1s ease;
 }
 
-/* стрелка в центре */
-.back-btn::before {
-  content: '';
-  display: block;
-  width: 10px;
-  height: 10px;
-  border-top: 2px solid #fff;
-  border-left: 2px solid #fff;
-  transform: rotate(-45deg);
-}
-
-/* Hover/Active эффекты */
 .back-btn:hover {
   opacity: 0.92;
   transform: translateY(-1px);
@@ -310,6 +300,7 @@ header.compact { height: 58px; }
 .back-btn:active {
   transform: scale(0.97);
 }
+
 .cart-item {
   display: flex; gap: 10px;
   background: linear-gradient(180deg, #1b1b20 0%, #15151a 100%);
