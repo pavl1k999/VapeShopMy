@@ -527,6 +527,40 @@ function sendOrderTelegram(){
   window.open(ADMIN_URL, '_blank');
 }
 
+// переключение категории
+const categoryButtons = document.querySelectorAll('.category-btn');
+const brandFilter = document.getElementById('brandFilter');
+
+categoryButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    categoryButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // показывать бренды только для Жижи
+    if(btn.dataset.category === 'liquid') {
+      brandFilter.style.display = 'flex';
+    } else {
+      brandFilter.style.display = 'none';
+    }
+
+    // Здесь вызываем функцию фильтрации товаров по категории
+    filterCategory(btn.dataset.category);
+  });
+});
+
+// переключение бренда
+const brandButtons = document.querySelectorAll('.brand-btn');
+brandButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    brandButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // фильтруем товары по бренду
+    filterBrand(btn.dataset.brand);
+  });
+});
+
+
 // Init
 window.addEventListener('click', (e)=>{
   if(!document.querySelector('.search-box')?.contains(e.target)){
