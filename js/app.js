@@ -385,12 +385,20 @@ function closeCart(){
 
 // Filtering & search
 function filterCategory(cat){
-  toggleMenu(false);
-  backAllBtn.classList.add('hidden');
   showingFavorites = false;
-  if(cat==='all'){ filtered = [...products]; }
-  else { filtered = products.filter(p=>p.category===cat); }
-  applyPriceFilter(true);
+  backAllBtn.classList.add('hidden');
+
+  if(cat==='all'){
+    filtered = [...products];
+    brandFilter.style.display = 'none';
+  } else {
+    filtered = products.filter(p => p.category === cat);
+
+    // показывать бренды только для Жижи
+    if(cat === 'liquid') brandFilter.style.display = 'flex';
+    else brandFilter.style.display = 'none';
+  }
+
   renderProducts();
 }
 
@@ -581,23 +589,27 @@ brandButtons.forEach(btn => {
     brandButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    const subBrand = btn.dataset.brand;
-
-    if(subBrand === 'elf'){
-      filtered = products.filter(p => p.brand === 'elf');
-    } else {
-      filtered = filtered.filter(p => p.subBrand === subBrand);
-    }
-    renderProducts();
+    filterBrand(btn.dataset.brand);
   });
 });
 
 
+
 function filterBrand(subBrand){
-  if(!subBrand) return renderProducts(); // если не выбран, показываем все
-  filtered = filtered.filter(p => p.subBrand === subBrand);
+  // если ничего не выбрано, показываем все по категории
+  const categoryFiltered = products.filter(p => p.category === 'liquid');
+
+  if(!subBrand) {
+    filtered = categoryFiltered;
+  } else if(subBrand === 'elf') {
+    filtered = products.filter(p => p.brand === 'elf');
+  } else {
+    filtered = categoryFiltered.filter(p => p.subBrand === subBrand);
+  }
+
   renderProducts();
 }
+
 
 // Init
 window.addEventListener('click', (e)=>{
