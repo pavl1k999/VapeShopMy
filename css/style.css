@@ -133,11 +133,6 @@ header.compact { height: 58px; }
   border-right: 1px solid rgba(255,255,255,0.06);
 }
 
-.sidebar-bottom {
-  margin-top: auto; /* прижимает к низу */
-  padding-top: 12px;
-}
-
 .sidebar.active { left: 0; }
 .sidebar-title { color: #ddd; margin: 12px 0 8px; font-weight: 600; }
 .sidebar button {
@@ -153,6 +148,43 @@ header.compact { height: 58px; }
   transition: background .2s;
 }
 .sidebar button:hover { background: rgba(255,255,255,0.06); }
+
+.sidebar-bottom {
+  margin-top: auto; /* прижимает вниз */
+  padding-top: 12px;
+}
+
+.sidebar-about-btn {
+  width: 100%;
+  padding: 12px 0;
+  background: linear-gradient(135deg, #f472b6, #db2777); /* красивый градиент */
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+
+  cursor: pointer;
+  transition: 
+    background 0.2s ease,
+    transform 0.08s ease,
+    box-shadow 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 0 14px #f472b6;
+}
+
+.sidebar-about-btn:hover {
+  background: linear-gradient(135deg, #db2777, #f472b6);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 0 20px #db2777;
+}
+
+.sidebar-about-btn:active {
+  transform: scale(0.97);
+}
+
 
 .price-filter { display: flex; gap: 8px; }
 .price-filter input {
