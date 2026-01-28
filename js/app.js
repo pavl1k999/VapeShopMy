@@ -64,7 +64,7 @@ const i18n = {
     disposable: "Одноразки",
     cartridges: "Картриджі",
     priceFilter: "Фільтр за ціною",
-    favorites: "Обране ❤️",
+    favorites: "Обране 🩷",
     backToAll: "Всі товари",
     sort: "Сортування",
     priceAsc: "Ціна ↑",
@@ -98,7 +98,7 @@ const i18n = {
     disposable: "Disposables",
     cartridges: "Cartridges",
     priceFilter: "Price filter",
-    favorites: "Favorites ❤️",
+    favorites: "Favorites 🩷",
     backToAll: "All products",
     sort: "Sort",
     priceAsc: "Price ↑",
@@ -301,7 +301,7 @@ function renderProducts(list = filtered){
             ${i18n[lang].addToCart}
           </button>
           <button class="btn btn-outline ${favActive ? 'active' : ''}" onclick="toggleFavorite(${p.id})">
-            ${favActive ? '❤️' : '🤍'}
+            ${favActive ? '🩷' : '🤍'}
           </button>
         </div>
       </div>
