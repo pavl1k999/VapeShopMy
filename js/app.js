@@ -209,12 +209,6 @@ const mainPage = document.getElementById('mainPage');
 const cartPage = document.getElementById('cartPage');
 const productList = document.getElementById('productList');
 const cartCount = document.getElementById('cartCount');
-const searchInput = document.getElementById('searchInput');
-const autocompleteBox = document.getElementById('autocomplete');
-const sortSelect = document.getElementById('sortSelect');
-const priceMinEl = document.getElementById('priceMin');
-const priceMaxEl = document.getElementById('priceMax');
-const backAllBtn = document.getElementById('backAllBtn');
 
 // Utils
 function formatPricePLN(eu){
@@ -270,24 +264,23 @@ function updateCartCount(){
   cartCount.textContent = totalQty;
 }
 
-function renderProducts(list = filtered){
+function renderProducts() {
+  const items = getFilteredProducts();
   productList.innerHTML = '';
-  const items = showingFavorites ? list.filter(p=>favorites.includes(p.id)) : list;
 
-  if(!items.length){
+  if (!items.length) {
     productList.innerHTML = `<p class="empty">${i18n[lang].emptyProducts}</p>`;
     return;
   }
 
-  items.forEach(p=>{
+  items.forEach(p => {
     const favActive = favorites.includes(p.id);
-
     const discount = discounts[p.brand];
     const newPrice = discount ? discount.new : p.price;
 
     productList.innerHTML += `
       <div class="product">
-        <img src="${p.img}" onclick="previewImage('${p.img}')" alt="${p.name}">
+        <img src="${p.img}" alt="${p.name}">
         <h4>${p.name}</h4>
         <div class="muted">${i18n[lang][p.category] || p.category}</div>
 
@@ -309,6 +302,30 @@ function renderProducts(list = filtered){
   });
 }
 
+function getFilteredProducts() {
+  let list = [...products];
+
+  // категория
+  if (currentCategory !== 'all') {
+    list = list.filter(p => p.category === currentCategory);
+  }
+
+  // бренд / подбренд
+  if (currentBrand) {
+    if (currentBrand === 'elf') {
+      list = list.filter(p => p.brand === 'elf');
+    } else {
+      list = list.filter(p => p.subBrand === currentBrand);
+    }
+  }
+
+  // избранное
+  if (showingFavorites) {
+    list = list.filter(p => favorites.includes(p.id));
+  }
+
+  return list;
+}
 
 function renderCart(){
   const box=document.getElementById('cartItems');
@@ -388,58 +405,17 @@ let currentCategory = 'all'; // по умолчанию
 // Filtering & search
 function filterCategory(cat) {
   currentCategory = cat;
+  currentBrand = null;
   showingFavorites = false;
-  favoritesBtn.classList.remove('active');
 
-  if (cat === 'all') {
-    filtered = [...products];
-    brandFilter.style.display = 'none';
-  } else {
-    filtered = products.filter(p => p.category === cat);
-    brandFilter.style.display = (cat === 'liquid') ? 'flex' : 'none';
-  }
+  document.querySelectorAll('.category-btn')
+    .forEach(b => b.classList.toggle('active', b.dataset.category === cat));
+
+  brandFilter.style.display = (cat === 'liquid') ? 'flex' : 'none';
 
   renderProducts();
 }
 
-function searchProducts(q){
-  backAllBtn.classList.add('hidden');
-  showingFavorites = false;
-  const v = q.toLowerCase();
-  const candidates = products.filter(p=>p.name.toLowerCase().includes(v));
-  filtered = candidates;
-  renderProducts();
-
-  // autocomplete
-  if(q.trim().length && candidates.length){
-    autocompleteBox.innerHTML = candidates.slice(0,6).map(p=>(
-      `<div class="autocomplete-item" onclick="selectSearch('${p.name.replace(/'/g,"\\'")}')">${p.name}</div>`
-    )).join('');
-    autocompleteBox.classList.add('active');
-  } else {
-    autocompleteBox.classList.remove('active');
-  }
-}
-function selectSearch(name){
-  searchInput.value = name;
-  autocompleteBox.classList.remove('active');
-  filtered = products.filter(p=>p.name===name);
-  renderProducts();
-}
-
-function sortProducts(t){
-  if(t==='low') filtered.sort((a,b)=>a.price-b.price);
-  else if(t==='high') filtered.sort((a,b)=>b.price-a.price);
-  else if(t==='name') filtered.sort((a,b)=>a.name.localeCompare(b.name));
-  renderProducts();
-}
-
-function applyPriceFilter(skipRender){
-  const min = Number(priceMinEl?.value)||0;
-  const max = Number(priceMaxEl?.value)||Infinity;
-  filtered = filtered.filter(p=>p.price>=min && p.price<=max);
-  if(!skipRender) renderProducts();
-}
 
 // Favorites
 function toggleFavorite(id){
@@ -452,26 +428,6 @@ function toggleFavorite(id){
 
 function showFavorites() {
   showingFavorites = !showingFavorites;
-
-  let base = products;
-
-  if (currentCategory !== 'all') {
-    base = products.filter(p => p.category === currentCategory);
-  }
-
-  if (showingFavorites) {
-    filtered = base.filter(p => favorites.includes(p.id));
-  } else {
-    filtered = base;
-  }
-
-  renderProducts();
-}
-
-function backToAll(){
-  showingFavorites = false;
-  backAllBtn.classList.add('hidden');
-  filtered = [...products];
   renderProducts();
 }
 
@@ -603,7 +559,16 @@ brandButtons.forEach(btn => {
   });
 });
 
+let currentBrand = null;
 
+document.querySelectorAll('.brand-btn').forEach(btn => {
+  btn.onclick = () => {
+    currentBrand = btn.dataset.brand;
+    document.querySelectorAll('.brand-btn')
+      .forEach(b => b.classList.toggle('active', b === btn));
+    renderProducts();
+  };
+});
 
 function filterBrand(subBrand){
   // если ничего не выбрано, показываем все по категории
