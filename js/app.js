@@ -570,17 +570,18 @@ function closeDeliveryModal(){
 }
 
 function confirmDelivery(){
-  const delivery = document.getElementById('deliverySelect').value;
-  const payment = document.getElementById('paymentSelect').value;
+  const deliveryEl = document.querySelector('input[name="delivery"]:checked');
+  const paymentEl = document.querySelector('input[name="payment"]:checked');
 
-  // можно сохранить выбор, например в lastOrderDelivery/Payment
-  lastOrderDelivery = delivery;
-  lastOrderPayment = payment;
+  if(!deliveryEl || !paymentEl){
+    showToast(lang==='ua' ? 'Будь ласка, оберіть доставку та оплату' : 'Пожалуйста, выберите доставку и оплату');
+    return;
+  }
 
-  // Закрываем модалку доставки
+  lastOrderDelivery = deliveryEl.value;
+  lastOrderPayment = paymentEl.value;
+
   closeDeliveryModal();
-
-  // И открываем модалку с вашим заказом
   showOrderModal();
 }
 
