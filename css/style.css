@@ -756,6 +756,64 @@ header{
   accent-color: var(--primary);
 }
 
+.delivery-modal h3 {
+  text-align: center;
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+.delivery-modal .option-group {
+  margin-bottom: 18px;
+}
+
+.delivery-modal .option-title {
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: var(--muted);
+}
+
+.delivery-modal .option-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-1);
+  background: rgba(255,255,255,0.06);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.delivery-modal .option-label:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+.modal-actions .btn-primary {
+  flex: 1;
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  border-radius: var(--radius-1);
+  padding: 12px;
+  font-weight: 600;
+}
+.modal-actions .btn-outline {
+  flex: 1;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-1);
+  padding: 12px;
+  color: #ddd;
+}
+.modal-actions .btn-primary:hover,
+.modal-actions .btn-outline:hover {
+  opacity: 0.92;
+}
+
 .order-details { color: #ddd; font-size: 14px; margin: 8px 0; }
 .order-details ul { margin: 6px 0 0 16px; }
 .modal-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
