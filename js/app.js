@@ -613,32 +613,33 @@ ${i18n[lang].total}: ${formatPricePLN(total)}`;
   document.getElementById('orderModal').classList.remove('hidden');
 }
 
-function buildOrder(){
+function showOrderModal(){
   const orderId = Date.now().toString().slice(-6);
-  const total = cart.reduce((s,p)=>s + p.price * p.qty, 0);
+  const total = cart.reduce((s,p)=>s + p.price*p.qty,0);
 
   const lines = cart.map(p =>
-    `• ${p.name} × ${p.qty} — ${formatPricePLN(p.price * p.qty)}`
+    `• ${p.name} × ${p.qty} — ${formatPricePLN(p.price*p.qty)}`
   );
 
   lastOrderText =
-`${i18n[lang].orderNumber}: ${orderId}
-${i18n[lang].consultant}: @${ADMIN_NICK}
+`${i18n[lang].orderNumber}: #${orderId}
+👨‍💼 ${i18n[lang].consultant}: @${ADMIN_NICK}
 
-📦 ${selectedDelivery}
-💳 ${selectedPayment}
+📦 Доставка: ${lastOrderDelivery}
+💳 Оплата: ${lastOrderPayment}
 
 ${lines.join('\n')}
 
-${i18n[lang].total}: ${formatPricePLN(total)}`;
-
+💰 ${i18n[lang].total}: ${formatPricePLN(total)}`;
+  
+  // вставляем в текстовое поле
   document.getElementById('orderText').value = lastOrderText;
   document.getElementById('orderNumberLabel').textContent =
     `${i18n[lang].orderNumber}: #${orderId}`;
 
-  openOrderModal();
+  // показываем модалку заказа
+  document.getElementById('orderModal').classList.remove('hidden');
 }
-
 
 window.addEventListener('load', ()=>{
   loadCart();
