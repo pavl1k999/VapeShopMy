@@ -814,6 +814,18 @@ header{
   opacity: 0.92;
 }
 
+.modal-error {
+  background: #ff4d8d; /* ярко-красная для ошибки */
+  color: #fff;
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: var(--radius-1);
+  margin-bottom: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.modal-error.hidden { display: none; }
+
 .order-details { color: #ddd; font-size: 14px; margin: 8px 0; }
 .order-details ul { margin: 6px 0 0 16px; }
 .modal-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
