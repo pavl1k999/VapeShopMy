@@ -482,28 +482,9 @@ function setCurrency(c){
 // Checkout modal
 function checkout(){
   if(!cart.length) return alert(i18n[lang].emptyCart);
+
+  // Сначала открываем модалку доставки
   openDeliveryModal();
-
-  const orderId = Date.now().toString().slice(-6);
-  const totalPLN = cart.reduce((s,p)=>s + p.price * p.qty, 0);
-
-  const lines = cart.map(p =>
-    `• ${p.name} × ${p.qty} — ${formatPricePLN(p.price * p.qty)}`
-  );
-
-  lastOrderText =
-`${i18n[lang].orderNumber}: ${orderId}
-${i18n[lang].consultant}: @${ADMIN_NICK}
-
-${lines.join('\n')}
-
-${i18n[lang].total}: ${formatPricePLN(totalPLN)}`;
-
-  document.getElementById('orderText').value = lastOrderText;
-  document.getElementById('orderNumberLabel').textContent =
-    `${i18n[lang].orderNumber}: #${orderId}`;
-
-  openOrderModal();
 }
 
 function openOrderModal(){
@@ -577,6 +558,7 @@ function closeAbout(){
 
 function openDeliveryModal(){
   document.getElementById('deliveryModal').classList.remove('hidden');
+  closeCart(); // скрываем корзину на время
 }
 
 function closeDeliveryModal(){
