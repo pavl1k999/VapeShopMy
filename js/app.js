@@ -15,6 +15,9 @@ const currencySymbols = {
 
 // по умолчанию ЕВРО
 let currency = localStorage.getItem('currency') || 'EUR';
+let selectedDelivery = '';
+let selectedPayment = '';
+
 
 // I18n dictionary
 const i18n = {
@@ -570,6 +573,61 @@ function openAbout(){
 function closeAbout(){
   document.getElementById('aboutModal').classList.add('hidden');
 }
+
+
+function openDeliveryModal(){
+  document.getElementById('deliveryModal').classList.remove('hidden');
+}
+
+function closeDeliveryModal(){
+  document.getElementById('deliveryModal').classList.add('hidden');
+}
+
+function confirmDelivery(){
+  const delivery = document.querySelector('input[name="delivery"]:checked');
+  const payment  = document.querySelector('input[name="payment"]:checked');
+
+  if(!delivery || !payment){
+    alert(lang === 'ua'
+      ? 'Оберіть доставку та оплату'
+      : 'Выберите доставку и оплату'
+    );
+    return;
+  }
+
+  selectedDelivery = delivery.value;
+  selectedPayment  = payment.value;
+
+  closeDeliveryModal();
+  buildOrder();
+}
+
+function buildOrder(){
+  const orderId = Date.now().toString().slice(-6);
+  const total = cart.reduce((s,p)=>s + p.price * p.qty, 0);
+
+  const lines = cart.map(p =>
+    `• ${p.name} × ${p.qty} — ${formatPricePLN(p.price * p.qty)}`
+  );
+
+  lastOrderText =
+`${i18n[lang].orderNumber}: ${orderId}
+${i18n[lang].consultant}: @${ADMIN_NICK}
+
+📦 ${selectedDelivery}
+💳 ${selectedPayment}
+
+${lines.join('\n')}
+
+${i18n[lang].total}: ${formatPricePLN(total)}`;
+
+  document.getElementById('orderText').value = lastOrderText;
+  document.getElementById('orderNumberLabel').textContent =
+    `${i18n[lang].orderNumber}: #${orderId}`;
+
+  openOrderModal();
+}
+
 
 window.addEventListener('load', ()=>{
   loadCart();
