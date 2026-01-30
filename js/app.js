@@ -575,9 +575,11 @@ function confirmDelivery(){
   const paymentEl  = document.querySelector('input[name="payment"]:checked');
 
   if(!deliveryEl || !paymentEl){
-    showToast(lang === 'ua'
+    /*showToast(lang === 'ua'
       ? 'Оберіть доставку та оплату'
-      : 'Выберите доставку и оплату');
+      : 'Выберите доставку и оплату');*/
+    const error = document.getElementById('deliveryError');
+    error.classList.remove('hidden');
     return;
   }
 
