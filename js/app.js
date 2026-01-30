@@ -584,22 +584,43 @@ function closeDeliveryModal(){
 }
 
 function confirmDelivery(){
-  const delivery = document.querySelector('input[name="delivery"]:checked');
-  const payment  = document.querySelector('input[name="payment"]:checked');
+  const delivery = document.getElementById('deliverySelect').value;
+  const payment = document.getElementById('paymentSelect').value;
 
-  if(!delivery || !payment){
-    alert(lang === 'ua'
-      ? 'Оберіть доставку та оплату'
-      : 'Выберите доставку и оплату'
-    );
-    return;
-  }
+  // можно сохранить выбор, например в lastOrderDelivery/Payment
+  lastOrderDelivery = delivery;
+  lastOrderPayment = payment;
 
-  selectedDelivery = delivery.value;
-  selectedPayment  = payment.value;
-
+  // Закрываем модалку доставки
   closeDeliveryModal();
-  buildOrder();
+
+  // И открываем модалку с вашим заказом
+  showOrderModal();
+}
+
+function showOrderModal(){
+  const orderId = Date.now().toString().slice(-6);
+  const totalPLN = cart.reduce((s,p)=>s + p.price * p.qty, 0);
+
+  const lines = cart.map(p =>
+    `• ${p.name} × ${p.qty} — ${formatPricePLN(p.price * p.qty)}`
+  );
+
+  lastOrderText =
+`${i18n[lang].orderNumber}: ${orderId}
+${i18n[lang].consultant}: @${ADMIN_NICK}
+Доставка: ${lastOrderDelivery}
+Оплата: ${lastOrderPayment}
+
+${lines.join('\n')}
+
+${i18n[lang].total}: ${formatPricePLN(totalPLN)}`;
+
+  document.getElementById('orderText').value = lastOrderText;
+  document.getElementById('orderNumberLabel').textContent =
+    `${i18n[lang].orderNumber}: #${orderId}`;
+
+  document.getElementById('orderModal').classList.remove('hidden');
 }
 
 function buildOrder(){
