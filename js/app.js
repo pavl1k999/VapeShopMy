@@ -549,22 +549,15 @@ categoryButtons.forEach(btn => {
 
 // переключение бренда
 const brandButtons = document.querySelectorAll('.brand-btn');
-brandButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    brandButtons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    filterBrand(btn.dataset.brand);
-  });
-});
-
 let currentBrand = null;
 
 document.querySelectorAll('.brand-btn').forEach(btn => {
   btn.onclick = () => {
     currentBrand = btn.dataset.brand;
+
     document.querySelectorAll('.brand-btn')
       .forEach(b => b.classList.toggle('active', b === btn));
+
     renderProducts();
   };
 });
@@ -576,13 +569,6 @@ function openAbout(){
 function closeAbout(){
   document.getElementById('aboutModal').classList.add('hidden');
 }
-
-// Init
-window.addEventListener('click', (e)=>{
-  if(!document.querySelector('.search-box')?.contains(e.target)){
-    autocompleteBox.classList.remove('active');
-  }
-});
 
 window.addEventListener('load', ()=>{
   loadCart();
