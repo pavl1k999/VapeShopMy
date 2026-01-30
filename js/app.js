@@ -479,6 +479,7 @@ function setCurrency(c){
 // Checkout modal
 function checkout(){
   if(!cart.length) return alert(i18n[lang].emptyCart);
+  openDeliveryModal();
 
   const orderId = Date.now().toString().slice(-6);
   const totalPLN = cart.reduce((s,p)=>s + p.price * p.qty, 0);
