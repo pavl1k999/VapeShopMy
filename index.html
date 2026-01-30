@@ -18,29 +18,47 @@
     <div class="option-group">
       <p class="muted" data-i18n="delivery">Способ доставки</p>
 
-      <label>
-        <input type="radio" name="delivery" value="Самовывоз — Pražska 2">
-        Самовывоз (Pražska 2)
-      </label>
+<label>
+  <input type="radio" name="delivery" value="pickup_prazska">
+  <span data-i18n="delivery.pickupPrazska">
+    Самовывоз — Pražska 2
+  </span>
+</label>
 
-      <label>
-        <input type="radio" name="delivery" value="ТЦ Aupark">
-        ТЦ Aupark (1€)
-      </label>
+<label>
+  <input type="radio" name="delivery" value="pickup_aupark">
+  <span data-i18n="delivery.aupark">
+    ТЦ Aupark
+  </span>
+</label>
 
-      <label>
-        <input type="radio" name="delivery" value="Университет TUKE">
-        Университет TUKE (договорная)
-      </label>
+<label>
+  <input type="radio" name="delivery" value="pickup_tuke">
+  <span data-i18n="delivery.tuke">
+    Университет TUKE
+  </span>
+</label>
     </div>
 
     <div class="option-group">
       <p class="muted" data-i18n="payment">Способ оплаты</p>
 
-      <label><input type="radio" name="payment" value="Укр. карта"> Укр. карта</label>
-      <label><input type="radio" name="payment" value="Tatra Bank"> Tatra Bank</label>
-      <label><input type="radio" name="payment" value="Наличные"> Наличные</label>
-      <label><input type="radio" name="payment" value="USDT (TRC20)"> USDT (TRC20)</label>
+<label>
+  <input type="radio" name="payment" value="ua_card">
+  <span data-i18n="payment.uaCard">Укр. карта</span>
+</label>
+<label>
+  <input type="radio" name="payment" value="tatra">
+  <span data-i18n="payment.tatra">Tatra Bank</span>
+</label>
+<label>
+  <input type="radio" name="payment" value="cash">
+  <span data-i18n="payment.cash">Наличные</span>
+</label>
+<label>
+  <input type="radio" name="payment" value="usdt">
+  <span data-i18n="payment.usdt">USDT (TRC20)</span>
+</label>
     </div>
 
     <div class="modal-actions">
