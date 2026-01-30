@@ -581,9 +581,10 @@ function confirmDelivery() {
   }
 
   error.classList.add('hidden');
-  // дальше продолжаем обработку заказа
-  closeDeliveryModal();
-  openOrderModal();
+
+  // Генерируем текст заказа и открываем модалку
+  const orderText = generateOrderText();
+  openOrderModal(orderText);
 }
 
 
