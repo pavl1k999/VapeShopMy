@@ -201,7 +201,6 @@ const products = [
 // State
 let cart = [];
 let favorites = [];
-let filtered = [...products];
 let showingFavorites = false;
 
 // Elements
