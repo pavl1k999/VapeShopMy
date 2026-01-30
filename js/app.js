@@ -17,6 +17,10 @@ const currencySymbols = {
 let currency = localStorage.getItem('currency') || 'EUR';
 let selectedDelivery = '';
 let selectedPayment = '';
+let lastOrderDelivery = '';
+let lastOrderPayment = '';
+let lastOrderText = '';
+
 
 
 // I18n dictionary
