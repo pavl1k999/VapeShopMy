@@ -570,21 +570,6 @@ document.querySelectorAll('.brand-btn').forEach(btn => {
   };
 });
 
-function filterBrand(subBrand){
-  // если ничего не выбрано, показываем все по категории
-  const categoryFiltered = products.filter(p => p.category === 'liquid');
-
-  if(!subBrand) {
-    filtered = categoryFiltered;
-  } else if(subBrand === 'elf') {
-    filtered = products.filter(p => p.brand === 'elf');
-  } else {
-    filtered = categoryFiltered.filter(p => p.subBrand === subBrand);
-  }
-
-  renderProducts();
-}
-
 function openAbout(){
   document.getElementById('aboutModal').classList.remove('hidden');
 }
@@ -592,7 +577,6 @@ function openAbout(){
 function closeAbout(){
   document.getElementById('aboutModal').classList.add('hidden');
 }
-
 
 // Init
 window.addEventListener('click', (e)=>{
