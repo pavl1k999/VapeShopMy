@@ -44,10 +44,10 @@
     </div>
 
     <div class="modal-actions">
-      <button class="btn btn-primary" onclick="confirmDelivery()">
-        Продолжить
-      </button>
-      <button class="btn btn-outline" onclick="closeDeliveryModal()">
+        <button class="btn btn-primary" onclick="confirmDelivery()" data-i18n="continue">
+          Продолжить
+        </button>
+      <button class="btn btn-outline" onclick="closeDeliveryModal()" data-i18n="close">
         Отмена
       </button>
     </div>
@@ -60,7 +60,7 @@
 <div id="orderModal" class="order-modal hidden">
   <div class="order-card">
     <div class="order-header">
-      <div class="order-title">🧾 Ваш заказ</div>
+      <div class="order-title" data-i18n="orderTitle">🧾 Ваш заказ</div>
       <button class="order-close" onclick="closeOrderModal()">✕</button>
     </div>
 
@@ -71,10 +71,10 @@
     <textarea id="orderText" readonly></textarea>
 
     <div class="order-actions">
-      <button class="btn btn-primary" onclick="copyAndOpenTelegram()">
+      <button class="btn btn-primary" onclick="copyAndOpenTelegram()" data-i18n="copyOrder">
         📋 Скопировать и открыть Telegram
       </button>
-      <button class="btn btn-outline" onclick="closeOrderModal()">
+      <button class="btn btn-outline" onclick="closeOrderModal()" data-i18n="close">
         Закрыть
       </button>
     </div>
@@ -110,7 +110,7 @@
 <div class="sidebar" id="sidebar">
   <button onclick="showFavorites()" data-i18n="favorites">Избранное 🩷</button>
   <div class="sidebar-bottom">
-    <button class="sidebar-about-btn" onclick="openAbout()">
+    <button class="sidebar-about-btn" onclick="openAbout()" data-i18n="aboutBtn">
       О нас
     </button>
   </div>
@@ -154,8 +154,12 @@
   <div id="cartTotal" class="cart-total"></div>
 
   <div class="checkout-panel">
-    <button class="checkout-btn" onclick="checkout()">Оформить заказ</button>
-    <a class="admin-btn" id="adminBtn" target="_blank">Написать админу</a>
+    <button class="checkout-btn" onclick="checkout()" data-i18n="checkout">
+      Оформить заказ
+    </button>
+    <a class="admin-btn" id="adminBtn" target="_blank" data-i18n="contactAdmin">
+      Написать админу
+    </a>
   </div>
 
 </section>
@@ -169,13 +173,15 @@
 
     <div class="about-header">
       <div class="about-icon">ℹ️</div>
-      <h3>О нас</h3>
+      <h3 data-i18n="aboutTitle">О нас</h3>
     </div>
 
     <div class="about-section">
       <div class="about-row">
         <span class="about-emoji">📍</span>
-        <span>Работаем в <b>Košice</b> и <b>Prešov</b></span>
+          <span data-i18n="aboutCities">
+              Работаем в <b>Košice</b> и <b>Prešov</b>
+          </span>
       </div>
 
       <div class="about-links">
@@ -191,26 +197,26 @@
     <div class="about-section">
       <div class="about-row">
         <span class="about-emoji">🚚</span>
-        <span>
+          <span data-i18n="aboutPickup">
           Самовывоз: <b>Pražska 2</b>, <b>Aupark</b>, <b>TUKE</b>
-        </span>
+          </span>
       </div>
     </div>
 
     <div class="about-section">
       <div class="about-row">
         <span class="about-emoji">💳</span>
-        <span>
-          Любые способы оплаты — наличные, карты, переводы
-        </span>
+          <span data-i18n="aboutPayment">
+            Любые способы оплаты — наличные, карты, переводы
+          </span>
       </div>
     </div>
 
-    <div class="about-section about-note">
+    <div class="about-section about-note" data-i18n="aboutNote">
       Telegram может блокировать каналы — используйте наш переходник
     </div>
 
-    <button class="btn btn-primary about-close" onclick="closeAbout()">
+    <button class="btn btn-primary about-close" onclick="closeAbout()" data-i18n="close">
       Закрыть
     </button>
 
