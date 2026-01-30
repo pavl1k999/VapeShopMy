@@ -570,21 +570,22 @@ function closeDeliveryModal(){
   document.getElementById('deliveryModal').classList.add('hidden');
 }
 
-function confirmDelivery() {
-  const delivery = document.querySelector('input[name="delivery"]:checked');
-  const payment = document.querySelector('input[name="payment"]:checked');
-  const error = document.getElementById('deliveryError');
+function confirmDelivery(){
+  const deliveryEl = document.querySelector('input[name="delivery"]:checked');
+  const paymentEl  = document.querySelector('input[name="payment"]:checked');
 
-  if (!delivery || !payment) {
-    error.classList.remove('hidden');
+  if(!deliveryEl || !paymentEl){
+    showToast(lang === 'ua'
+      ? 'Оберіть доставку та оплату'
+      : 'Выберите доставку и оплату');
     return;
   }
 
-  error.classList.add('hidden');
+  lastOrderDelivery = deliveryEl.value;
+  lastOrderPayment  = paymentEl.value;
 
-  // Генерируем текст заказа и открываем модалку
-  const orderText = generateOrderText();
-  openOrderModal(orderText);
+  closeDeliveryModal();
+  showOrderModal();
 }
 
 
