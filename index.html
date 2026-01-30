@@ -164,42 +164,58 @@
 
 <script src="js/app.js"></script>
 
-<!-- Модальное окно "О нас" -->
 <div id="aboutModal" class="modal hidden">
-  <div class="modal-content">
-    <h3 style="margin-bottom:12px; text-align:center; font-size:20px;">О нас</h3>
-    
-    <p class="muted" style="line-height:1.6; font-size:14px;">
-      Мы есть в <b>Košice</b> и <b>Prešov</b>.  
-      <a href="https://t.me/VaporsPresov2" target="_blank" style="color:var(--primary); text-decoration:underline;">Наш канал Košice</a>,  
-      <a href="#" target="_blank" style="color:var(--primary); text-decoration:underline;">Наш канал Prešov</a>.
-    </p>
+  <div class="modal-content about-card">
 
-    <p class="muted" style="line-height:1.6; font-size:14px;">
-      Иногда Telegram блокирует каналы, поэтому используйте наш переходник:  
-      <a href="#" target="_blank" style="color:var(--accent); text-decoration:underline;">Переходник на канал</a>.
-    </p>
+    <div class="about-header">
+      <div class="about-icon">ℹ️</div>
+      <h3>О нас</h3>
+    </div>
 
-    <p class="muted" style="line-height:1.6; font-size:14px;">
-      В <b>Košice</b> у нас самовывоз из общежития <b>Pražska 2</b>.  
-      Также можно забрать товар возле ТЦ <b>Aupark</b> или университета <b>TUKE</b>.
-    </p>
+    <div class="about-section">
+      <div class="about-row">
+        <span class="about-emoji">📍</span>
+        <span>Работаем в <b>Košice</b> и <b>Prešov</b></span>
+      </div>
 
-    <p class="muted" style="line-height:1.6; font-size:14px;">
-      Мы принимаем любые способы оплаты — наличные, карты, переводы.  
-      Ваши покупки безопасны и конфиденциальны.
-    </p>
+      <div class="about-links">
+        <a href="https://t.me/VaporsPresov2" target="_blank" class="about-link">
+          Telegram Košice
+        </a>
+        <a href="#" target="_blank" class="about-link">
+          Telegram Prešov
+        </a>
+      </div>
+    </div>
 
-    <p class="muted" style="line-height:1.6; font-size:14px; font-style:italic; color:var(--muted); text-align:center;">
-      Спасибо, что выбираете нас! ❤️
-    </p>
+    <div class="about-section">
+      <div class="about-row">
+        <span class="about-emoji">🚚</span>
+        <span>
+          Самовывоз: <b>Pražska 2</b>, <b>Aupark</b>, <b>TUKE</b>
+        </span>
+      </div>
+    </div>
 
-    <button class="admin-btn" onclick="closeAbout()">
+    <div class="about-section">
+      <div class="about-row">
+        <span class="about-emoji">💳</span>
+        <span>
+          Любые способы оплаты — наличные, карты, переводы
+        </span>
+      </div>
+    </div>
+
+    <div class="about-section about-note">
+      Telegram может блокировать каналы — используйте наш переходник
+    </div>
+
+    <button class="btn btn-primary about-close" onclick="closeAbout()">
       Закрыть
     </button>
+
   </div>
 </div>
-
 
 </body>
 </html>
