@@ -485,9 +485,10 @@ function setCurrency(c){
 
 // Checkout modal
 function checkout(){
-  if(!cart.length) return alert(i18n[lang].emptyCart);
-
-  // Сначала открываем модалку доставки
+  if(!cart.length){
+    alert(i18n[lang].emptyCart);
+    return;
+  }
   openDeliveryModal();
 }
 
@@ -571,15 +572,17 @@ function closeDeliveryModal(){
 
 function confirmDelivery(){
   const deliveryEl = document.querySelector('input[name="delivery"]:checked');
-  const paymentEl = document.querySelector('input[name="payment"]:checked');
+  const paymentEl  = document.querySelector('input[name="payment"]:checked');
 
   if(!deliveryEl || !paymentEl){
-    showToast(lang==='ua' ? 'Будь ласка, оберіть доставку та оплату' : 'Пожалуйста, выберите доставку и оплату');
+    showToast(lang === 'ua'
+      ? 'Оберіть доставку та оплату'
+      : 'Выберите доставку и оплату');
     return;
   }
 
   lastOrderDelivery = deliveryEl.value;
-  lastOrderPayment = paymentEl.value;
+  lastOrderPayment  = paymentEl.value;
 
   closeDeliveryModal();
   showOrderModal();
@@ -587,10 +590,10 @@ function confirmDelivery(){
 
 function showOrderModal(){
   const orderId = Date.now().toString().slice(-6);
-  const totalPLN = cart.reduce((s,p)=>s + p.price * p.qty, 0);
+  const total = cart.reduce((s,p)=>s + p.price*p.qty,0);
 
   const lines = cart.map(p =>
-    `• ${p.name} × ${p.qty} — ${formatPricePLN(p.price * p.qty)}`
+    `• ${p.name} × ${p.qty} — ${formatPricePLN(p.price*p.qty)}`
   );
 
   lastOrderText =
@@ -601,7 +604,7 @@ ${i18n[lang].consultant}: @${ADMIN_NICK}
 
 ${lines.join('\n')}
 
-${i18n[lang].total}: ${formatPricePLN(totalPLN)}`;
+${i18n[lang].total}: ${formatPricePLN(total)}`;
 
   document.getElementById('orderText').value = lastOrderText;
   document.getElementById('orderNumberLabel').textContent =
