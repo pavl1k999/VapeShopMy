@@ -187,54 +187,63 @@
 
     <div class="about-header">
       <div class="about-icon">ℹ️</div>
-      <h3 data-i18n="aboutTitle">О нас</h3>
+      <h3 data-i18n="aboutTitle"></h3>
     </div>
 
+    <!-- Telegram каналы -->
+    <div class="about-section">
+      <div class="about-links">
+        <a href="https://t.me/VaporsKosice"
+           target="_blank"
+           class="about-link"
+           data-i18n="aboutTgKosice">
+        </a>
+
+        <a href="https://t.me/VaporsPresov2"
+           target="_blank"
+           class="about-link"
+           data-i18n="aboutTgPresov">
+        </a>
+      </div>
+    </div>
+
+    <!-- Самовывоз -->
     <div class="about-section">
       <div class="about-row">
         <span class="about-emoji">📍</span>
-          <span data-i18n="aboutCities">
-              Работаем в <b>Košice</b> и <b>Prešov</b>
-          </span>
-      </div>
-
-      <div class="about-links">
-        <a href="https://t.me/VaporsPresov2" target="_blank" class="about-link">
-          Telegram Košice
-        </a>
-        <a href="https://t.me/VaporsPresov2" target="_blank" class="about-link">
-          Telegram Prešov
-        </a>
+        <span data-i18n="aboutLocation"></span>
       </div>
     </div>
 
+    <!-- Доставка -->
     <div class="about-section">
       <div class="about-row">
         <span class="about-emoji">🚚</span>
-          <span data-i18n="aboutPickup">
-          Самовывоз: <b>Pražska 2</b>, <b>Aupark</b>, <b>TUKE</b>
-          </span>
+        <span data-i18n="aboutDelivery"></span>
       </div>
     </div>
 
+    <!-- Оплата -->
     <div class="about-section">
       <div class="about-row">
         <span class="about-emoji">💳</span>
-          <span data-i18n="aboutPayment">
-            Любые способы оплаты — наличные, карты, крипта
-          </span>
+        <span data-i18n="aboutPayment"></span>
       </div>
     </div>
 
-    <div class="about-section about-note" data-i18n="aboutNote">
-      Telegram может блокировать каналы — используйте наш переходник
+    <!-- Переходник -->
+    <div class="about-section about-note">
+      <span data-i18n="aboutNote"></span>
+      <a href="https://t.me/your_adapter_link"
+         target="_blank"
+         class="about-link adapter-link"
+         data-i18n="aboutAdapter">
+      </a>
     </div>
 
-    <button class="btn btn-primary about-close" onclick="closeAbout()" data-i18n="close">
-      Закрыть
-    </button>
-
   </div>
+</div>
+
 </div>
 
 </body>
