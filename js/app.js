@@ -68,6 +68,13 @@ const i18n = {
     delivery: "Способ доставки",
     continue: "Продолжить",
     copyOrder: "Скопировать и открыть Telegram",
+    'delivery.pickupPrazska': 'Самовывоз — Pražska 2',
+    'delivery.aupark': 'ТЦ Aupark',
+    'delivery.tuke': 'Университет TUKE',
+    'payment.uaCard': 'Укр. карта',
+    'payment.cash': 'Наличные',
+    'payment.tatra': 'Европейская карта',
+    'payment.usdt': 'USDT (TRC20)'
   },
   ua: {
     addToCart: "До кошика",
@@ -113,6 +120,13 @@ const i18n = {
     payment: "Спосіб оплати",
     continue: "Продовжити",
     copyOrder: "Скопіювати і відкрити Telegram",
+    'delivery.pickupPrazska': 'Самовивіз — Pražska 2',
+    'delivery.aupark': 'ТЦ Aupark',
+    'delivery.tuke': 'Університет TUKE',
+    'payment.uaCard': 'Укр. карта',
+    'payment.cash': 'Готівка',
+    'payment.tatra': 'Європейська картка',
+    'payment.usdt': 'USDT (TRC20)'
   },
   en: {
     addToCart: "Add to cart",
@@ -158,6 +172,13 @@ const i18n = {
     payment: "Payment method",
     continue: "Continue",
     copyOrder: "Copy & open Telegram",
+    'delivery.pickupPrazska': 'Pickup — Pražska 2',
+    'delivery.aupark': 'Aupark Mall',
+    'delivery.tuke': 'TUKE University',
+    'payment.uaCard': 'Ukrainian card',
+    'payment.cash': 'Cash',
+    'payment.tatra': 'European bank card',
+    'payment.usdt': 'USDT (TRC20)'
   }
 };
 let lang = localStorage.getItem('lang') || 'ua';
