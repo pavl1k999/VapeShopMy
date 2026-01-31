@@ -75,6 +75,8 @@ const i18n = {
     pay_ua_card: "Украинская карта",
     pay_tatra: "Европейская карта",
     pay_usdt: "USDT (TRC20)",
+    deliveryLabel: "📦 Доставка",
+    paymentLabel: "💳 Оплата",
   },
   ua: {
     addToCart: "До кошика",
@@ -127,6 +129,8 @@ const i18n = {
     pay_ua_card: "Українська карта",
     pay_tatra: "Європейська карта",
     pay_usdt: "USDT (TRC20)",
+    deliveryLabel: "📦 Доставка",
+    paymentLabel: "💳 Оплата",
   },
   en: {
     addToCart: "Add to cart",
@@ -179,6 +183,8 @@ const i18n = {
     pay_ua_card: "Ukrainian card",
     pay_tatra: "European card",
     pay_usdt: "USDT (TRC20)",
+    deliveryLabel: "📦 Delivery",
+    paymentLabel: "💳 Payment",
   }
 };
 let lang = localStorage.getItem('lang') || 'ua';
@@ -683,8 +689,8 @@ function showOrderModal(){
 `${i18n[lang].orderNumber}: #${orderId}
 👨‍💼 ${i18n[lang].consultant}: @${ADMIN_NICK}
 
-📦 Доставка: ${deliveryText}
-💳 Оплата: ${paymentText}
+${i18n[lang].deliveryLabel}: ${deliveryText}
+${i18n[lang].paymentLabel}: ${paymentText}
 
 ${lines.join('\n')}
 
