@@ -956,14 +956,16 @@ header{
 }
 
 .modal-close {
-  margin-left: auto;
+  margin-left: auto; /* ← уезжает вправо */
   background: none;
   border: none;
   color: #fff;
   font-size: 26px;
   cursor: pointer;
   opacity: 0.7;
+  line-height: 1;
 }
+
 .modal-close:hover {
   opacity: 1;
 }
