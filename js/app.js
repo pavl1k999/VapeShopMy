@@ -217,7 +217,7 @@ const products = [
 
   // Chaser F/P
   ...[ 
-    'Blue Raspberry','Cherry','Pomegranate','Watermelon Menthol','Sweet Cherry','Berries' 
+    'Blue Raspberry','Cherry','Pomegranate','Watermelon Menthol','Sweet Cherry (Черешня)','Berries' 
   ].map((n,i)=>({
     id: 100+i,
     name: `Chaser – ${n}`,
