@@ -68,13 +68,13 @@ const i18n = {
     delivery: "Способ доставки",
     continue: "Продолжить",
     copyOrder: "Скопировать и открыть Telegram",
-    'delivery.pickupPrazska': 'Самовывоз — Pražska 2',
-    'delivery.aupark': 'ТЦ Aupark',
-    'delivery.tuke': 'Университет TUKE',
-    'payment.uaCard': 'Укр. карта',
-    'payment.cash': 'Наличные',
-    'payment.tatra': 'Европейская карта',
-    'payment.usdt': 'USDT (TRC20)'
+    pickup_prazska: "Самовывоз — Pražska 2",
+    pickup_aupark: "Самовывоз — ТЦ Aupark (+1€)",
+    pickup_tuke: "Самовывоз — TUKE",
+    pay_cash: "Наличные",
+    pay_ua_card: "Украинская карта",
+    pay_tatra: "Европейская карта",
+    pay_usdt: "USDT (TRC20)",
   },
   ua: {
     addToCart: "До кошика",
@@ -120,13 +120,13 @@ const i18n = {
     payment: "Спосіб оплати",
     continue: "Продовжити",
     copyOrder: "Скопіювати і відкрити Telegram",
-    'delivery.pickupPrazska': 'Самовивіз — Pražska 2',
-    'delivery.aupark': 'ТЦ Aupark',
-    'delivery.tuke': 'Університет TUKE',
-    'payment.uaCard': 'Укр. карта',
-    'payment.cash': 'Готівка',
-    'payment.tatra': 'Європейська картка',
-    'payment.usdt': 'USDT (TRC20)'
+    pickup_prazska: "Самовивіз — Pražska 2",
+    pickup_aupark: "Самовивіз — ТЦ Aupark (+1€)",
+    pickup_tuke: "Самовивіз — TUKE",
+    pay_cash: "Готівка",
+    pay_ua_card: "Українська карта",
+    pay_tatra: "Європейська карта",
+    pay_usdt: "USDT (TRC20)",
   },
   en: {
     addToCart: "Add to cart",
@@ -172,13 +172,13 @@ const i18n = {
     payment: "Payment method",
     continue: "Continue",
     copyOrder: "Copy & open Telegram",
-    'delivery.pickupPrazska': 'Pickup — Pražska 2',
-    'delivery.aupark': 'Aupark Mall',
-    'delivery.tuke': 'TUKE University',
-    'payment.uaCard': 'Ukrainian card',
-    'payment.cash': 'Cash',
-    'payment.tatra': 'European bank card',
-    'payment.usdt': 'USDT (TRC20)'
+    pickup_prazska: "Pickup — Pražska 2",
+    pickup_aupark: "Pickup — Aupark Mall (+1€)",
+    pickup_tuke: "Pickup — TUKE University",
+    pay_cash: "Cash",
+    pay_ua_card: "Ukrainian card",
+    pay_tatra: "European card",
+    pay_usdt: "USDT (TRC20)",
   }
 };
 let lang = localStorage.getItem('lang') || 'ua';
@@ -675,23 +675,25 @@ function showOrderModal(){
     `• ${p.name} × ${p.qty} — ${formatPricePLN(p.price*p.qty)}`
   );
 
+  // Получаем текст доставки и оплаты из словаря i18n
+  const deliveryText = i18n[lang][lastOrderDelivery] || lastOrderDelivery;
+  const paymentText  = i18n[lang][lastOrderPayment]  || lastOrderPayment;
+
   lastOrderText =
 `${i18n[lang].orderNumber}: #${orderId}
 👨‍💼 ${i18n[lang].consultant}: @${ADMIN_NICK}
 
-📦 Доставка: ${lastOrderDelivery}
-💳 Оплата: ${lastOrderPayment}
+📦 Доставка: ${deliveryText}
+💳 Оплата: ${paymentText}
 
 ${lines.join('\n')}
 
 💰 ${i18n[lang].total}: ${formatPricePLN(total)}`;
-  
-  // вставляем в текстовое поле
+
   document.getElementById('orderText').value = lastOrderText;
   document.getElementById('orderNumberLabel').textContent =
     `${i18n[lang].orderNumber}: #${orderId}`;
 
-  // показываем модалку заказа
   document.getElementById('orderModal').classList.remove('hidden');
 }
 
