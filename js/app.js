@@ -201,7 +201,7 @@ const discounts = {
 const products = [
   // Elf Liq
   ...[
-    'Apple Peach','Blackcurrant annised','Blueberry',
+    'Apple Peach','Blackcurrant aniseed','Blueberry',
     'Cherry','Double Apple','Kiwi Passion Fruit Guava',
     'Lemon Lime','Strawberry Ice','Pineapple Ice','P&B Cloud'
   ].map((n,i)=>({
