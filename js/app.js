@@ -649,15 +649,17 @@ function closeDeliveryModal(){
 }
 
 let lastOrderCashText = '';
+const cashChangeBlock = document.getElementById('cashChangeBlock');
+const cashFromInput = document.getElementById('cashFromInput');
+let cashChangeType = '';
+let cashFromAmount = 0;
 
-function confirmDelivery(){
+function confirmDelivery() {
   const deliveryEl = document.querySelector('input[name="delivery"]:checked');
   const paymentEl  = document.querySelector('input[name="payment"]:checked');
 
-  if(!deliveryEl || !paymentEl){
-    showToast(lang === 'ua'
-      ? 'Оберіть доставку та оплату'
-      : 'Выберите доставку и оплату');
+  if (!deliveryEl || !paymentEl) {
+    showToast(lang === 'ua' ? 'Оберіть доставку та оплату' : 'Выберите доставку и оплату');
     return;
   }
 
@@ -666,30 +668,25 @@ function confirmDelivery(){
 
   const orderTotal = cart.reduce((s, p) => s + p.price * p.qty, 0);
 
-  // --- ПРОВЕРКА СДАЧИ ---
   if (lastOrderPayment === 'cash') {
     if (!cashChangeType) {
-      showToast('Выберите вариант сдачи');
+      showToast(lang === 'ua' ? 'Оберіть варіант здачі' : 'Выберите вариант сдачи');
       return;
     }
 
     if (cashChangeType === 'from_sum' && cashFromAmount < orderTotal) {
-      showToast('Сумма меньше стоимости заказа');
+      showToast(lang === 'ua' ? 'Сума менше вартості замовлення' : 'Сумма меньше стоимости заказа');
       return;
     }
   }
 
-  // --- ТЕКСТ СДАЧИ ---
-  let cashText = '';
-
+  lastOrderCashText = '';
   if (lastOrderPayment === 'cash') {
-    cashText =
+    lastOrderCashText =
       cashChangeType === 'no_change'
         ? i18n[lang].cashNoChange
         : `${i18n[lang].cashFrom} ${cashFromAmount} €`;
   }
-
-  lastOrderCashText = cashText;
 
   closeDeliveryModal();
   showOrderModal();
@@ -732,16 +729,36 @@ let cashFromAmount = 0;
 // Показываем/скрываем блок сдачи при выборе способа оплаты
 document.querySelectorAll('input[name="payment"]').forEach(radio => {
   radio.addEventListener('change', e => {
-    const cashBlock = document.getElementById('cashChangeBlock');
-    if(e.target.value === 'cash'){
-      cashBlock.classList.remove('hidden'); // показываем блок
+    if (e.target.value === 'cash') {
+      cashChangeBlock.classList.remove('hidden'); // показываем
+      cashChangeType = ''; // сбрасываем
+      cashFromAmount = 0;
+      cashFromInput.value = '';
     } else {
-      cashBlock.classList.add('hidden');    // скрываем блок
+      cashChangeBlock.classList.add('hidden'); // скрываем
       cashChangeType = '';
       cashFromAmount = 0;
-      document.getElementById('cashFromInput').value = '';
+      cashFromInput.value = '';
     }
   });
+});
+
+// Отслеживаем выбор радио для сдачи
+document.querySelectorAll('input[name="cash_change"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    cashChangeType = radio.value;
+    if (radio.value === 'from_sum') {
+      cashFromInput.classList.remove('hidden');
+      cashFromInput.focus();
+    } else {
+      cashFromInput.classList.add('hidden');
+      cashFromAmount = 0;
+    }
+  });
+});
+
+cashFromInput.addEventListener('input', e => {
+  cashFromAmount = parseFloat(e.target.value) || 0;
 });
 
 
