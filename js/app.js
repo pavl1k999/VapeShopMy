@@ -81,6 +81,7 @@ const i18n = {
     paymentLabel: "💳 Оплата",
     cashNoChange: 'Без сдачи',
     cashFrom: 'Сдача с',
+    cashChange: 'Сдача'
   },
   ua: {
     addToCart: "До кошика",
@@ -139,6 +140,7 @@ const i18n = {
     paymentLabel: "💳 Оплата",
     cashNoChange: 'Без решти',
     cashFrom: 'Решта з',
+    cashChange: 'Решта'
   },
   en: {
     addToCart: "Add to cart",
@@ -197,6 +199,7 @@ const i18n = {
     paymentLabel: "💳 Payment",
     cashNoChange: 'No change',
     cashFrom: 'Change from',
+    cashChange: 'Change'
   }
 };
 let lang = localStorage.getItem('lang') || 'ua';
