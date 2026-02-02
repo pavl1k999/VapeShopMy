@@ -703,7 +703,7 @@ function showOrderModal(){
   // Получаем текст доставки и оплаты из словаря i18n
   const deliveryText = i18n[lang][lastOrderDelivery] || lastOrderDelivery;
   lastOrderPayment = paymentEl.value; // 'cash', 'tatra', 'ua_card', 'usdt'
-const paymentText  = i18n[lang]['pay_' + lastOrderPayment]  || lastOrderPayment;
+  const paymentText  = i18n[lang]['pay_' + lastOrderPayment]  || lastOrderPayment;
 
   lastOrderText =
   `${i18n[lang].orderNumber}: #${orderId}
