@@ -729,21 +729,21 @@ ${lines.join('\n')}
 let cashChangeType = '';
 let cashFromAmount = 0;
 
-document.querySelectorAll('input[name="cash_change"]').forEach(radio => {
-  radio.addEventListener('change', () => {
-    cashChangeType = radio.value;
-
-    const input = document.getElementById('cashFromInput');
-
-    if (radio.value === 'from_sum') {
-      input.classList.remove('hidden');
-      input.focus();
+// Показываем/скрываем блок сдачи при выборе способа оплаты
+document.querySelectorAll('input[name="payment"]').forEach(radio => {
+  radio.addEventListener('change', e => {
+    const cashBlock = document.getElementById('cashChangeBlock');
+    if(e.target.value === 'cash'){
+      cashBlock.classList.remove('hidden'); // показываем блок
     } else {
-      input.classList.add('hidden');
+      cashBlock.classList.add('hidden');    // скрываем блок
+      cashChangeType = '';
       cashFromAmount = 0;
+      document.getElementById('cashFromInput').value = '';
     }
   });
 });
+
 
 document.getElementById('cashFromInput').addEventListener('input', e => {
   cashFromAmount = parseFloat(e.target.value) || 0;
