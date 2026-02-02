@@ -702,26 +702,26 @@ function showOrderModal(){
 
   // Получаем текст доставки и оплаты из словаря i18n
   const deliveryText = i18n[lang][lastOrderDelivery] || lastOrderDelivery;
-  const paymentText  = i18n[lang][lastOrderPayment]  || lastOrderPayment;
+  const paymentText  = i18n[lang]['pay_' + lastOrderPayment]  || lastOrderPayment;
 
   lastOrderText =
-`${i18n[lang].orderNumber}: #${orderId}
-👨‍💼 ${i18n[lang].consultant}: @${ADMIN_NICK}
+  `${i18n[lang].orderNumber}: #${orderId}
+  👨‍💼 ${i18n[lang].consultant}: @${ADMIN_NICK}
 
-${i18n[lang].deliveryLabel}: ${deliveryText}
-${i18n[lang].paymentLabel}: ${paymentText}
-${lastOrderCashText ? '💶 ' + lastOrderCashText : ''}
+  ${i18n[lang].deliveryLabel}: ${deliveryText}
+  ${i18n[lang].paymentLabel}: ${paymentText}
+  ${lastOrderCashText ? '💶 ' + lastOrderCashText : ''}
 
-${lines.join('\n')}
+  ${lines.join('\n')}
 
-💰 ${i18n[lang].total}: ${formatPricePLN(total)}`;
+  💰 ${i18n[lang].total}: ${formatPricePLN(total)}`;
 
   document.getElementById('orderText').value = lastOrderText;
-  document.getElementById('orderNumberLabel').textContent =
-    `${i18n[lang].orderNumber}: #${orderId}`;
+    document.getElementById('orderNumberLabel').textContent =
+      `${i18n[lang].orderNumber}: #${orderId}`;
 
-  document.getElementById('orderModal').classList.remove('hidden');
-}
+    document.getElementById('orderModal').classList.remove('hidden');
+  }
 
 // Показываем/скрываем блок сдачи при выборе способа оплаты
 document.querySelectorAll('input[name="payment"]').forEach(radio => {
