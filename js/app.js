@@ -80,8 +80,10 @@ const i18n = {
     deliveryLabel: "📦 Доставка",
     paymentLabel: "💳 Оплата",
     cashNoChange: 'Без сдачи',
+    cashFromSum: 'С какой суммы',
     cashFrom: 'Сдача с',
     cashChange: 'Сдача'
+    
   },
   ua: {
     addToCart: "До кошика",
@@ -139,6 +141,7 @@ const i18n = {
     deliveryLabel: "📦 Доставка",
     paymentLabel: "💳 Оплата",
     cashNoChange: 'Без решти',
+    cashFromSum: 'З якої суми',
     cashFrom: 'Решта з',
     cashChange: 'Решта'
   },
@@ -198,6 +201,7 @@ const i18n = {
     deliveryLabel: "📦 Delivery",
     paymentLabel: "💳 Payment",
     cashNoChange: 'No change',
+    cashFromSum: 'Cash amount',
     cashFrom: 'Change from',
     cashChange: 'Change'
   }
