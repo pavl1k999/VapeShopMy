@@ -635,6 +635,8 @@ function closeDeliveryModal(){
   document.getElementById('deliveryModal').classList.add('hidden');
 }
 
+let lastOrderCashText = '';
+
 function confirmDelivery(){
   const deliveryEl = document.querySelector('input[name="delivery"]:checked');
   const paymentEl  = document.querySelector('input[name="payment"]:checked');
@@ -649,34 +651,35 @@ function confirmDelivery(){
   lastOrderDelivery = deliveryEl.value;
   lastOrderPayment  = paymentEl.value;
 
+  const orderTotal = lastOrderTotal;
+
+  // --- ПРОВЕРКА СДАЧИ ---
+  if (lastOrderPayment === 'cash') {
+    if (!cashChangeType) {
+      showToast('Выберите вариант сдачи');
+      return;
+    }
+
+    if (cashChangeType === 'from_sum' && cashFromAmount < orderTotal) {
+      showToast('Сумма меньше стоимости заказа');
+      return;
+    }
+  }
+
+  // --- ТЕКСТ СДАЧИ ---
+  let cashText = '';
+  if (lastOrderPayment === 'cash') {
+    cashText =
+      cashChangeType === 'no_change'
+        ? 'Без сдачи'
+        : `Сдача с ${cashFromAmount} €`;
+  }
+
+  // ⚠️ ВАЖНО: cashText должен использоваться в showOrderModal
+  lastOrderCashText = cashText;
+
   closeDeliveryModal();
   showOrderModal();
-}
-
-
-function showOrderModal(){
-  const orderId = Date.now().toString().slice(-6);
-  const total = cart.reduce((s,p)=>s + p.price*p.qty,0);
-
-  const lines = cart.map(p =>
-    `• ${p.name} × ${p.qty} — ${formatPricePLN(p.price*p.qty)}`
-  );
-
-  lastOrderText =
-`${i18n[lang].orderNumber}: ${orderId}
-${i18n[lang].consultant}: @${ADMIN_NICK}
-Доставка: ${lastOrderDelivery}
-Оплата: ${lastOrderPayment}
-
-${lines.join('\n')}
-
-${i18n[lang].total}: ${formatPricePLN(total)}`;
-
-  document.getElementById('orderText').value = lastOrderText;
-  document.getElementById('orderNumberLabel').textContent =
-    `${i18n[lang].orderNumber}: #${orderId}`;
-
-  document.getElementById('orderModal').classList.remove('hidden');
 }
 
 function showOrderModal(){
@@ -697,6 +700,7 @@ function showOrderModal(){
 
 ${i18n[lang].deliveryLabel}: ${deliveryText}
 ${i18n[lang].paymentLabel}: ${paymentText}
+${lastOrderCashText ? '💶 ' + lastOrderCashText : ''}
 
 ${lines.join('\n')}
 
