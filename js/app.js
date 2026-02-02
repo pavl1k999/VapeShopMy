@@ -723,9 +723,6 @@ ${lines.join('\n')}
   document.getElementById('orderModal').classList.remove('hidden');
 }
 
-let cashChangeType = '';
-let cashFromAmount = 0;
-
 // Показываем/скрываем блок сдачи при выборе способа оплаты
 document.querySelectorAll('input[name="payment"]').forEach(radio => {
   radio.addEventListener('change', e => {
