@@ -660,7 +660,7 @@ function confirmDelivery(){
   lastOrderDelivery = deliveryEl.value;
   lastOrderPayment  = paymentEl.value;
 
-  const orderTotal = lastOrderTotal;
+  const orderTotal = cart.reduce((s, p) => s + p.price * p.qty, 0);
 
   // --- ПРОВЕРКА СДАЧИ ---
   if (lastOrderPayment === 'cash') {
@@ -686,10 +686,6 @@ function confirmDelivery(){
   }
 
   lastOrderCashText = cashText;
-
-
-  // ⚠️ ВАЖНО: cashText должен использоваться в showOrderModal
-  const orderTotal = cart.reduce((s, p) => s + p.price * p.qty, 0);
 
   closeDeliveryModal();
   showOrderModal();
@@ -729,25 +725,26 @@ ${lines.join('\n')}
 let cashChangeType = '';
 let cashFromAmount = 0;
 
-document.querySelectorAll('input[name="payment"]').forEach(radio => {
+document.querySelectorAll('input[name="cash_change"]').forEach(radio => {
   radio.addEventListener('change', () => {
-    const cashBlock = document.getElementById('cashChangeBlock');
+    cashChangeType = radio.value;
 
-    if (radio.value === 'cash') {
-      cashBlock.classList.remove('hidden');
+    const input = document.getElementById('cashFromInput');
+
+    if (radio.value === 'from_sum') {
+      input.classList.remove('hidden');
+      input.focus();
     } else {
-      cashBlock.classList.add('hidden');
-      cashChangeType = '';
+      input.classList.add('hidden');
       cashFromAmount = 0;
-
-      document
-        .querySelectorAll('input[name="cash_change"]')
-        .forEach(r => r.checked = false);
-
-      document.getElementById('cashFromInput').classList.add('hidden');
     }
   });
 });
+
+document.getElementById('cashFromInput').addEventListener('input', e => {
+  cashFromAmount = parseFloat(e.target.value) || 0;
+});
+
 
 window.addEventListener('load', ()=>{
   loadCart();
