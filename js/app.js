@@ -709,6 +709,31 @@ ${lines.join('\n')}
   document.getElementById('orderModal').classList.remove('hidden');
 }
 
+let cashChangeType = '';
+let cashFromAmount = 0;
+
+document.querySelectorAll('input[name="cash_change"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    cashChangeType = radio.value;
+
+    const input = document.getElementById('cashFromInput');
+
+    if (cashChangeType === 'from_sum') {
+      input.classList.remove('hidden');
+      input.focus();
+    } else {
+      input.classList.add('hidden');
+      input.value = '';
+      cashFromAmount = 0;
+    }
+  });
+});
+
+document.getElementById('cashFromInput').addEventListener('input', e => {
+  cashFromAmount = parseFloat(e.target.value) || 0;
+});
+
+
 window.addEventListener('load', ()=>{
   loadCart();
   loadFavorites();
