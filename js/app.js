@@ -79,6 +79,8 @@ const i18n = {
     pay_usdt: "USDT (TRC20)",
     deliveryLabel: "📦 Доставка",
     paymentLabel: "💳 Оплата",
+    cashNoChange: 'Без сдачи',
+    cashFrom: 'Сдача с',
   },
   ua: {
     addToCart: "До кошика",
@@ -135,6 +137,8 @@ const i18n = {
     pay_usdt: "USDT (TRC20)",
     deliveryLabel: "📦 Доставка",
     paymentLabel: "💳 Оплата",
+    cashNoChange: 'Без решти',
+    cashFrom: 'Решта з',
   },
   en: {
     addToCart: "Add to cart",
@@ -191,6 +195,8 @@ const i18n = {
     pay_usdt: "USDT (TRC20)",
     deliveryLabel: "📦 Delivery",
     paymentLabel: "💳 Payment",
+    cashNoChange: 'No change',
+    cashFrom: 'Change from',
   }
 };
 let lang = localStorage.getItem('lang') || 'ua';
@@ -668,15 +674,19 @@ function confirmDelivery(){
 
   // --- ТЕКСТ СДАЧИ ---
   let cashText = '';
+
   if (lastOrderPayment === 'cash') {
     cashText =
       cashChangeType === 'no_change'
-        ? 'Без сдачи'
-        : `Сдача с ${cashFromAmount} €`;
+        ? i18n[lang].cashNoChange
+        : `${i18n[lang].cashFrom} ${cashFromAmount} €`;
   }
 
-  // ⚠️ ВАЖНО: cashText должен использоваться в showOrderModal
   lastOrderCashText = cashText;
+
+
+  // ⚠️ ВАЖНО: cashText должен использоваться в showOrderModal
+  const orderTotal = cart.reduce((s, p) => s + p.price * p.qty, 0);
 
   closeDeliveryModal();
   showOrderModal();
@@ -716,27 +726,25 @@ ${lines.join('\n')}
 let cashChangeType = '';
 let cashFromAmount = 0;
 
-document.querySelectorAll('input[name="cash_change"]').forEach(radio => {
+document.querySelectorAll('input[name="payment"]').forEach(radio => {
   radio.addEventListener('change', () => {
-    cashChangeType = radio.value;
+    const cashBlock = document.getElementById('cashChangeBlock');
 
-    const input = document.getElementById('cashFromInput');
-
-    if (cashChangeType === 'from_sum') {
-      input.classList.remove('hidden');
-      input.focus();
+    if (radio.value === 'cash') {
+      cashBlock.classList.remove('hidden');
     } else {
-      input.classList.add('hidden');
-      input.value = '';
+      cashBlock.classList.add('hidden');
+      cashChangeType = '';
       cashFromAmount = 0;
+
+      document
+        .querySelectorAll('input[name="cash_change"]')
+        .forEach(r => r.checked = false);
+
+      document.getElementById('cashFromInput').classList.add('hidden');
     }
   });
 });
-
-document.getElementById('cashFromInput').addEventListener('input', e => {
-  cashFromAmount = parseFloat(e.target.value) || 0;
-});
-
 
 window.addEventListener('load', ()=>{
   loadCart();
