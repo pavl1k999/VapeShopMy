@@ -220,9 +220,12 @@ const discounts = {
 const products = [
   // Elf Liq
   ...[
+    'Blue razz Ice','Strawberry snow','Peach Ice',
+    'Lemon Lime','Strawberry Ice','Pineapple Ice','P&B Cloud',
+    'Strawberry raspberry cherry ice','Elf Jack','Blackberry lemon',
     'Apple Peach','Blackcurrant aniseed','Blueberry',
     'Cherry','Double Apple','Kiwi Passion Fruit Guava',
-    'Lemon Lime','Strawberry Ice','Pineapple Ice','P&B Cloud'
+    'Sour Watermelon Gummy','Blueberry sour raspberry','Jasmine Raspberry'
   ].map((n,i)=>({
     id: i+1,
     name: `Elf Liq – ${n}`,
@@ -236,7 +239,9 @@ const products = [
 
   // Chaser F/P
   ...[ 
-    'Blue Raspberry','Cherry','Pomegranate','Watermelon Menthol','Sweet Cherry (Черешня)','Berries' 
+    'Blue Raspberry','Cherry Menthol','Currant Menthol',
+    'Watermelon Menthol','Mint','Blueberry Menthol',
+    'Apple Mint'
   ].map((n,i)=>({
     id: 100+i,
     name: `Chaser – ${n}`,
@@ -249,7 +254,7 @@ const products = [
 
 // Chaser Black
   ...[ 
-    'Grape Blackberry','Triple Berry','Wild Strawberry Mint' 
+    'Blueberry Lemon','Triple Berry','Energy Grape','Forest Mix'
   ].map((n,i)=>({
     id: 200+i,
     name: `Chaser – ${n}`,
@@ -261,7 +266,7 @@ const products = [
   })),
 
 // Chaser My Mint
-  ...[ 'PepperMint' ].map((n,i)=>({
+  /*...[ 'PepperMint' ].map((n,i)=>({
     id: 300+i,
     name: `Chaser – ${n}`,
     brand: 'chaser',
@@ -269,7 +274,7 @@ const products = [
     price: discounts.chaser.old,
     category: 'liquid',
     img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
-  })),
+  })),*/
 
   // Cartridge
   /*{
