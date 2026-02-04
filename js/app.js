@@ -698,7 +698,11 @@ function confirmDelivery() {
 
 function showOrderModal(){
   const orderId = Date.now().toString().slice(-6);
-  const total = cart.reduce((s,p)=>s + p.price*p.qty,0);
+  const itemsTotal = cart.reduce((s,p)=>s + p.price*p.qty, 0);
+  const total = lastOrderDelivery === 'pickup_aupark'
+    ? itemsTotal + 1
+    : itemsTotal;
+
 
   const lines = cart.map(p =>
     `• ${p.name} × ${p.qty} — ${formatPricePLN(p.price*p.qty)}`
