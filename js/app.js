@@ -249,7 +249,7 @@ const products = [
 
     // Elf Liq
   ...[
-    'Blue razz Ice','Strawberry snoow','Peach Ice',
+    'Blue razz Ice','Strawberry Snoow','Peach Ice',
     'Lemon Lime','Strawberry Ice','Pineapple Ice','P&B Cloud',
     'Strawberry raspberry cherry ice','Elf Jack','Blackberry lemon',
     'Apple Peach','Blackcurrant aniseed','Blueberry',
