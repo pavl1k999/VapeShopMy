@@ -287,6 +287,8 @@ const products = [
 let cart = [];
 let favorites = [];
 let showingFavorites = false;
+let promoApplied = localStorage.getItem('promo_NEWVAPORSKE') === 'used';
+let promoDiscount = 0;
 
 // Elements
 const mainPage = document.getElementById('mainPage');
@@ -421,6 +423,18 @@ function renderCart(){
     return;
   }
   let totalPLN=0;
+  if (promoApplied) {
+  const discountValue = totalPLN * promoDiscount;
+  totalPLN = Math.round(totalPLN - discountValue);
+
+  totalBox.innerHTML = `
+    ${i18n[lang].total}: ${formatPricePLN(totalPLN)}
+      <div style="font-size:13px;color:var(--accent)">
+        −20% промокод
+      </div>
+    `;
+    return;
+  }
   cart.forEach((p,i)=>{
     totalPLN+=p.price*p.qty;
     box.innerHTML+=`
@@ -705,6 +719,15 @@ function showOrderModal(){
   lastOrderPayment = paymentEl.value; // 'cash', 'tatra', 'ua_card', 'usdt'
   const paymentText  = i18n[lang]['pay_' + lastOrderPayment]  || lastOrderPayment;
 
+  let promoText = '';
+  if (promoApplied) {
+    promoText = lang === 'ua'
+      ? '🎟 Промокод: -20%'
+      : lang === 'en'
+        ? '🎟 Promo code: -20%'
+        : '🎟 Промокод: -20%';
+  }
+  
   lastOrderText =
   `${i18n[lang].orderNumber}: #${orderId}
   👨‍💼 ${i18n[lang].consultant}: @${ADMIN_NICK}
@@ -712,6 +735,7 @@ function showOrderModal(){
   ${i18n[lang].deliveryLabel}: ${deliveryText}
   ${i18n[lang].paymentLabel}: ${paymentText}
   ${lastOrderCashText ? '💶 ' + lastOrderCashText : ''}
+  ${promoText}
 
   ${lines.join('\n')}
 
@@ -764,6 +788,46 @@ document.getElementById('cashFromInput').addEventListener('input', e => {
   cashFromAmount = parseFloat(e.target.value) || 0;
 });
 
+function applyPromo() {
+  const input = document.getElementById('promoInput');
+  const info  = document.getElementById('promoInfo');
+  const code  = input.value.trim().toUpperCase();
+
+  if (promoApplied) {
+    info.textContent = lang === 'ua'
+      ? 'Промокод вже використано'
+      : lang === 'en'
+        ? 'Promo code already used'
+        : 'Промокод уже использован';
+    info.classList.remove('hidden');
+    return;
+  }
+
+  if (code !== 'NEWVAPORSKE') {
+    info.textContent = lang === 'ua'
+      ? 'Невірний промокод'
+      : lang === 'en'
+        ? 'Invalid promo code'
+        : 'Неверный промокод';
+    info.classList.remove('hidden');
+    return;
+  }
+
+  promoApplied = true;
+  promoDiscount = 0.20;
+  localStorage.setItem('promo_NEWVAPORSKE', 'used');
+
+  info.textContent = lang === 'ua'
+    ? 'Промокод застосовано: -20%'
+    : lang === 'en'
+      ? 'Promo applied: -20%'
+      : 'Промокод применён: -20%';
+
+  info.classList.remove('hidden');
+  input.disabled = true;
+
+  renderCart();
+}
 
 window.addEventListener('load', ()=>{
   loadCart();
