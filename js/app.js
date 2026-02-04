@@ -218,24 +218,6 @@ const discounts = {
 
 // Products (base prices in PLN)
 const products = [
-  // Elf Liq
-  ...[
-    'Blue razz Ice','Strawberry snow','Peach Ice',
-    'Lemon Lime','Strawberry Ice','Pineapple Ice','P&B Cloud',
-    'Strawberry raspberry cherry ice','Elf Jack','Blackberry lemon',
-    'Apple Peach','Blackcurrant aniseed','Blueberry',
-    'Cherry','Double Apple','Kiwi Passion Fruit Guava',
-    'Sour Watermelon Gummy','Blueberry sour raspberry','Jasmine Raspberry'
-  ].map((n,i)=>({
-    id: i+1,
-    name: `Elf Liq – ${n}`,
-    brand: 'elf',
-    price: discounts.elf.old,
-    category: 'liquid',
-    img: `images/elf/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png` // уникальная картинка по названию
-  })),
-
-  // Chaser
 
   // Chaser F/P
   ...[ 
@@ -263,6 +245,23 @@ const products = [
     price: discounts.chaser.old,
     category: 'liquid',
     img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
+  })),
+
+    // Elf Liq
+  ...[
+    'Blue razz Ice','Strawberry snow','Peach Ice',
+    'Lemon Lime','Strawberry Ice','Pineapple Ice','P&B Cloud',
+    'Strawberry raspberry cherry ice','Elf Jack','Blackberry lemon',
+    'Apple Peach','Blackcurrant aniseed','Blueberry',
+    'Cherry','Double Apple','Kiwi Passion Fruit Guava',
+    'Sour Watermelon Gummy','Blueberry sour raspberry','Jasmine Raspberry'
+  ].map((n,i)=>({
+    id: i+1,
+    name: `Elf Liq – ${n}`,
+    brand: 'elf',
+    price: discounts.elf.old,
+    category: 'liquid',
+    img: `images/elf/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png` // уникальная картинка по названию
   })),
 
 // Chaser My Mint
