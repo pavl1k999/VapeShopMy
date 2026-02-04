@@ -1020,6 +1020,48 @@ input[name="cash_change"]:checked + label {
   color: #e879f9;
 }
 
+/* PROMO CODE */
+.promo-box {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.promo-box input {
+  flex: 1;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  font-size: 14px;
+}
+
+.promo-box input::placeholder {
+  color: #aaa;
+}
+
+.promo-box button {
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.promo-info {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.hidden {
+  display: none;
+}
 
 .order-details { color: #ddd; font-size: 14px; margin: 8px 0; }
 .order-details ul { margin: 6px 0 0 16px; }
