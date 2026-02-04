@@ -191,6 +191,18 @@
   <div id="cartItems"></div>
   <div id="cartTotal" class="cart-total"></div>
 
+  <div class="promo-box">
+  <input
+    type="text"
+    id="promoInput"
+    placeholder="Промокод"
+  >
+    <button onclick="applyPromo()">OK</button>
+  </div>
+
+  <div id="promoInfo" class="promo-info hidden"></div>
+
+
   <div class="checkout-panel">
     <button class="checkout-btn" onclick="checkout()" data-i18n="checkout">
       Оформить заказ
