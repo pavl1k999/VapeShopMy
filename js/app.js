@@ -2,9 +2,6 @@
 const ADMIN_NICK = 'pvlenemy';
 const ADMIN_URL = `https://t.me/${ADMIN_NICK}`;
 
-let promoApplied = localStorage.getItem('promo_NEWVAPORSKE') === 'used';
-let promoDiscount = 0; // 0 или 0.2
-
 // Currency and language (updated rates)
 const currencyRates = {
   EUR: 1,     // база
@@ -423,16 +420,9 @@ function renderCart(){
     totalBox.textContent = '';
     return;
   }
-  let totalPLN = 0;
-  cart.forEach(p => {
-    totalPLN += p.price * p.qty;
-  });
-
-  let discountValue = 0;
-  if (promoDiscount > 0) {
-    discountValue = totalPLN * promoDiscount;
-  }
-
+  let totalPLN=0;
+  cart.forEach((p,i)=>{
+    totalPLN+=p.price*p.qty;
     box.innerHTML+=`
       <div class="cart-item">
         <img src="${p.img}" alt="${p.name}">
@@ -448,44 +438,7 @@ function renderCart(){
         </div>
       </div>`;
   });
-  let finalTotal = totalPLN - discountValue;
-
-  totalBox.innerHTML = `
-  ${promoDiscount ? `<div>-20%: −${formatPricePLN(discountValue)}</div>` : ''}
-  <b>${i18n[lang].total}: ${formatPricePLN(finalTotal)}</b>
-  `;
-}
-
-function applyPromo() {
-  if (promoApplied) {
-    showToast(lang === 'ua'
-      ? 'Промокод уже використано'
-      : 'Промокод уже использован'
-    );
-    return;
-  }
-
-  const input = document.getElementById('promoInput');
-  const code = input.value.trim().toUpperCase();
-
-  if (code !== 'NEWVAPORSKE') {
-    showToast(lang === 'ua'
-      ? 'Невірний промокод'
-      : 'Неверный промокод'
-    );
-    return;
-  }
-
-  promoDiscount = 0.2;
-  promoApplied = true;
-  localStorage.setItem('promo_NEWVAPORSKE', 'used');
-
-  document.getElementById('promoInfo').textContent =
-    lang === 'ua'
-      ? 'Промокод застосовано: -20%'
-      : 'Промокод применён: -20%';
-
-  renderCart();
+  totalBox.textContent = `${i18n[lang].total}: ${formatPricePLN(totalPLN)}`;
 }
 
 // Interactions
@@ -741,9 +694,7 @@ function confirmDelivery() {
 
 function showOrderModal(){
   const orderId = Date.now().toString().slice(-6);
-  const rawTotal = cart.reduce((s,p)=>s + p.price*p.qty,0);
-  const discount = promoDiscount ? rawTotal * promoDiscount : 0;
-  const total = rawTotal - discount;
+  const total = cart.reduce((s,p)=>s + p.price*p.qty,0);
 
   const lines = cart.map(p =>
     `• ${p.name} × ${p.qty} — ${formatPricePLN(p.price*p.qty)}`
@@ -761,7 +712,6 @@ function showOrderModal(){
   ${i18n[lang].deliveryLabel}: ${deliveryText}
   ${i18n[lang].paymentLabel}: ${paymentText}
   ${lastOrderCashText ? '💶 ' + lastOrderCashText : ''}
-  ${promoDiscount ? '🏷️ Promo NEWVAPORSKE: -20%' : ''}
 
   ${lines.join('\n')}
 
@@ -836,4 +786,3 @@ window.addEventListener('load', ()=>{
 
   updateCartCount();
 });
-
