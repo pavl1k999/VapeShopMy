@@ -1,6 +1,6 @@
 // Admin
 const ADMIN_NICK = 'pvlenemy';
-const ADMIN_URL = `https://t.me/${ADMIN_NICK}`;
+const ADMIN_URL = https://t.me/${ADMIN_NICK};
 
 // Currency and language (updated rates)
 const currencyRates = {
@@ -15,6 +15,13 @@ const currencySymbols = {
 
 // по умолчанию ЕВРО
 let currency = localStorage.getItem('currency') || 'EUR';
+let selectedDelivery = '';
+let selectedPayment = '';
+let lastOrderDelivery = '';
+let lastOrderPayment = '';
+let lastOrderText = '';
+
+
 
 // I18n dictionary
 const i18n = {
@@ -51,6 +58,32 @@ const i18n = {
     consultant: "Ваш консультант",
     orderNumber: "Номер заказа",
     total: "Итого",
+    aboutBtn: "О нас",    
+    aboutTitle: "О нас",
+    aboutCities: "Работаем в Košice и Prešov",
+    aboutLocation: "Самовывоз: Pražská 2 (общежитие)",
+    aboutDelivery: "Доставка: Aupark +1€, TUKE — договорная цена",
+    aboutPayment: "Любые способы оплаты — наличные, карты, крипта",
+    aboutNote: "Telegram может блокировать каналы.",
+    aboutAdapter: "Наш переходник",
+    deliveryPayment: "Доставка и оплата",
+    delivery: "Способ доставки",
+    continue: "Продолжить",
+    copyOrder: "Скопировать и открыть Telegram",
+    pickup_prazska: "Самовывоз — Pražska 2",
+    pickup_aupark: "Доставка ТЦ Aupark (+1€)",
+    pickup_tuke: "Доставка TUKE (договорная)",
+    pay_cash: "Наличные",
+    pay_ua_card: "Украинская карта",
+    pay_tatra: "Европейская карта",
+    pay_usdt: "USDT (TRC20)",
+    deliveryLabel: "📦 Доставка",
+    paymentLabel: "💳 Оплата",
+    cashNoChange: 'Без сдачи',
+    cashFromSum: 'С какой суммы',
+    cashFrom: 'Сдача с',
+    cashChange: 'Сдача'
+    
   },
   ua: {
     addToCart: "До кошика",
@@ -85,6 +118,32 @@ const i18n = {
     consultant: "Ваш консультант",
     orderNumber: "Номер замовлення",
     total: "Разом",
+    aboutBtn: "Про нас",
+    aboutTitle: "Про нас",
+    aboutCities: "Працюємо в Košice та Prešov",
+    aboutLocation: "Самовивіз: Pražská 2 (гуртожиток)",
+    aboutDelivery: "Доставка: Aupark +1€, TUKE — ціна за домовленістю",
+    aboutPayment: "Будь-які способи оплати — готівка, картка, крипта",
+    aboutNote: "Telegram може блокувати канали.",
+    aboutAdapter: "Наш перехідник",
+    deliveryPayment: "Доставка та оплата",
+    delivery: "Спосіб доставки",
+    payment: "Спосіб оплати",
+    continue: "Продовжити",
+    copyOrder: "Скопіювати і відкрити Telegram",
+    pickup_prazska: "Самовивіз — Pražska 2",
+    pickup_aupark: "Доставка ТЦ Aupark (+1€)",
+    pickup_tuke: "Доставка TUKE (договірна)",
+    pay_cash: "Готівка",
+    pay_ua_card: "Українська карта",
+    pay_tatra: "Європейська карта",
+    pay_usdt: "USDT (TRC20)",
+    deliveryLabel: "📦 Доставка",
+    paymentLabel: "💳 Оплата",
+    cashNoChange: 'Без решти',
+    cashFromSum: 'З якої суми',
+    cashFrom: 'Решта з',
+    cashChange: 'Решта'
   },
   en: {
     addToCart: "Add to cart",
@@ -119,6 +178,32 @@ const i18n = {
     consultant: "Your consultant",
     orderNumber: "Order number",
     total: "Total",
+    aboutBtn: "About us",
+    aboutTitle: "About us",
+    aboutCities: "We work in Košice and Prešov",
+    aboutLocation: "Pickup: Pražská 2 (dormitory)",
+    aboutDelivery: "Delivery: Aupark +1€, TUKE — price by agreement",
+    aboutPayment: "Any payment methods — cash, card, crypto",
+    aboutNote: "Telegram can block channels.",
+    aboutAdapter: "Our adapter",
+    deliveryPayment: "Delivery & payment",
+    delivery: "Delivery method",
+    payment: "Payment method",
+    continue: "Continue",
+    copyOrder: "Copy & open Telegram",
+    pickup_prazska: "Pickup — Pražska 2",
+    pickup_aupark: "Delivery Aupark Mall (+1€)",
+    pickup_tuke: "Delivery TUKE (contractual)",
+    pay_cash: "Cash",
+    pay_ua_card: "Ukrainian card",
+    pay_tatra: "European card",
+    pay_usdt: "USDT (TRC20)",
+    deliveryLabel: "📦 Delivery",
+    paymentLabel: "💳 Payment",
+    cashNoChange: 'No change',
+    cashFromSum: 'Cash amount',
+    cashFrom: 'Change from',
+    cashChange: 'Change'
   }
 };
 let lang = localStorage.getItem('lang') || 'ua';
@@ -135,31 +220,31 @@ const discounts = {
 const products = [
   // Elf Liq
   ...[
-    'Apple Peach','Blackcurrant annised','Blueberry',
+    'Apple Peach','Blackcurrant aniseed','Blueberry',
     'Cherry','Double Apple','Kiwi Passion Fruit Guava',
     'Lemon Lime','Strawberry Ice','Pineapple Ice','P&B Cloud'
   ].map((n,i)=>({
     id: i+1,
-    name: `Elf Liq – ${n}`,
+    name: Elf Liq – ${n},
     brand: 'elf',
     price: discounts.elf.old,
     category: 'liquid',
-    img: `images/elf/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png` // уникальная картинка по названию
+    img: images/elf/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png // уникальная картинка по названию
   })),
 
   // Chaser
 
   // Chaser F/P
   ...[ 
-    'Blue Raspberry','Cherry','Pomegranate','Watermelon Menthol','Sweet Cherry','Berries' 
+    'Blue Raspberry','Cherry','Pomegranate','Watermelon Menthol','Sweet Cherry (Черешня)','Berries' 
   ].map((n,i)=>({
     id: 100+i,
-    name: `Chaser – ${n}`,
+    name: Chaser – ${n},
     brand: 'chaser',
     subBrand: 'fp',   // Chaser F/P
     price: discounts.chaser.old,
     category: 'liquid',
-    img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
+    img: images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png
   })),
 
 // Chaser Black
@@ -167,23 +252,23 @@ const products = [
     'Grape Blackberry','Triple Berry','Wild Strawberry Mint' 
   ].map((n,i)=>({
     id: 200+i,
-    name: `Chaser – ${n}`,
+    name: Chaser – ${n},
     brand: 'chaser',
     subBrand: 'black',  // Chaser Black
     price: discounts.chaser.old,
     category: 'liquid',
-    img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
+    img: images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png
   })),
 
 // Chaser My Mint
   ...[ 'PepperMint' ].map((n,i)=>({
     id: 300+i,
-    name: `Chaser – ${n}`,
+    name: Chaser – ${n},
     brand: 'chaser',
     subBrand: 'mymint', // Chaser My Mint
     price: discounts.chaser.old,
     category: 'liquid',
-    img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
+    img: images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png
   })),
 
   // Cartridge
@@ -214,7 +299,7 @@ function formatPricePLN(eu){
   const rate = currencyRates[currency];
   const symbol = currencySymbols[currency];
   const converted = Math.round(eu * rate);
-  return `${converted} ${symbol}`;
+  return ${converted} ${symbol};
 }
 
 function showToast(msgKeyOrText){
@@ -238,7 +323,7 @@ function flyToCart(imgEl){
   document.body.appendChild(clone);
   const dx = rectCart.left - rectImg.left;
   const dy = rectCart.top - rectImg.top;
-  clone.style.transform = `translate(${dx}px, ${dy}px) scale(0.4)`;
+  clone.style.transform = translate(${dx}px, ${dy}px) scale(0.4);
   clone.style.opacity = '0.2';
   setTimeout(()=> clone.remove(), 620);
 }
@@ -268,7 +353,7 @@ function renderProducts() {
   productList.innerHTML = '';
 
   if (!items.length) {
-    productList.innerHTML = `<p class="empty">${i18n[lang].emptyProducts}</p>`;
+    productList.innerHTML = <p class="empty">${i18n[lang].emptyProducts}</p>;
     return;
   }
 
@@ -277,14 +362,14 @@ function renderProducts() {
     const discount = discounts[p.brand];
     const newPrice = discount ? discount.new : p.price;
 
-    productList.innerHTML += `
+    productList.innerHTML += 
       <div class="product">
         <img src="${p.img}" alt="${p.name}">
         <h4>${p.name}</h4>
         <div class="muted">${i18n[lang][p.category] || p.category}</div>
 
         <div class="price-box">
-          ${discount ? `<span class="old-price">${formatPricePLN(p.price)}</span>` : ''}
+          ${discount ? <span class="old-price">${formatPricePLN(p.price)}</span> : ''}
           <span class="new-price">${formatPricePLN(newPrice)}</span>
         </div>
 
@@ -297,7 +382,7 @@ function renderProducts() {
           </button>
         </div>
       </div>
-    `;
+    ;
   });
 }
 
@@ -331,14 +416,14 @@ function renderCart(){
   const totalBox=document.getElementById('cartTotal');
   box.innerHTML='';
   if(!cart.length){
-    box.innerHTML = `<p class="empty">${i18n[lang].emptyCart}</p>`;
+    box.innerHTML = <p class="empty">${i18n[lang].emptyCart}</p>;
     totalBox.textContent = '';
     return;
   }
   let totalPLN=0;
   cart.forEach((p,i)=>{
     totalPLN+=p.price*p.qty;
-    box.innerHTML+=`
+    box.innerHTML+=
       <div class="cart-item">
         <img src="${p.img}" alt="${p.name}">
         <div style="flex:1">
@@ -351,9 +436,9 @@ function renderCart(){
             <button class="remove-btn" onclick="removeFromCart(${i})">${lang==='ru'?'Удалить':lang==='ua'?'Видалити':'Remove'}</button>
           </div>
         </div>
-      </div>`;
+      </div>;
   });
-  totalBox.textContent = `${i18n[lang].total}: ${formatPricePLN(totalPLN)}`;
+  totalBox.textContent = ${i18n[lang].total}: ${formatPricePLN(totalPLN)};
 }
 
 // Interactions
@@ -478,28 +563,11 @@ function setCurrency(c){
 
 // Checkout modal
 function checkout(){
-  if(!cart.length) return alert(i18n[lang].emptyCart);
-
-  const orderId = Date.now().toString().slice(-6);
-  const totalPLN = cart.reduce((s,p)=>s + p.price * p.qty, 0);
-
-  const lines = cart.map(p =>
-    `• ${p.name} × ${p.qty} — ${formatPricePLN(p.price * p.qty)}`
-  );
-
-  lastOrderText =
-`${i18n[lang].orderNumber}: ${orderId}
-${i18n[lang].consultant}: @${ADMIN_NICK}
-
-${lines.join('\n')}
-
-${i18n[lang].total}: ${formatPricePLN(totalPLN)}`;
-
-  document.getElementById('orderText').value = lastOrderText;
-  document.getElementById('orderNumberLabel').textContent =
-    `${i18n[lang].orderNumber}: #${orderId}`;
-
-  openOrderModal();
+  if(!cart.length){
+    alert(i18n[lang].emptyCart);
+    return;
+  }
+  openDeliveryModal();
 }
 
 function openOrderModal(){
@@ -569,6 +637,133 @@ function openAbout(){
 function closeAbout(){
   document.getElementById('aboutModal').classList.add('hidden');
 }
+
+
+function openDeliveryModal(){
+  document.getElementById('deliveryModal').classList.remove('hidden');
+  closeCart(); // скрываем корзину на время
+}
+
+function closeDeliveryModal(){
+  document.getElementById('deliveryModal').classList.add('hidden');
+}
+
+let lastOrderCashText = '';
+const cashChangeBlock = document.getElementById('cashChangeBlock');
+const cashFromInput = document.getElementById('cashFromInput');
+let cashChangeType = '';
+let cashFromAmount = 0;
+
+function confirmDelivery() {
+  const deliveryEl = document.querySelector('input[name="delivery"]:checked');
+  const paymentEl  = document.querySelector('input[name="payment"]:checked');
+
+  if (!deliveryEl || !paymentEl) {
+    showToast(lang === 'ua' ? 'Оберіть доставку та оплату' : 'Выберите доставку и оплату');
+    return;
+  }
+
+  lastOrderDelivery = deliveryEl.value;
+  lastOrderPayment  = paymentEl.value;
+
+  const orderTotal = cart.reduce((s, p) => s + p.price * p.qty, 0);
+
+  if (lastOrderPayment === 'cash') {
+    if (!cashChangeType) {
+      showToast(lang === 'ua' ? 'Оберіть варіант здачі' : 'Выберите вариант сдачи');
+      return;
+    }
+
+    if (cashChangeType === 'from_sum' && cashFromAmount < orderTotal) {
+      showToast(lang === 'ua' ? 'Сума менше вартості замовлення' : 'Сумма меньше стоимости заказа');
+      return;
+    }
+  }
+
+  lastOrderCashText = '';
+  if (lastOrderPayment === 'cash') {
+    lastOrderCashText =
+      cashChangeType === 'no_change'
+        ? i18n[lang].cashNoChange
+        : ${i18n[lang].cashFrom} ${cashFromAmount} €;
+  }
+
+  closeDeliveryModal();
+  showOrderModal();
+}
+
+function showOrderModal(){
+  const orderId = Date.now().toString().slice(-6);
+  const total = cart.reduce((s,p)=>s + p.price*p.qty,0);
+
+  const lines = cart.map(p =>
+    • ${p.name} × ${p.qty} — ${formatPricePLN(p.price*p.qty)}
+  );
+
+  // Получаем текст доставки и оплаты из словаря i18n
+  const deliveryText = i18n[lang][lastOrderDelivery] || lastOrderDelivery;
+  lastOrderPayment = paymentEl.value; // 'cash', 'tatra', 'ua_card', 'usdt'
+  const paymentText  = i18n[lang]['pay_' + lastOrderPayment]  || lastOrderPayment;
+
+  lastOrderText =
+  ${i18n[lang].orderNumber}: #${orderId}
+  👨‍💼 ${i18n[lang].consultant}: @${ADMIN_NICK}
+
+  ${i18n[lang].deliveryLabel}: ${deliveryText}
+  ${i18n[lang].paymentLabel}: ${paymentText}
+  ${lastOrderCashText ? '💶 ' + lastOrderCashText : ''}
+
+  ${lines.join('\n')}
+
+  💰 ${i18n[lang].total}: ${formatPricePLN(total)};
+
+  document.getElementById('orderText').value = lastOrderText;
+    document.getElementById('orderNumberLabel').textContent =
+      ${i18n[lang].orderNumber}: #${orderId};
+
+    document.getElementById('orderModal').classList.remove('hidden');
+  }
+
+// Показываем/скрываем блок сдачи при выборе способа оплаты
+document.querySelectorAll('input[name="payment"]').forEach(radio => {
+  radio.addEventListener('change', e => {
+    if (e.target.value === 'cash') {
+      cashChangeBlock.classList.remove('hidden'); // показываем
+      cashChangeType = ''; // сбрасываем
+      cashFromAmount = 0;
+      cashFromInput.value = '';
+    } else {
+      cashChangeBlock.classList.add('hidden'); // скрываем
+      cashChangeType = '';
+      cashFromAmount = 0;
+      cashFromInput.value = '';
+    }
+  });
+});
+
+// Отслеживаем выбор радио для сдачи
+document.querySelectorAll('input[name="cash_change"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    cashChangeType = radio.value;
+    if (radio.value === 'from_sum') {
+      cashFromInput.classList.remove('hidden');
+      cashFromInput.focus();
+    } else {
+      cashFromInput.classList.add('hidden');
+      cashFromAmount = 0;
+    }
+  });
+});
+
+cashFromInput.addEventListener('input', e => {
+  cashFromAmount = parseFloat(e.target.value) || 0;
+});
+
+
+document.getElementById('cashFromInput').addEventListener('input', e => {
+  cashFromAmount = parseFloat(e.target.value) || 0;
+});
+
 
 window.addEventListener('load', ()=>{
   loadCart();
