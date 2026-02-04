@@ -1,6 +1,6 @@
 // Admin
 const ADMIN_NICK = 'pvlenemy';
-const ADMIN_URL = https://t.me/${ADMIN_NICK};
+const ADMIN_URL = `https://t.me/${ADMIN_NICK}`;
 
 // Currency and language (updated rates)
 const currencyRates = {
@@ -225,11 +225,11 @@ const products = [
     'Lemon Lime','Strawberry Ice','Pineapple Ice','P&B Cloud'
   ].map((n,i)=>({
     id: i+1,
-    name: Elf Liq – ${n},
+    name: `Elf Liq – ${n}`,
     brand: 'elf',
     price: discounts.elf.old,
     category: 'liquid',
-    img: images/elf/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png // уникальная картинка по названию
+    img: `images/elf/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png` // уникальная картинка по названию
   })),
 
   // Chaser
@@ -239,12 +239,12 @@ const products = [
     'Blue Raspberry','Cherry','Pomegranate','Watermelon Menthol','Sweet Cherry (Черешня)','Berries' 
   ].map((n,i)=>({
     id: 100+i,
-    name: Chaser – ${n},
+    name: `Chaser – ${n}`,
     brand: 'chaser',
     subBrand: 'fp',   // Chaser F/P
     price: discounts.chaser.old,
     category: 'liquid',
-    img: images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png
+    img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
   })),
 
 // Chaser Black
@@ -252,23 +252,23 @@ const products = [
     'Grape Blackberry','Triple Berry','Wild Strawberry Mint' 
   ].map((n,i)=>({
     id: 200+i,
-    name: Chaser – ${n},
+    name: `Chaser – ${n}`,
     brand: 'chaser',
     subBrand: 'black',  // Chaser Black
     price: discounts.chaser.old,
     category: 'liquid',
-    img: images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png
+    img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
   })),
 
 // Chaser My Mint
   ...[ 'PepperMint' ].map((n,i)=>({
     id: 300+i,
-    name: Chaser – ${n},
+    name: `Chaser – ${n}`,
     brand: 'chaser',
     subBrand: 'mymint', // Chaser My Mint
     price: discounts.chaser.old,
     category: 'liquid',
-    img: images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png
+    img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
   })),
 
   // Cartridge
@@ -299,7 +299,7 @@ function formatPricePLN(eu){
   const rate = currencyRates[currency];
   const symbol = currencySymbols[currency];
   const converted = Math.round(eu * rate);
-  return ${converted} ${symbol};
+  return `${converted} ${symbol}`;
 }
 
 function showToast(msgKeyOrText){
@@ -323,7 +323,7 @@ function flyToCart(imgEl){
   document.body.appendChild(clone);
   const dx = rectCart.left - rectImg.left;
   const dy = rectCart.top - rectImg.top;
-  clone.style.transform = translate(${dx}px, ${dy}px) scale(0.4);
+  clone.style.transform = `translate(${dx}px, ${dy}px) scale(0.4)`;
   clone.style.opacity = '0.2';
   setTimeout(()=> clone.remove(), 620);
 }
@@ -353,7 +353,7 @@ function renderProducts() {
   productList.innerHTML = '';
 
   if (!items.length) {
-    productList.innerHTML = <p class="empty">${i18n[lang].emptyProducts}</p>;
+    productList.innerHTML = `<p class="empty">${i18n[lang].emptyProducts}</p>`;
     return;
   }
 
@@ -362,14 +362,14 @@ function renderProducts() {
     const discount = discounts[p.brand];
     const newPrice = discount ? discount.new : p.price;
 
-    productList.innerHTML += 
+    productList.innerHTML += `
       <div class="product">
         <img src="${p.img}" alt="${p.name}">
         <h4>${p.name}</h4>
         <div class="muted">${i18n[lang][p.category] || p.category}</div>
 
         <div class="price-box">
-          ${discount ? <span class="old-price">${formatPricePLN(p.price)}</span> : ''}
+          ${discount ? `<span class="old-price">${formatPricePLN(p.price)}</span>` : ''}
           <span class="new-price">${formatPricePLN(newPrice)}</span>
         </div>
 
@@ -382,7 +382,7 @@ function renderProducts() {
           </button>
         </div>
       </div>
-    ;
+    `;
   });
 }
 
@@ -416,14 +416,14 @@ function renderCart(){
   const totalBox=document.getElementById('cartTotal');
   box.innerHTML='';
   if(!cart.length){
-    box.innerHTML = <p class="empty">${i18n[lang].emptyCart}</p>;
+    box.innerHTML = `<p class="empty">${i18n[lang].emptyCart}</p>`;
     totalBox.textContent = '';
     return;
   }
   let totalPLN=0;
   cart.forEach((p,i)=>{
     totalPLN+=p.price*p.qty;
-    box.innerHTML+=
+    box.innerHTML+=`
       <div class="cart-item">
         <img src="${p.img}" alt="${p.name}">
         <div style="flex:1">
@@ -436,9 +436,9 @@ function renderCart(){
             <button class="remove-btn" onclick="removeFromCart(${i})">${lang==='ru'?'Удалить':lang==='ua'?'Видалити':'Remove'}</button>
           </div>
         </div>
-      </div>;
+      </div>`;
   });
-  totalBox.textContent = ${i18n[lang].total}: ${formatPricePLN(totalPLN)};
+  totalBox.textContent = `${i18n[lang].total}: ${formatPricePLN(totalPLN)}`;
 }
 
 // Interactions
@@ -685,7 +685,7 @@ function confirmDelivery() {
     lastOrderCashText =
       cashChangeType === 'no_change'
         ? i18n[lang].cashNoChange
-        : ${i18n[lang].cashFrom} ${cashFromAmount} €;
+        : `${i18n[lang].cashFrom} ${cashFromAmount} €`;
   }
 
   closeDeliveryModal();
@@ -697,32 +697,31 @@ function showOrderModal(){
   const total = cart.reduce((s,p)=>s + p.price*p.qty,0);
 
   const lines = cart.map(p =>
-    • ${p.name} × ${p.qty} — ${formatPricePLN(p.price*p.qty)}
+    `• ${p.name} × ${p.qty} — ${formatPricePLN(p.price*p.qty)}`
   );
 
   // Получаем текст доставки и оплаты из словаря i18n
   const deliveryText = i18n[lang][lastOrderDelivery] || lastOrderDelivery;
-  lastOrderPayment = paymentEl.value; // 'cash', 'tatra', 'ua_card', 'usdt'
-  const paymentText  = i18n[lang]['pay_' + lastOrderPayment]  || lastOrderPayment;
+  const paymentText  = i18n[lang][lastOrderPayment]  || lastOrderPayment;
 
   lastOrderText =
-  ${i18n[lang].orderNumber}: #${orderId}
-  👨‍💼 ${i18n[lang].consultant}: @${ADMIN_NICK}
+`${i18n[lang].orderNumber}: #${orderId}
+👨‍💼 ${i18n[lang].consultant}: @${ADMIN_NICK}
 
-  ${i18n[lang].deliveryLabel}: ${deliveryText}
-  ${i18n[lang].paymentLabel}: ${paymentText}
-  ${lastOrderCashText ? '💶 ' + lastOrderCashText : ''}
+${i18n[lang].deliveryLabel}: ${deliveryText}
+${i18n[lang].paymentLabel}: ${paymentText}
+${lastOrderCashText ? '💶 ' + lastOrderCashText : ''}
 
-  ${lines.join('\n')}
+${lines.join('\n')}
 
-  💰 ${i18n[lang].total}: ${formatPricePLN(total)};
+💰 ${i18n[lang].total}: ${formatPricePLN(total)}`;
 
   document.getElementById('orderText').value = lastOrderText;
-    document.getElementById('orderNumberLabel').textContent =
-      ${i18n[lang].orderNumber}: #${orderId};
+  document.getElementById('orderNumberLabel').textContent =
+    `${i18n[lang].orderNumber}: #${orderId}`;
 
-    document.getElementById('orderModal').classList.remove('hidden');
-  }
+  document.getElementById('orderModal').classList.remove('hidden');
+}
 
 // Показываем/скрываем блок сдачи при выборе способа оплаты
 document.querySelectorAll('input[name="payment"]').forEach(radio => {
