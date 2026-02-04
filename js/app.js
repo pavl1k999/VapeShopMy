@@ -414,32 +414,24 @@ function getFilteredProducts() {
 }
 
 function renderCart(){
-  const box=document.getElementById('cartItems');
-  const totalBox=document.getElementById('cartTotal');
-  box.innerHTML='';
+  const box = document.getElementById('cartItems');
+  const totalBox = document.getElementById('cartTotal');
+  box.innerHTML = '';
+
   if(!cart.length){
     box.innerHTML = `<p class="empty">${i18n[lang].emptyCart}</p>`;
     totalBox.textContent = '';
     return;
   }
-  let totalPLN=0;
-  if (promoApplied) {
-  const discountValue = totalPLN * promoDiscount;
-  totalPLN = Math.round(totalPLN - discountValue);
 
-  totalBox.innerHTML = `
-    ${i18n[lang].total}: ${formatPricePLN(totalPLN)}
-      <div style="font-size:13px;color:var(--accent)">
-        −20% промокод
-      </div>
-    `;
-    return;
-  }
+  let totalPLN = 0;
+
   cart.forEach((p,i)=>{
-    totalPLN+=p.price*p.qty;
-    box.innerHTML+=`
+    totalPLN += p.price * p.qty;
+
+    box.innerHTML += `
       <div class="cart-item">
-        <img src="${p.img}" alt="${p.name}">
+        <img src="${p.img}">
         <div style="flex:1">
           <div class="name">${p.name}</div>
           <div class="line">${formatPricePLN(p.price)} × ${p.qty}</div>
@@ -447,12 +439,26 @@ function renderCart(){
             <button class="qty-btn" onclick="changeQty(${i},-1)">–</button>
             <div>${p.qty}</div>
             <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
-            <button class="remove-btn" onclick="removeFromCart(${i})">${lang==='ru'?'Удалить':lang==='ua'?'Видалити':'Remove'}</button>
+            <button class="remove-btn" onclick="removeFromCart(${i})">
+              ${lang==='ru'?'Удалить':lang==='ua'?'Видалити':'Remove'}
+            </button>
           </div>
         </div>
-      </div>`;
+      </div>
+    `;
   });
-  totalBox.textContent = `${i18n[lang].total}: ${formatPricePLN(totalPLN)}`;
+
+  let finalTotal = totalPLN;
+
+  if (promoApplied) {
+    finalTotal = Math.round(totalPLN * (1 - promoDiscount));
+    totalBox.innerHTML = `
+      ${i18n[lang].total}: ${formatPricePLN(finalTotal)}
+      <div style="font-size:13px;color:var(--accent)">−20%</div>
+    `;
+  } else {
+    totalBox.textContent = `${i18n[lang].total}: ${formatPricePLN(finalTotal)}`;
+  }
 }
 
 // Interactions
@@ -708,7 +714,10 @@ function confirmDelivery() {
 
 function showOrderModal(){
   const orderId = Date.now().toString().slice(-6);
-  const total = cart.reduce((s,p)=>s + p.price*p.qty,0);
+  let total = cart.reduce((s,p)=>s + p.price*p.qty,0);
+  if (promoApplied) {
+    total = Math.round(total * (1 - promoDiscount));
+  }
 
   const lines = cart.map(p =>
     `• ${p.name} × ${p.qty} — ${formatPricePLN(p.price*p.qty)}`
@@ -716,8 +725,7 @@ function showOrderModal(){
 
   // Получаем текст доставки и оплаты из словаря i18n
   const deliveryText = i18n[lang][lastOrderDelivery] || lastOrderDelivery;
-  lastOrderPayment = paymentEl.value; // 'cash', 'tatra', 'ua_card', 'usdt'
-  const paymentText  = i18n[lang]['pay_' + lastOrderPayment]  || lastOrderPayment;
+  const paymentText  = i18n[lang]['pay_' + lastOrderPayment] || lastOrderPayment;
 
   let promoText = '';
   if (promoApplied) {
@@ -827,6 +835,8 @@ function applyPromo() {
   input.disabled = true;
 
   renderCart();
+  if (!document.getElementById('orderModal').classList.contains('hidden')) {
+  showOrderModal();
 }
 
 window.addEventListener('load', ()=>{
