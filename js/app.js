@@ -5,7 +5,7 @@ const ADMIN_URL = `https://t.me/${ADMIN_NICK}`;
 // Currency and language (updated rates)
 const currencyRates = {
   EUR: 1,     // база
-  UAH: 50     // примерный курс грн к евро (можешь поменять)
+  UAH: 51     // примерный курс грн к евро (можешь поменять)
 };
 
 const currencySymbols = {
