@@ -808,7 +808,7 @@ async function checkPromoStatus() {
 
   try {
     const res = await fetch(
-      `https://c-pl-1.apexnodes.xyz:2022/promo_status?user_id=${userId}`
+      `https://c-pl-1.apexnodes.xyz:8080/promo_status?user_id=${userId}`
     );
     const data = await res.json();
 
