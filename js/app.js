@@ -291,6 +291,8 @@ const products = [
 let cart = [];
 let favorites = [];
 let showingFavorites = false;
+let promoActive = false;
+let promoPercent = 20;
 
 // Elements
 const mainPage = document.getElementById('mainPage');
@@ -424,9 +426,10 @@ function renderCart(){
     totalBox.textContent = '';
     return;
   }
-  let totalPLN=0;
+  let totalPLN = 0;
   cart.forEach((p,i)=>{
-    totalPLN+=p.price*p.qty;
+    totalPLN += p.price * p.qty;
+  
     box.innerHTML+=`
       <div class="cart-item">
         <img src="${p.img}" alt="${p.name}">
@@ -442,7 +445,16 @@ function renderCart(){
         </div>
       </div>`;
   });
-  totalBox.textContent = `${i18n[lang].total}: ${formatPricePLN(totalPLN)}`;
+
+  let finalTotal = promoActive
+  ? Math.round(totalPLN * 0.8)
+  : totalPLN;
+  
+  totalBox.innerHTML = `
+  ${i18n[lang].total}: ${formatPricePLN(finalTotal)}
+  ${promoActive ? `<div class="promo-active">🎉 Промокод активований −20%</div>` : ''}
+`;
+
 }
 
 // Interactions
@@ -586,12 +598,21 @@ function closeOrderModal(){
 async function copyAndOpenTelegram(){
   try{
     await navigator.clipboard.writeText(lastOrderText);
+
+    if (promoActive && window.Telegram?.WebApp) {
+      Telegram.WebApp.sendData(JSON.stringify({
+        action: "use_promo"
+      }));
+      promoActive = false;
+    }
+
     showToast(lang==='ua'?'Скопійовано':'Скопировано');
     window.open(ADMIN_URL,'_blank');
   }catch{
     showToast('Ошибка копирования');
   }
 }
+
 
 function sendOrderTelegram(){
   // Откроем чат с админом; пользователь отправит ему скопированный текст
@@ -670,7 +691,11 @@ function confirmDelivery() {
   lastOrderDelivery = deliveryEl.value;
   lastOrderPayment  = paymentEl.value;
 
-  const orderTotal = cart.reduce((s, p) => s + p.price * p.qty, 0);
+  let orderTotal = cart.reduce((s, p) => s + p.price * p.qty, 0);
+
+  if (promoActive) {
+    orderTotal = Math.round(orderTotal * 0.8);
+  }
 
   if (lastOrderPayment === 'cash') {
     if (!cashChangeType) {
@@ -698,7 +723,12 @@ function confirmDelivery() {
 
 function showOrderModal(){
   const orderId = Date.now().toString().slice(-6);
-  const itemsTotal = cart.reduce((s,p)=>s + p.price*p.qty, 0);
+  let itemsTotal = cart.reduce((s,p)=>s + p.price*p.qty, 0);
+
+  if (promoActive) {
+    itemsTotal = Math.round(itemsTotal * 0.8);
+  }
+  
   const total = lastOrderDelivery === 'pickup_aupark'
     ? itemsTotal + 1
     : itemsTotal;
@@ -771,8 +801,27 @@ document.getElementById('cashFromInput').addEventListener('input', e => {
   cashFromAmount = parseFloat(e.target.value) || 0;
 });
 
+async function checkPromoStatus() {
+  if (!window.Telegram?.WebApp?.initDataUnsafe?.user) return;
+
+  const userId = Telegram.WebApp.initDataUnsafe.user.id;
+
+  try {
+    const res = await fetch(
+      `https://c-pl-1.apexnodes.xyz:2022/promo_status?user_id=${userId}`
+    );
+    const data = await res.json();
+
+    if (data.status === 'active') {
+      promoActive = true;
+    }
+  } catch (e) {
+    console.error('Promo check error', e);
+  }
+}
 
 window.addEventListener('load', ()=>{
+  checkPromoStatus();
   loadCart();
   loadFavorites();
 
