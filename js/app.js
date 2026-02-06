@@ -810,21 +810,22 @@ function requestPromoStatus() {
 }
 
 if (window.Telegram?.WebApp) {
-  Telegram.WebApp.onEvent("message", (msg) => {
-    if (!msg?.text) return;
+Telegram.WebApp.onEvent("web_app_data", (event) => {
+  const msg = event?.data;
+  if (!msg) return;
 
-    if (msg.text === "PROMO_ACTIVE") {
-      promoActive = true;
-      renderProducts();
-      renderCart();
-    }
+  if (msg === "PROMO_ACTIVE") {
+    promoActive = true;
+    renderProducts();
+    renderCart();
+  }
 
-    if (msg.text === "PROMO_USED") {
-      promoActive = false;
-      renderProducts();
-      renderCart();
-    }
-  });
+  if (msg === "PROMO_USED" || msg === "PROMO_NONE") {
+    promoActive = false;
+    renderProducts();
+    renderCart();
+  }
+});
 }
 
 window.addEventListener('load', ()=>{
