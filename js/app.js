@@ -801,27 +801,34 @@ document.getElementById('cashFromInput').addEventListener('input', e => {
   cashFromAmount = parseFloat(e.target.value) || 0;
 });
 
-async function checkPromoStatus() {
-  if (!window.Telegram?.WebApp?.initDataUnsafe?.user) return;
+function requestPromoStatus() {
+  if (!window.Telegram?.WebApp) return;
 
-  const userId = Telegram.WebApp.initDataUnsafe.user.id;
+  Telegram.WebApp.sendData(JSON.stringify({
+    action: "check_promo"
+  }));
+}
 
-  try {
-    const res = await fetch(
-      `https://c-pl-1.apexnodes.xyz:10910/promo_status?user_id=${userId}`
-    );
-    const data = await res.json();
+if (window.Telegram?.WebApp) {
+  Telegram.WebApp.onEvent("message", (msg) => {
+    if (!msg?.text) return;
 
-    if (data.status === 'active') {
+    if (msg.text === "PROMO_ACTIVE") {
       promoActive = true;
+      renderProducts();
+      renderCart();
     }
-  } catch (e) {
-    console.error('Promo check error', e);
-  }
+
+    if (msg.text === "PROMO_USED") {
+      promoActive = false;
+      renderProducts();
+      renderCart();
+    }
+  });
 }
 
 window.addEventListener('load', ()=>{
-  checkPromoStatus();
+  requestPromoStatus();
   loadCart();
   loadFavorites();
 
