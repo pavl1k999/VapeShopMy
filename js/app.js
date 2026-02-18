@@ -222,7 +222,7 @@ const products = [
   // Chaser F/P
   ...[ 
     'Blue Raspberry','Cherry Menthol','Currant Menthol',
-    'Mint','Blueberry Menthol','Apple Mint'
+    'Mint','Blueberry Menthol','Kiwi'
   ].map((n,i)=>({
     id: 100+i,
     name: `Chaser – ${n}`,
