@@ -233,6 +233,17 @@ const products = [
     img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
   })),
 
+  // Chaser My Mint
+  ...[ 'Peach Pomeganate', 'Raspberry Rose' ].map((n,i)=>({
+    id: 300+i,
+    name: `Chaser – ${n}`,
+    brand: 'chaser',
+    subBrand: 'youme', // Chaser My Mint
+    price: discounts.chaser.old,
+    category: 'liquid',
+    img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
+  })),
+
 // Chaser Black
   ...[ 
     'Blueberry Lemon','Triple Berry','Energy Grape','Forest Mix'
