@@ -1,5 +1,5 @@
 // Admin
-const ADMIN_NICK = 'pvlenemy';
+const ADMIN_NICK = 'VaporsManagerKo';
 const ADMIN_URL = `https://t.me/${ADMIN_NICK}`;
 
 // Currency and language (updated rates)
