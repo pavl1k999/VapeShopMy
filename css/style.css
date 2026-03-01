@@ -1020,6 +1020,11 @@ input[name="cash_change"]:checked + label {
   color: #e879f9;
 }
 
+.btn-disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
 
 .order-details { color: #ddd; font-size: 14px; margin: 8px 0; }
 .order-details ul { margin: 6px 0 0 16px; }
