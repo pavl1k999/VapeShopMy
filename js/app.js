@@ -519,7 +519,7 @@ function renderCart(){
   finalTotal = Math.max(0, finalTotal - bulkDiscount);
 
   const bulkDiscountHtml = bulkDiscount > 0
-    ? `<div class="promo-active">🛒 Скидка за кількість −${bulkDiscount.toFixed(1)} €</div>`
+    ? `<div class="promo-active">Знижка за кількість −${bulkDiscount.toFixed(1)} €</div>`
     : '';
 
   totalBox.innerHTML = `
