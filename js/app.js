@@ -337,8 +337,8 @@ const cartCount = document.getElementById('cartCount');
 function formatPricePLN(eu){
   const rate = currencyRates[currency];
   const symbol = currencySymbols[currency];
-  const converted = Math.round(eu * rate);
-  return `${converted} ${symbol}`;
+  const converted = eu * rate;
+  return `${converted.toFixed(1)} ${symbol}`;
 }
 
 function showToast(msgKeyOrText){
