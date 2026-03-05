@@ -737,7 +737,14 @@ function confirmDelivery() {
   lastOrderDelivery = deliveryEl.value;
   lastOrderPayment  = paymentEl.value;
 
-  let orderTotal = cart.reduce((s, p) => s + p.price * p.qty, 0);
+let orderTotal = cart.reduce((s, p) => s + p.price * p.qty, 0);
+
+let deliveryPrice = 0;
+
+if (lastOrderDelivery === 'pickup_aupark') deliveryPrice = 1;
+if (lastOrderDelivery === 'pickup_tuke') deliveryPrice = 1.5;
+
+orderTotal += deliveryPrice;
 
   if (promoActive) {
     orderTotal = Math.round(orderTotal * 0.8);
