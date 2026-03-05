@@ -782,9 +782,10 @@ function showOrderModal(){
     itemsTotal = Math.round(itemsTotal * 0.8);
   }
   
-  const total = lastOrderDelivery === 'pickup_aupark'
-    ? itemsTotal + 1
-    : itemsTotal;
+let deliveryFee = 0;
+if (lastOrderDelivery === 'pickup_aupark') deliveryFee = 1;
+if (lastOrderDelivery === 'pickup_tuke') deliveryFee = 1.5;
+const total = itemsTotal + deliveryFee;
 
 
   const lines = cart.map(p =>
