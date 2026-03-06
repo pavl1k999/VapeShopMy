@@ -828,7 +828,6 @@ function showOrderModal(){
 👨‍💼 ${i18n[lang].consultant}: @${ADMIN_NICK}
 
 ${i18n[lang].deliveryLabel}: ${deliveryText}
-${i18n[lang].paymentLabel}: ${paymentText}
 ${i18n[lang].paymentLabel}: ${paymentText}${bulkDiscLine}
 ${lastOrderCashText ? '💶 ' + lastOrderCashText : ''}
 
