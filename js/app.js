@@ -328,22 +328,17 @@ let promoActive = false;
 let promoPercent = 20;
 
 function calcBulkDiscount() {
-  // Считаем суммарное кол-во по категориям: liquid и disposable
   const qtys = { liquid: 0, disposable: 0 };
-
   cart.forEach(p => {
     const base = products.find(b => b.id === p.id);
     if (!base) return;
-    const cat = base.category;
-    if (cat in qtys) qtys[cat] += p.qty;
+    if (base.category in qtys) qtys[base.category] += p.qty;
   });
-
   let discount = 0;
   Object.values(qtys).forEach(qty => {
-    if (qty >= 3) discount += 2;
-    else if (qty >= 2) discount += 1;
+    if (qty === 2) discount += 2;        // 2 шт → −2€
+    else if (qty >= 3) discount += qty * 2; // 3шт→−6, 4шт→−8, 5шт→−10...
   });
-
   return discount;
 }
 
