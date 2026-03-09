@@ -73,6 +73,8 @@ const i18n = {
     pickup_prazska: "Самовывоз — Pražska 2",
     pickup_aupark: "Доставка ТЦ Aupark (+1€)",
     pickup_tuke: "Доставка TUKE (+1,5€)",
+    pickup_tesco: "Доставка Tesco Džungla (+1,5€)", 
+    delivery_kosice: "Доставка по Кошице (+2,5€)",
     pay_cash: "Наличные",
     pay_ua_card: "Украинская карта",
     pay_tatra: "Европейская карта",
@@ -134,6 +136,8 @@ const i18n = {
     pickup_prazska: "Самовивіз — Pražska 2",
     pickup_aupark: "Доставка ТЦ Aupark (+1€)",
     pickup_tuke: "Доставка TUKE (+1,5€)",
+    pickup_tesco: "Доставка Tesco Džungla (+1,5€)", 
+    delivery_kosice: "Доставка по Košice (+2,5€)", 
     pay_cash: "Готівка",
     pay_ua_card: "Українська карта",
     pay_tatra: "Європейська карта",
@@ -194,6 +198,8 @@ const i18n = {
     pickup_prazska: "Pickup — Pražska 2",
     pickup_aupark: "Delivery Aupark Mall (+1€)",
     pickup_tuke: "Delivery TUKE (+1,5€)",
+    pickup_tesco: "Delivery Tesco Džungla (+1.5€)",  
+    delivery_kosice: "Delivery in Košice (+2.5€)",
     pay_cash: "Cash",
     pay_ua_card: "Ukrainian card",
     pay_tatra: "European card",
@@ -806,6 +812,8 @@ function showOrderModal(){
   let deliveryFee = 0;
   if (lastOrderDelivery === 'pickup_aupark') deliveryFee = 1;
   if (lastOrderDelivery === 'pickup_tuke') deliveryFee = 1.5;
+  if (lastOrderDelivery === 'pickup_tesco') deliveryPrice = 1.5;
+  if (lastOrderDelivery === 'delivery_kosice') deliveryPrice = 2.5;
   const total = itemsTotal + deliveryFee;
 
 
