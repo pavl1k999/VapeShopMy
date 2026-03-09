@@ -232,7 +232,9 @@ const outOfStockNames = [
   'Chaser – Blueberry Lemon',
   'Chaser – Triple Berry',
   'Chaser – Energy Grape',
-  'Chaser – Forest Mix'
+  'Chaser – Forest Mix',
+  'Elf Liq - Strawberry Kiwi',
+  'Elf Liq - Watermelon'
 ];
 
 // Products (base prices in PLN)
@@ -283,7 +285,7 @@ const products = [
     'Strawberry raspberry cherry ice','Elf Jack','Blackberry lemon',
     'Apple Peach','Blackcurrant aniseed','Blueberry','Blueberry Rose Mint',
     'Strawberry Kiwi','Cherry','Double Apple','Kiwi Passion Fruit Guava', 'Cola',
-    'Sour Watermelon Gummy','Blueberry sour raspberry','Jasmine Raspberry'
+    'Sour Watermelon Gummy','Watermelon','Blueberry sour raspberry','Jasmine Raspberry'
   ].map((n,i)=>({
     id: i+1,
     name: `Elf Liq – ${n}`,
