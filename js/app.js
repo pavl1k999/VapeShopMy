@@ -233,8 +233,9 @@ const outOfStockNames = [
   'Chaser – Triple Berry',
   'Chaser – Energy Grape',
   'Chaser – Forest Mix',
-  'Elf Liq - Strawberry Kiwi',
-  'Elf Liq - Watermelon'
+  
+  'Elf Liq – Strawberry Kiwi',
+  'Elf Liq – Watermelon'
 ];
 
 // Products (base prices in PLN)
