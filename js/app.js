@@ -773,6 +773,8 @@ let orderTotal = cart.reduce((s, p) => s + p.price * p.qty, 0);
   let deliveryPrice = 0;
   if (lastOrderDelivery === 'pickup_aupark') deliveryPrice = 1;
   if (lastOrderDelivery === 'pickup_tuke') deliveryPrice = 1.5;
+  if (lastOrderDelivery === 'pickup_tesco') deliveryPrice = 1.5;
+  if (lastOrderDelivery === 'delivery_kosice') deliveryPrice = 2.5;
   orderTotal += deliveryPrice;
 
   if (promoActive) {
@@ -812,8 +814,8 @@ function showOrderModal(){
   let deliveryFee = 0;
   if (lastOrderDelivery === 'pickup_aupark') deliveryFee = 1;
   if (lastOrderDelivery === 'pickup_tuke') deliveryFee = 1.5;
-  if (lastOrderDelivery === 'pickup_tesco') deliveryPrice = 1.5;
-  if (lastOrderDelivery === 'delivery_kosice') deliveryPrice = 2.5;
+  if (lastOrderDelivery === 'pickup_tesco') deliveryFee = 1.5;
+  if (lastOrderDelivery === 'delivery_kosice') deliveryFee = 2.5;
   const total = itemsTotal + deliveryFee;
 
 
