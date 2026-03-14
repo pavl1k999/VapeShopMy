@@ -241,7 +241,9 @@ const outOfStockNames = [
   'Chaser – Forest Mix',
   
   'Elf Liq – Strawberry Kiwi',
-  'Elf Liq – Watermelon'
+  'Elf Liq – Watermelon',
+  'Elf Liq – Blue razz Ice',
+  'Elf Liq – Strawberry raspberry cherry ice'
 ];
 
 // Products (base prices in PLN)
