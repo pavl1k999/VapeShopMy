@@ -243,8 +243,8 @@ const outOfStockNames = [
   'Elf Liq – Strawberry Kiwi',
   'Elf Liq – Watermelon',
   'Elf Liq – Blue razz Ice',
-  'Elf Liq – Strawberry raspberry cherry ice'
-  ʼElf Liq – Blackberry lemonʼ
+  'Elf Liq – Strawberry raspberry cherry ice',
+  'Elf Liq – Blackberry lemon'
 ];
 
 // Products (base prices in PLN)
