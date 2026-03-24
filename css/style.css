@@ -1060,6 +1060,10 @@ input[name="cash_change"]:checked + label {
 }
 
 .bp-seg--done::after {
+  transform: translateX(-100%);
+}
+
+.bp-seg--animate::after {
   transform: translateX(0%);
 }
 
