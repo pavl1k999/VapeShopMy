@@ -531,32 +531,38 @@ function renderCart(){
   }, 0);
 
 let bulkDiscountHtml = '';
-  if (liquidQty > 0 && liquidQty < 3) {
-    const progressPct = liquidQty === 1 ? 33 : 67;
-    const nextStep = liquidQty === 1
-      ? (lang === 'ua' ? 'Ще 1 → −2 €' : lang === 'ru' ? 'Ещё 1 → −2 €' : '+1 → save 2 €')
-      : (lang === 'ua' ? 'Ще 1 → −6 €' : lang === 'ru' ? 'Ещё 1 → −6 €' : '+1 → save 6 €');
-    const hint = liquidQty === 1
-      ? (lang === 'ua' ? 'Додайте ще 1 рідину — зекономите 2 €' : lang === 'ru' ? 'Добавьте ещё 1 жижу — сэкономите 2 €' : 'Add 1 more liquid — save 2 €')
-      : (lang === 'ua' ? 'Ещё 1 рідина — і знижка зросте до 6 €!' : lang === 'ru' ? 'Ещё 1 жижа — и скидка вырастет до 6 €!' : 'One more — discount grows to 6 €!');
+  if (liquidQty >= 1) {
+    const filled = Math.min(liquidQty, 3);
+    const segments = [1, 2, 3].map(i => {
+      if (i < filled) return 'done';
+      if (i === filled) return 'done';
+      return 'empty';
+    });
+
+    const segHtml = segments.map((state, i) => `
+      <div class="bp-seg bp-seg--${state}" style="transition-delay:${i * 0.12}s"></div>
+    `).join('');
+
+    let hintText = '';
+    if (liquidQty === 1) {
+      hintText = lang === 'ua' ? 'Додайте ще 1 рідину — заощадите 2 €'
+               : lang === 'ru' ? 'Добавьте ещё 1 жижу — сэкономите 2 €'
+               : 'Add 1 more liquid — save 2 €';
+    } else if (liquidQty === 2) {
+      hintText = lang === 'ua' ? 'Ще 1 рідина — і знижка зросте до 6 €'
+               : lang === 'ru' ? 'Ещё 1 жижа — и скидка вырастет до 6 €'
+               : 'One more liquid — discount grows to 6 €';
+    } else {
+      hintText = lang === 'ua' ? `Знижка діє: −2 € за кожну рідину (−${bulkDiscount.toFixed(0)} € разом)`
+               : lang === 'ru' ? `Скидка активна: −2 € за каждую жижу (−${bulkDiscount.toFixed(0)} € всего)`
+               : `Discount active: −2 € per liquid (−${bulkDiscount.toFixed(0)} € total)`;
+    }
 
     bulkDiscountHtml = `
       <div class="bulk-progress">
-        <div class="bulk-progress-top">
-          <span class="bulk-progress-hint">${hint}</span>
-          <span class="bulk-progress-next">${nextStep}</span>
-        </div>
-        <div class="bulk-progress-track">
-          <div class="bulk-progress-fill" style="width:${progressPct}%"></div>
-        </div>
-        <div class="bulk-progress-steps">
-          <span class="${liquidQty >= 1 ? 'step-done' : ''}">1</span>
-          <span class="${liquidQty >= 2 ? 'step-done' : 'step-next'}">2 → −2 €</span>
-          <span class="${liquidQty >= 3 ? 'step-done' : ''}">3 → −6 €</span>
-        </div>
+        <div class="bp-segments">${segHtml}</div>
+        <div class="bp-hint">${hintText}</div>
       </div>`;
-  } else if (bulkDiscount > 0) {
-    bulkDiscountHtml = `<div class="promo-active">🎁 ${lang === 'ua' ? 'Знижка за кількість' : lang === 'ru' ? 'Скидка за количество' : 'Bulk discount'} −${bulkDiscount.toFixed(1)} €</div>`;
   }
 
   totalBox.innerHTML = `
