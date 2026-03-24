@@ -495,12 +495,24 @@ function renderCart(){
   const totalBox = document.getElementById('cartTotal');
   box.innerHTML = '';
 
-  if (!cart.length) {
-    box.innerHTML = `<p class="empty">${i18n[lang].emptyCart}</p>`;
-    totalBox.textContent = '';
-    return;
+if (!cart.length) {
+  box.innerHTML = `<p class="empty">${i18n[lang].emptyCart}</p>`;
+  totalBox.textContent = '';
+
+  const block = document.getElementById('bulkProgressBlock');
+  if (block) block.style.display = 'none';
+
+  for (let i = 0; i < 3; i++) {
+    const seg = document.getElementById(`bp-seg-${i}`);
+    if (seg) {
+      seg.style.transitionDelay = '0s';
+      seg.classList.remove('bp-seg--animate');
+    }
   }
 
+  return;
+}
+  
   let totalPLN = 0;
   cart.forEach((p, i) => {
     totalPLN += p.price * p.qty;
