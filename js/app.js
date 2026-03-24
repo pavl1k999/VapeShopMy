@@ -530,55 +530,68 @@ function renderCart(){
   }, 0);
 
   let bulkDiscountHtml = '';
-  if (liquidQty >= 1) {
-    const glowLevel = Math.min(Math.max(liquidQty - 3, 0), 4);
-    const glowClass = glowLevel > 0 ? ` bp-glow-${glowLevel}` : '';
-
-    let hintText = '';
-    if (liquidQty === 1) {
-      hintText = lang === 'ua' ? 'Додайте ще 1 рідину — заощадите 2 €'
-               : lang === 'ru' ? 'Добавьте ещё 1 жижу — сэкономите 2 €'
-               : 'Add 1 more liquid — save 2 €';
-    } else if (liquidQty === 2) {
-      hintText = lang === 'ua' ? 'Ще 1 рідина — і знижка зросте до 6 €'
-               : lang === 'ru' ? 'Ещё 1 жижа — и скидка вырастет до 6 €'
-               : 'One more liquid — discount grows to 6 €';
-    } else {
-      hintText = lang === 'ua' ? `Знижка діє: −2 € за кожну рідину (−${bulkDiscount.toFixed(0)} € разом)`
-               : lang === 'ru' ? `Скидка активна: −2 € за каждую жижу (−${bulkDiscount.toFixed(0)} € всего)`
-               : `Discount active: −2 € per liquid (−${bulkDiscount.toFixed(0)} € total)`;
-    }
-
-    bulkDiscountHtml = `
-      <div class="bulk-progress${glowClass}" id="bulkProgressBlock">
-        <div class="bp-segments">
-          <div class="bp-seg" id="bp-seg-0"></div>
-          <div class="bp-seg" id="bp-seg-1"></div>
-          <div class="bp-seg" id="bp-seg-2"></div>
-        </div>
-        <div class="bp-hint">${hintText}</div>
-      </div>`;
-  }
-
-  totalBox.innerHTML = `
+ totalBox.innerHTML = `
     ${i18n[lang].total}: ${formatPricePLN(finalTotal)}
     ${promoActive ? `<div class="promo-active">🎉 Промокод активований −20%</div>` : ''}
-    ${bulkDiscountHtml}
   `;
 
+  const block = document.getElementById('bulkProgressBlock');
+  const hintEl = document.getElementById('bp-hint-text');
+
   if (liquidQty >= 1) {
+    // обновляем glow класс
+    block.className = 'bulk-progress';
+    const glowLevel = Math.min(Math.max(liquidQty - 3, 0), 4);
+    if (glowLevel > 0) block.classList.add(`bp-glow-${glowLevel}`);
+
+    // обновляем текст
+    if (liquidQty === 1) {
+      hintEl.textContent = lang === 'ua' ? 'Додайте ще 1 рідину — заощадите 2 €'
+        : lang === 'ru' ? 'Добавьте ещё 1 жижу — сэкономите 2 €'
+        : 'Add 1 more liquid — save 2 €';
+    } else if (liquidQty === 2) {
+      hintEl.textContent = lang === 'ua' ? 'Ще 1 рідина — і знижка зросте до 6 €'
+        : lang === 'ru' ? 'Ещё 1 жижа — и скидка вырастет до 6 €'
+        : 'One more liquid — discount grows to 6 €';
+    } else {
+      hintEl.textContent = lang === 'ua'
+        ? `Знижка діє: −2 € за кожну рідину (−${bulkDiscount.toFixed(0)} € разом)`
+        : lang === 'ru'
+        ? `Скидка активна: −2 € за каждую жижу (−${bulkDiscount.toFixed(0)} € всего)`
+        : `Discount active: −2 € per liquid (−${bulkDiscount.toFixed(0)} € total)`;
+    }
+
+    block.style.display = 'block';
+
+    // анимируем сегменты
     const filled = Math.min(liquidQty, 3);
     for (let i = 0; i < 3; i++) {
       const seg = document.getElementById(`bp-seg-${i}`);
       if (!seg) continue;
       const shouldFill = i < filled;
-      const delay = shouldFill ? i * 0.12 : (2 - i) * 0.12;
-      seg.style.transitionDelay = `${delay}s`;
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          seg.classList.toggle('bp-seg--animate', shouldFill);
-        });
-      });
+      const isAnimated = seg.classList.contains('bp-seg--animate');
+
+      if (shouldFill && !isAnimated) {
+        seg.style.transitionDelay = `${i * 0.12}s`;
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          seg.classList.add('bp-seg--animate');
+        }));
+      } else if (!shouldFill && isAnimated) {
+        seg.style.transitionDelay = `${(2 - i) * 0.12}s`;
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          seg.classList.remove('bp-seg--animate');
+        }));
+      }
+    }
+
+  } else {
+    block.style.display = 'none';
+    for (let i = 0; i < 3; i++) {
+      const seg = document.getElementById(`bp-seg-${i}`);
+      if (seg) {
+        seg.style.transitionDelay = '0s';
+        seg.classList.remove('bp-seg--animate');
+      }
     }
   }
 }
