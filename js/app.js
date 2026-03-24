@@ -491,19 +491,20 @@ function getFilteredProducts() {
 }
 
 function renderCart(){
-  const box=document.getElementById('cartItems');
-  const totalBox=document.getElementById('cartTotal');
-  box.innerHTML='';
-  if(!cart.length){
+  const box = document.getElementById('cartItems');
+  const totalBox = document.getElementById('cartTotal');
+  box.innerHTML = '';
+
+  if (!cart.length) {
     box.innerHTML = `<p class="empty">${i18n[lang].emptyCart}</p>`;
     totalBox.textContent = '';
     return;
   }
+
   let totalPLN = 0;
-  cart.forEach((p,i)=>{
+  cart.forEach((p, i) => {
     totalPLN += p.price * p.qty;
-  
-    box.innerHTML+=`
+    box.innerHTML += `
       <div class="cart-item">
         <img src="${p.img}" alt="${p.name}">
         <div style="flex:1">
@@ -520,9 +521,7 @@ function renderCart(){
   });
 
   const bulkDiscount = calcBulkDiscount();
-  let finalTotal = promoActive
-    ? Math.round(totalPLN * 0.8)
-    : totalPLN;
+  let finalTotal = promoActive ? Math.round(totalPLN * 0.8) : totalPLN;
   finalTotal = Math.max(0, finalTotal - bulkDiscount);
 
   const liquidQty = cart.reduce((sum, p) => {
@@ -530,14 +529,10 @@ function renderCart(){
     return base?.category === 'liquid' ? sum + p.qty : sum;
   }, 0);
 
-let bulkDiscountHtml = '';
+  let bulkDiscountHtml = '';
   if (liquidQty >= 1) {
-    const filled = Math.min(liquidQty, 3);
-    const segments = [1, 2, 3].map(i => i <= filled ? 'done' : 'empty');
-
-    const segHtml = segments.map((state, i) => `
-      <div class="bp-seg" data-state="${state}" style="transition-delay:${i * 0.12}s"></div>
-    `).join('');
+    const glowLevel = Math.min(Math.max(liquidQty - 3, 0), 4);
+    const glowClass = glowLevel > 0 ? ` bp-glow-${glowLevel}` : '';
 
     let hintText = '';
     if (liquidQty === 1) {
@@ -549,18 +544,18 @@ let bulkDiscountHtml = '';
                : lang === 'ru' ? 'Ещё 1 жижа — и скидка вырастет до 6 €'
                : 'One more liquid — discount grows to 6 €';
     } else {
-      const extra = liquidQty - 3;
       hintText = lang === 'ua' ? `Знижка діє: −2 € за кожну рідину (−${bulkDiscount.toFixed(0)} € разом)`
                : lang === 'ru' ? `Скидка активна: −2 € за каждую жижу (−${bulkDiscount.toFixed(0)} € всего)`
                : `Discount active: −2 € per liquid (−${bulkDiscount.toFixed(0)} € total)`;
     }
 
-    // яркость растёт с каждой жижой сверх 3, но не больше уровня 4
-    const glowLevel = Math.min(liquidQty - 3, 4);
-
     bulkDiscountHtml = `
-      <div class="bulk-progress${glowLevel > 0 ? ` bp-glow-${glowLevel}` : ''}" id="bulkProgressBlock">
-        <div class="bp-segments">${segHtml}</div>
+      <div class="bulk-progress${glowClass}" id="bulkProgressBlock">
+        <div class="bp-segments">
+          <div class="bp-seg" id="bp-seg-0"></div>
+          <div class="bp-seg" id="bp-seg-1"></div>
+          <div class="bp-seg" id="bp-seg-2"></div>
+        </div>
         <div class="bp-hint">${hintText}</div>
       </div>`;
   }
@@ -573,39 +568,19 @@ let bulkDiscountHtml = '';
 
   if (liquidQty >= 1) {
     const filled = Math.min(liquidQty, 3);
-    const segs = document.querySelectorAll('#bulkProgressBlock .bp-seg');
-
-    segs.forEach((el, i) => {
-      const shouldBeDone = i < filled;
-      const isAnimated = el.classList.contains('bp-seg--animate');
-
-      if (shouldBeDone && !isAnimated) {
-        // анимация вперёд — с задержкой слева направо
-        el.style.transitionDelay = `${i * 0.12}s`;
+    for (let i = 0; i < 3; i++) {
+      const seg = document.getElementById(`bp-seg-${i}`);
+      if (!seg) continue;
+      const shouldFill = i < filled;
+      const delay = shouldFill ? i * 0.12 : (2 - i) * 0.12;
+      seg.style.transitionDelay = `${delay}s`;
+      requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            el.classList.add('bp-seg--animate');
-          });
+          seg.classList.toggle('bp-seg--animate', shouldFill);
         });
-      } else if (!shouldBeDone && isAnimated) {
-        // анимация назад — с задержкой справа налево
-        el.style.transitionDelay = `${(2 - i) * 0.12}s`;
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            el.classList.remove('bp-seg--animate');
-          });
-        });
-      }
-    });
+      });
+    }
   }
-
-    // запускаем анимацию после вставки в DOM
-  totalBox.innerHTML = `
-  ${i18n[lang].total}: ${formatPricePLN(finalTotal)}
-  ${promoActive ? `<div class="promo-active">🎉 Промокод активований −20%</div>` : ''}
-  ${bulkDiscountHtml}
-`;
-
 }
 
 // Interactions
