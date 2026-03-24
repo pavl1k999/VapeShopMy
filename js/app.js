@@ -530,21 +530,33 @@ function renderCart(){
     return base?.category === 'liquid' ? sum + p.qty : sum;
   }, 0);
 
-  let bulkDiscountHtml = '';
-  if (bulkDiscount > 0) {
+let bulkDiscountHtml = '';
+  if (liquidQty > 0 && liquidQty < 3) {
+    const progressPct = liquidQty === 1 ? 33 : 67;
+    const nextStep = liquidQty === 1
+      ? (lang === 'ua' ? 'Ще 1 → −2 €' : lang === 'ru' ? 'Ещё 1 → −2 €' : '+1 → save 2 €')
+      : (lang === 'ua' ? 'Ще 1 → −6 €' : lang === 'ru' ? 'Ещё 1 → −6 €' : '+1 → save 6 €');
+    const hint = liquidQty === 1
+      ? (lang === 'ua' ? 'Додайте ще 1 рідину — зекономите 2 €' : lang === 'ru' ? 'Добавьте ещё 1 жижу — сэкономите 2 €' : 'Add 1 more liquid — save 2 €')
+      : (lang === 'ua' ? 'Ещё 1 рідина — і знижка зросте до 6 €!' : lang === 'ru' ? 'Ещё 1 жижа — и скидка вырастет до 6 €!' : 'One more — discount grows to 6 €!');
+
+    bulkDiscountHtml = `
+      <div class="bulk-progress">
+        <div class="bulk-progress-top">
+          <span class="bulk-progress-hint">${hint}</span>
+          <span class="bulk-progress-next">${nextStep}</span>
+        </div>
+        <div class="bulk-progress-track">
+          <div class="bulk-progress-fill" style="width:${progressPct}%"></div>
+        </div>
+        <div class="bulk-progress-steps">
+          <span class="${liquidQty >= 1 ? 'step-done' : ''}">1</span>
+          <span class="${liquidQty >= 2 ? 'step-done' : 'step-next'}">2 → −2 €</span>
+          <span class="${liquidQty >= 3 ? 'step-done' : ''}">3 → −6 €</span>
+        </div>
+      </div>`;
+  } else if (bulkDiscount > 0) {
     bulkDiscountHtml = `<div class="promo-active">🎁 ${lang === 'ua' ? 'Знижка за кількість' : lang === 'ru' ? 'Скидка за количество' : 'Bulk discount'} −${bulkDiscount.toFixed(1)} €</div>`;
-  } else if (liquidQty === 1) {
-    bulkDiscountHtml = `<div class="promo-hint">💡 ${
-      lang === 'ua' ? 'Додайте ще 1 рідину — зекономите 2 €' :
-      lang === 'ru' ? 'Добавьте ещё 1 жижу — сэкономите 2 €' :
-      'Add 1 more liquid — save 2 €'
-    }</div>`;
-  } else if (liquidQty === 2) {
-    bulkDiscountHtml = `<div class="promo-hint">💡 ${
-      lang === 'ua' ? 'Додайте ще 1 рідину — знижка зросте до 6 € (−2 € за кожну)' :
-      lang === 'ru' ? 'Добавьте ещё 1 жижу — скидка вырастет до 6 € (−2 € за каждую)' :
-      'Add 1 more liquid — discount grows to 6 € (−2 € each)'
-    }</div>`;
   }
 
   totalBox.innerHTML = `
