@@ -549,13 +549,17 @@ let bulkDiscountHtml = '';
                : lang === 'ru' ? 'Ещё 1 жижа — и скидка вырастет до 6 €'
                : 'One more liquid — discount grows to 6 €';
     } else {
+      const extra = liquidQty - 3;
       hintText = lang === 'ua' ? `Знижка діє: −2 € за кожну рідину (−${bulkDiscount.toFixed(0)} € разом)`
                : lang === 'ru' ? `Скидка активна: −2 € за каждую жижу (−${bulkDiscount.toFixed(0)} € всего)`
                : `Discount active: −2 € per liquid (−${bulkDiscount.toFixed(0)} € total)`;
     }
 
+    // яркость растёт с каждой жижой сверх 3, но не больше уровня 4
+    const glowLevel = Math.min(liquidQty - 3, 4);
+
     bulkDiscountHtml = `
-      <div class="bulk-progress" id="bulkProgressBlock">
+      <div class="bulk-progress${glowLevel > 0 ? ` bp-glow-${glowLevel}` : ''}" id="bulkProgressBlock">
         <div class="bp-segments">${segHtml}</div>
         <div class="bp-hint">${hintText}</div>
       </div>`;
@@ -568,11 +572,30 @@ let bulkDiscountHtml = '';
   `;
 
   if (liquidQty >= 1) {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document.querySelectorAll('#bulkProgressBlock .bp-seg[data-state="done"]')
-          .forEach(el => el.classList.add('bp-seg--animate'));
-      });
+    const filled = Math.min(liquidQty, 3);
+    const segs = document.querySelectorAll('#bulkProgressBlock .bp-seg');
+
+    segs.forEach((el, i) => {
+      const shouldBeDone = i < filled;
+      const isAnimated = el.classList.contains('bp-seg--animate');
+
+      if (shouldBeDone && !isAnimated) {
+        // анимация вперёд — с задержкой слева направо
+        el.style.transitionDelay = `${i * 0.12}s`;
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            el.classList.add('bp-seg--animate');
+          });
+        });
+      } else if (!shouldBeDone && isAnimated) {
+        // анимация назад — с задержкой справа налево
+        el.style.transitionDelay = `${(2 - i) * 0.12}s`;
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            el.classList.remove('bp-seg--animate');
+          });
+        });
+      }
     });
   }
 
