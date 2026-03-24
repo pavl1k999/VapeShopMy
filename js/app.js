@@ -525,9 +525,27 @@ function renderCart(){
     : totalPLN;
   finalTotal = Math.max(0, finalTotal - bulkDiscount);
 
-  const bulkDiscountHtml = bulkDiscount > 0
-    ? `<div class="promo-active">Знижка за кількість −${bulkDiscount.toFixed(1)} €</div>`
-    : '';
+  const liquidQty = cart.reduce((sum, p) => {
+    const base = products.find(b => b.id === p.id);
+    return base?.category === 'liquid' ? sum + p.qty : sum;
+  }, 0);
+
+  let bulkDiscountHtml = '';
+  if (bulkDiscount > 0) {
+    bulkDiscountHtml = `<div class="promo-active">🎁 ${lang === 'ua' ? 'Знижка за кількість' : lang === 'ru' ? 'Скидка за количество' : 'Bulk discount'} −${bulkDiscount.toFixed(1)} €</div>`;
+  } else if (liquidQty === 1) {
+    bulkDiscountHtml = `<div class="promo-hint">💡 ${
+      lang === 'ua' ? 'Додайте ще 1 рідину — зекономите 2 €' :
+      lang === 'ru' ? 'Добавьте ещё 1 жижу — сэкономите 2 €' :
+      'Add 1 more liquid — save 2 €'
+    }</div>`;
+  } else if (liquidQty === 2) {
+    bulkDiscountHtml = `<div class="promo-hint">💡 ${
+      lang === 'ua' ? 'Додайте ще 1 рідину — знижка зросте до 6 € (−2 € за кожну)' :
+      lang === 'ru' ? 'Добавьте ещё 1 жижу — скидка вырастет до 6 € (−2 € за каждую)' :
+      'Add 1 more liquid — discount grows to 6 € (−2 € each)'
+    }</div>`;
+  }
 
   totalBox.innerHTML = `
   ${i18n[lang].total}: ${formatPricePLN(finalTotal)}
