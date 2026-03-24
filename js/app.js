@@ -533,14 +533,10 @@ function renderCart(){
 let bulkDiscountHtml = '';
   if (liquidQty >= 1) {
     const filled = Math.min(liquidQty, 3);
-    const segments = [1, 2, 3].map(i => {
-      if (i < filled) return 'done';
-      if (i === filled) return 'done';
-      return 'empty';
-    });
+    const segments = [1, 2, 3].map(i => i <= filled ? 'done' : 'empty');
 
     const segHtml = segments.map((state, i) => `
-      <div class="bp-seg bp-seg--${state}" style="transition-delay:${i * 0.12}s"></div>
+      <div class="bp-seg" data-state="${state}" style="transition-delay:${i * 0.12}s"></div>
     `).join('');
 
     let hintText = '';
@@ -558,21 +554,27 @@ let bulkDiscountHtml = '';
                : `Discount active: −2 € per liquid (−${bulkDiscount.toFixed(0)} € total)`;
     }
 
-    // запускаем анимацию после вставки в DOM
-  if (liquidQty >= 1) {
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document.querySelectorAll('#bulkProgressBlock .bp-seg--done')
-          .forEach(el => el.classList.add('bp-seg--animate'));
-      });
-    });
-  }
-
-   bulkDiscountHtml = `
+    bulkDiscountHtml = `
       <div class="bulk-progress" id="bulkProgressBlock">
         <div class="bp-segments">${segHtml}</div>
         <div class="bp-hint">${hintText}</div>
       </div>`;
+  }
+
+  totalBox.innerHTML = `
+    ${i18n[lang].total}: ${formatPricePLN(finalTotal)}
+    ${promoActive ? `<div class="promo-active">🎉 Промокод активований −20%</div>` : ''}
+    ${bulkDiscountHtml}
+  `;
+
+  if (liquidQty >= 1) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelectorAll('#bulkProgressBlock .bp-seg[data-state="done"]')
+          .forEach(el => el.classList.add('bp-seg--animate'));
+      });
+    });
+  }
 
     // запускаем анимацию после вставки в DOM
   totalBox.innerHTML = `
