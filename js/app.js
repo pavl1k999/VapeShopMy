@@ -558,13 +558,23 @@ let bulkDiscountHtml = '';
                : `Discount active: −2 € per liquid (−${bulkDiscount.toFixed(0)} € total)`;
     }
 
-    bulkDiscountHtml = `
-      <div class="bulk-progress">
+    // запускаем анимацию после вставки в DOM
+  if (liquidQty >= 1) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelectorAll('#bulkProgressBlock .bp-seg--done')
+          .forEach(el => el.classList.add('bp-seg--animate'));
+      });
+    });
+  }
+
+   bulkDiscountHtml = `
+      <div class="bulk-progress" id="bulkProgressBlock">
         <div class="bp-segments">${segHtml}</div>
         <div class="bp-hint">${hintText}</div>
       </div>`;
-  }
 
+    // запускаем анимацию после вставки в DOM
   totalBox.innerHTML = `
   ${i18n[lang].total}: ${formatPricePLN(finalTotal)}
   ${promoActive ? `<div class="promo-active">🎉 Промокод активований −20%</div>` : ''}
