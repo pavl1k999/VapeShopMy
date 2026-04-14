@@ -251,6 +251,7 @@ const outOfStockNames = [
   'Elf Liq – Sour Watermelon Gummy',
   'Elf Liq – Kiwi Passion Fruit Guava',
   'Elf Liq – Jasmine Raspberry',
+  'Elf Liq – Pineapple Ice',
   'Elf Liq – Blackberry lemon'
 ];
 
