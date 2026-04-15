@@ -300,10 +300,10 @@ const products = [
 
     // Elf Liq
   ...[
-    'Rhubarb Snoow','Blue razz Ice','Strawberry Snoow','Peach Ice','Watermelon',
+    'Blackcurrant aniseed','Rhubarb Snoow','Blue razz Ice','Strawberry Snoow','Peach Ice','Watermelon',
     'Lemon Lime','Strawberry Ice','Pineapple Ice','P&B Cloud', 'Pink Lemonade',
     'Strawberry raspberry cherry ice','Elf Jack','Blackberry lemon',
-    'Apple Peach','Blackcurrant aniseed','Blueberry','Blueberry Rose Mint',
+    'Apple Peach','Blueberry','Blueberry Rose Mint',
     'Strawberry Kiwi','Cherry','Double Apple','Kiwi Passion Fruit Guava', 'Cola',
     'Sour Watermelon Gummy','Blueberry sour raspberry','Jasmine Raspberry'
   ].map((n,i)=>({
