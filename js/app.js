@@ -258,6 +258,7 @@ const outOfStockNames = [
   'Elf Liq – Blueberry Rose Mint',
   'Elf Liq – Pink Lemonade',
   'Elf Liq – Lemon Lime',
+  'Elf Liq – Cherry',
   'Elf Liq – Blackberry lemon'
 ];
 
