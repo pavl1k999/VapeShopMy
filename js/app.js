@@ -297,7 +297,7 @@ const products = [
   'Lemon Lime',
   'Jasmine Raspberry',
   'Apple Peach',
-  'Blackcberry Lemon',
+  'Blackberry Lemon',
   'Kiwi Passion Fruit Guava',
   'Sour Watermelon Gummy',
   'Strawberry Kiwi',
