@@ -238,32 +238,7 @@ const outOfStockNames = [
   'Chaser – Blueberry Lemon',
   'Chaser – Triple Berry',
   'Chaser – Energy Grape',
-  'Chaser – Forest Mix',
-  
-  'Elf Liq – Strawberry Kiwi',
-  'Elf Liq – Watermelon',
-  'Elf Liq – Blue razz Ice',
-  'Elf Liq – Strawberry raspberry cherry ice',
-  'Elf Liq – Apple Peach',
-  'Elf Liq – Strawberry Ice',
-  'Elf Liq – Blueberry sour raspberry',
-  'Elf Liq – Peach Ice',
-  'Elf Liq – Sour Watermelon Gummy',
-  'Elf Liq – Kiwi Passion Fruit Guava',
-  'Elf Liq – Jasmine Raspberry',
-  'Elf Liq – Pineapple Ice',
-  'Elf Liq – Strawberry Snoow',
-  'Elf Liq – Double Apple',
-  'Elf Liq – Elf Jack',
-  'Elf Liq – Blueberry Rose Mint',
-  'Elf Liq – Pink Lemonade',
-  'Elf Liq – Lemon Lime',
-  'Elf Liq – Cherry',
-  'Elf Liq – Blueberry',
-  'Elf Liq – Cola',
-  'Elf Liq – P&B Cloud',
-  'Elf Liq – Blackcurrant aniseed',
-  'Elf Liq – Blackberry lemon'
+  'Chaser – Forest Mix'
 ];
 
 // Products (base prices in PLN)
@@ -307,23 +282,35 @@ const products = [
     img: `images/chaser/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
   })),
 
-    // Elf Liq
-  ...[
-    'Blackcurrant aniseed','Rhubarb Snoow','Blue razz Ice','Strawberry Snoow','Peach Ice','Watermelon',
-    'Lemon Lime','Strawberry Ice','Pineapple Ice','P&B Cloud', 'Pink Lemonade',
-    'Strawberry raspberry cherry ice','Elf Jack','Blackberry lemon',
-    'Apple Peach','Blueberry','Blueberry Rose Mint',
-    'Strawberry Kiwi','Cherry','Double Apple','Kiwi Passion Fruit Guava', 'Cola',
-    'Sour Watermelon Gummy','Blueberry sour raspberry','Jasmine Raspberry'
-  ].map((n,i)=>({
-    id: i+1,
-    name: `Elf Liq – ${n}`,
-    brand: 'elf',
-    price: discounts.elf.old,
-    category: 'liquid',
-    img: `images/elf/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png` // уникальная картинка по названию
-  })),
-
+// Elf Liq
+...[
+  'Strawberry Raspberry Cherry Ice',
+  'Strawberry Ice',
+  'Green Grape Rose',
+  'Blueberry Rose Mint',
+  'Blueberry Sour Raspberry',
+  'Blue Razz Ice',
+  'Grape',
+  'Lemon Lime',
+  'Jasmine Raspberry',
+  'Apple Peach',
+  'Cool Mint',
+  'Blackcberry Lemon',
+  'ElfBull Ice',
+  'Spearmint',
+  'Kiwi Passion Fruit Guava',
+  'Sour Watermelon Gummy',
+  'Strawberry Kiwi',
+  'Double Apple',
+  'Elf Jack'
+].map((n,i)=>({
+  id: i+1,
+  name: `Elf Liq – ${n}`,
+  brand: 'elf',
+  price: discounts.elf.old,
+  category: 'liquid',
+  img: `images/elf/${n.replace(/[^a-zA-Z0-9]/g,'_')}.png`
+}))
 // Chaser My Mint
   /*...[ 'PepperMint' ].map((n,i)=>({
     id: 300+i,
