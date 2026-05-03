@@ -240,7 +240,7 @@ const outOfStockNames = [
   'Chaser – Energy Grape',
   'Chaser – Forest Mix',
   
-  'ElfLiq – Sour Watermelon Gummy'
+  'Elf Liq – Sour Watermelon Gummy'
 ];
 
 // Products (base prices in PLN)
