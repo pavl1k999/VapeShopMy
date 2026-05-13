@@ -215,10 +215,10 @@ const i18n = {
 let lang = localStorage.getItem('lang') || 'ua';
 
 const discounts = {
-  elf: { old: 15, new: 12 },
-  vozol: { old: 15, new: 12 },
-  chaser: { old: 15, new: 12 },
-  cartridge: { old: 25, new: 20 }
+  elf: { old: 999, new: 998 },
+  vozol: { old: 999, new: 998 },
+  chaser: { old: 999, new: 998 },
+  cartridge: { old: 999, new: 998 }
 };
 
 const outOfStockNames = [
